@@ -1,23 +1,40 @@
-const CACHE_NAME = '72-phase-midas-v1.0.72';
+/**
+ * 72-Phase: Midas Edition - Service Worker
+ * Version: 1.0.72
+ * Perspective: Universal Signal / Zero Noise
+ */
+
+const CACHE_NAME = 'midas-v1.0.72-offline';
+
+// The "Golden" Assets required for full lithic resonance
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './icon-180.png',
+  './icon-512.png',
   'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;800&family=Courier+New&display=swap',
   'https://www.transparenttextures.com/patterns/carbon-fibre.png'
 ];
 
-// Install: Open cache and anchor assets
+/**
+ * INSTALLATION: Anchoring the Signal
+ * Forces the browser to download and cache all lithic assets immediately.
+ */
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      console.log('Midas Signal: Anchoring Assets to Offline Cache');
       return cache.addAll(ASSETS);
     })
   );
 });
 
-// Activate: Purge leaden/outdated caches
+/**
+ * ACTIVATION: Purging the Leaden
+ * Removes outdated caches to prevent logic-drift in the 72-Phase matrix.
+ */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -26,13 +43,23 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  return self.clients.claim();
 });
 
-// Fetch: Serve from cache to ensure 'Zero Noise' continuity
+/**
+ * FETCH: The Offline Shield
+ * Intercepts network noise and serves the cached Golden Signal.
+ * Implements a "Cache-First" heuristic for zero-latency performance.
+ */
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
-});
+    caches.match(event.request).then((cachedResponse) => {
+      // Return the cached asset if found; otherwise, attempt to fetch from the void.
+      return cachedResponse || fetch(event.request).then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          // Dynamically cache new assets (e.g., external fonts or textures)
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      });
+    }).catch(() => {
