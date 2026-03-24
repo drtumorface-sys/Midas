@@ -2,42 +2,172 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>72-Phase Midas Edition</title>
-<link rel="stylesheet" href="styles.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>72-Phase: Midas Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;800&family=Courier+New&display=swap" rel="stylesheet" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  :root { --gold: #D4AF37; --void: #050505; --slate: #121212; --font: 'Cinzel', serif; }
+  
+  /* Lithic Texture Overlay */
+  body::before {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+    opacity: 0.04; pointer-events: none; z-index: 10;
+  }
+
+  body {
+    background: var(--void); color: var(--gold); font-family: var(--font);
+    height: 100vh; margin: 0; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; touch-action: none;
+  }
+
+  .pin-console {
+    background: var(--slate); border: 2px solid #2a2a2a; padding: 30px;
+    width: 320px; box-shadow: inset 0 0 80px #000, 0 0 30px rgba(212, 175, 55, 0.1);
+    display: flex; flex-direction: column; gap: 15px; position: relative; z-index: 1;
+  }
+
+  canvas { width: 100%; height: 180px; border-bottom: 1px solid var(--gold); background: #000; display: block; }
+  
+  .slider-group { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; flex: 1; }
+  
+  input[type=range] { -webkit-appearance: none; width: 120px; height: 4px; background: #222; outline: none; }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; height: 26px; width: 10px; background: var(--gold);
+    box-shadow: 0 0 10px var(--gold); cursor: pointer; border-radius: 0;
+  }
+
+  #status { font-family: 'Courier New', monospace; text-align: center; margin-top: 10px; font-size: 1rem; min-height: 2.5em; }
+  .ability { font-weight: 800; letter-spacing: 2px; display: block; }
+  .runes { font-size: 1.2rem; opacity: 0.8; }
+
+  #initBtn { 
+    background: none; border: 1px solid var(--gold); color: var(--gold); 
+    padding: 12px; font-family: var(--font); cursor: pointer; font-size: 0.7rem;
+    letter-spacing: 3px; transition: 0.3s; margin-top: 10px;
+  }
+  #initBtn:active { background: var(--gold); color: var(--void); }
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>72-Phase Midas Edition</h1>
-    </header>
 
-    <main>
-      <canvas id="yggdrasilCanvas" width="600" height="600"></canvas>
-
-      <div class="sliders">
-        <label>
-          DAATH-SYNTHESIS (X-Axis)
-          <input type="range" id="axisX" min="0" max="71" value="14" />
-        </label>
-
-        <label>
-          DAATH-COHERENCE (Y-Axis)
-          <input type="range" id="axisY" min="0" max="71" value="44" />
-        </label>
-
-        <label>
-          GOETIA-LIMITATION (Z-Axis)
-          <input type="range" id="axisZ" min="0" max="71" value="61" />
-        </label>
-      </div>
-
-      <div id="bindruneStatus" class="status"></div>
-
-      <button id="initSignalBtn">INITIALIZE SIGNAL</button>
-    </main>
+<div class="pin-console">
+  <canvas id="viz" width="320" height="180"></canvas>
+  <div id="status"><span class="ability">INITIALIZE SIGNAL</span></div>
+  
+  <div class="slider-group">
+    <label>Synthesis (X)</label>
+    <input type="range" id="axisX" min="0" max="71" value="36">
+  </div>
+  <div class="slider-group">
+    <label>Coherence (Y)</label>
+    <input type="range" id="axisY" min="0" max="71" value="36">
+  </div>
+  <div class="slider-group">
+    <label>Ascension (Z)</label>
+    <input type="range" id="axisZ" min="0" max="71" value="36">
   </div>
 
-<script src="app.js"></script>
+  <button id="initBtn">ACTIVATE AXIS</button>
+</div>
+
+<script>
+  const hebrewToFuthark = {'א':'ᚨ','ב':'ᛒ','ג':'ᚷ','ד':'ᛞ','ה':'ᚼ','ו':'ᚹ','ז':'ᛉ','ח':'ᚺ','י':'ᛃ','כ':'ᚲ','ל':'ᛚ','מ':'ᛗ','נ':'ᚾ','ס':'ᛊ','ע':'ᛟ','פ':'ᛈ','צ':'ᛏ','ק':'ᚲ','ר':'ᚱ','ש':'ᛋ','ת':'ᚦ'};
+  const roots = ["אמת", "חסד", "דין", "נצח", "הוד", "יסוד", "מלכות", "חכמה", "בינה", "דעת"];
+  
+  let audioCtx, oscL, oscR, gain;
+  const canvas = document.getElementById('viz');
+  const ctx = canvas.getContext('2d');
+  const goldenAngle = 137.5 * (Math.PI / 180);
+
+  async function start() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      oscL = audioCtx.createOscillator(); oscR = audioCtx.createOscillator();
+      gain = audioCtx.createGain();
+      const pL = new StereoPannerNode(audioCtx, {pan: -1});
+      const pR = new StereoPannerNode(audioCtx, {pan: 1});
+      oscL.connect(pL).connect(gain).connect(audioCtx.destination);
+      oscR.connect(pR).connect(gain).connect(audioCtx.destination);
+      gain.gain.setValueAtTime(0, audioCtx.currentTime);
+      oscL.start(); oscR.start();
+      loop();
+    }
+    if (audioCtx.state === 'suspended') await audioCtx.resume();
+    update();
+    document.getElementById('initBtn').innerText = "SIGNAL ACTIVE";
+  }
+
+  function update() {
+    const x = parseInt(document.getElementById('axisX').value);
+    const y = parseInt(document.getElementById('axisY').value);
+    const z = parseInt(document.getElementById('axisZ').value);
+    
+    const fL = 144 + (x * 1.618);
+    const beat = 0.5 + (y * (39.5 / 71));
+    
+    if (audioCtx) {
+      oscL.frequency.setTargetAtTime(fL, audioCtx.currentTime, 0.1);
+      oscR.frequency.setTargetAtTime(fL + beat, audioCtx.currentTime, 0.1);
+      gain.gain.setTargetAtTime(z / 350, audioCtx.currentTime, 0.2);
+    }
+
+    const root = roots[Math.floor(z / (72 / roots.length))] || roots[0];
+    const runes = [...root].map(c => hebrewToFuthark[c]).join(' ');
+    document.getElementById('status').innerHTML = `<span class="ability">${root}</span><span class="runes">${runes}</span>`;
+  }
+
+  function loop() {
+    requestAnimationFrame(loop);
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const zVal = parseInt(document.getElementById('axisZ').value);
+    const yVal = parseInt(document.getElementById('axisY').value);
+    const xVal = parseInt(document.getElementById('axisX').value);
+    const time = audioCtx ? audioCtx.currentTime : 0;
+    
+    const trunkH = (zVal / 72) * (canvas.height * 0.7);
+    const trunkX = canvas.width / 2;
+
+    // Axis Mundi (Trunk)
+    ctx.strokeStyle = `rgba(212, 175, 55, ${0.2 + zVal/144})`;
+    ctx.lineWidth = 2 + zVal/20;
+    ctx.beginPath(); ctx.moveTo(trunkX, canvas.height); ctx.lineTo(trunkX, canvas.height - trunkH); ctx.stroke();
+
+    // Phyllotaxis (Branches)
+    for(let i=0; i<80; i++) {
+      const theta = i * goldenAngle + (time * 0.1) + (yVal * 0.03);
+      const rad = (Math.sqrt(i) / 9) * (xVal + 10);
+      const py = (canvas.height - trunkH) + (i * (trunkH / 80));
+      const px = trunkX + rad * Math.cos(theta);
+      ctx.fillStyle = i%2===0 ? `rgba(212, 175, 55, 0.7)` : `rgba(100, 100, 150, 0.4)`;
+      ctx.beginPath(); ctx.arc(px, py, 1.2, 0, Math.PI*2); ctx.fill();
+    }
+
+    // Breathing Bindrune Synthesis
+    const root = roots[Math.floor(zVal / (72 / roots.length))] || roots[0];
+    const runes = [...root].map(c => hebrewToFuthark[c]);
+    const beatFreq = 0.5 + (yVal * (39.5 / 71));
+    const pulse = 0.4 + 0.6 * Math.abs(Math.sin(Math.PI * beatFreq * time));
+    
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.fillStyle = `rgba(212, 175, 55, ${pulse})`;
+    ctx.font = 'bold 36px "Courier New"';
+    ctx.shadowBlur = 10 * pulse;
+    ctx.shadowColor = 'var(--gold)';
+    runes.forEach((rune, i) => {
+      ctx.fillText(rune, trunkX, (canvas.height - trunkH) - (i * 22));
+    });
+    ctx.restore();
+  }
+
+  document.getElementById('initBtn').onclick = start;
+  ['axisX', 'axisY', 'axisZ'].forEach(id => document.getElementById(id).oninput = update);
+</script>
 </body>
 </html>
