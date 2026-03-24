@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>72-Phase: Midas Edition</title>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="pin-console">
+    <canvas id="phyllotaxis"></canvas>
+    <div id="status">PLANETARY HOUR: MOON</div>
+    
+    <div class="controls">
+        <div class="label-row"><span>KINETIC (X)</span><span id="valX">36</span></div>
+        <input type="range" id="axisX" min="0" max="71" value="36">
+        <div class="label-row"><span>COHERENCE (Y)</span><span id="valY">36</span></div>
+        <input type="range" id="axisY" min="0" max="71" value="36">
+        <div class="label-row"><span>DEPTH (Z)</span><span id="valZ">36</span></div>
+        <input type="range" id="axisZ" min="0" max="71" value="36">
+    </div>
+
+    <div class="preset-grid">
+        <button id="btn-gnosis">GNOSIS</button>
+        <button id="btn-soma">SOMA</button>
+        <button id="btn-syn">SYNTH</button>
+    </div>
+
+    <button id="masterBtn">INITIALIZE SIGNAL</button>
+    <div id="readout" style="font-size:0.65rem;line-height:1.4;margin-top:10px;opacity:0.85;">
+      BASE: 144.00 Hz<br>
+      OFFSET: 0.00 Hz<br>
+      BINAURAL Δ: 0.00 Hz<br>
+      AMPLITUDE: 0.00<br>
+      RATIO: 1.000
+    </div>
+</div>
+
+<script>
+let audioCtx, oscL, oscR, gainNode, freqL = 144, freqR = 144;
+const goldenAngle = 137.5 * (Math.PI / 180);
+const planets = { moon:210.42, merc:141.27, venus:221.23, sun:126.22, mars:144.72, jupiter:183.58, saturn:147.85 };
+let activePlanetFreq = planets.moon;
+const canvas = document.getElementById('phyllotaxis');
+const ctx = canvas.getContext('2d');
+
+async function startSignal() {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+        oscL = audioCtx.createOscillator();
+        oscR = audioCtx.createOscillator();
+        gainNode = audioCtx.createGain();
+        const pL = new StereoPannerNode(audioCtx,{pan:-1});
+        const pR = new StereoPannerNode(audioCtx,{pan:1});
+        oscL.connect(pL).connect(gainNode).connect(audioCtx.destination);
+        oscR.connect(pR).connect(gainNode).connect(audioCtx.destination);
+        gainNode.gain.setValueAtTime(0,audioCtx.currentTime);
+        oscL.start(); oscR.start();
+        renderLoop();
+    }
+    if (audioCtx.state==='suspended') await audioCtx.resume();
+    updateParams();
+    document.getElementById('masterBtn').innerText="SIGNAL ACTIVE";
+}
+
+function updateParams() {
+    const x=parseInt(document.getElementById('axisX').value);
+    const y=parseInt(document.getElementById('axisY').value);
+    const z=parseInt(document.getElementById('axisZ').value);
+
+    document.getElementById('valX').innerText=x;
+    document.getElementById('valY').innerText=y;
+    document.getElementById('valZ').innerText=z;
+
+    freqL=144+(x*1.618);
+    const beat=0.5+(y*(39.5/71));
+    freqR=freqL+beat;
+
+    if(audioCtx){
+        oscL.frequency.setTargetAtTime(freqL,audioCtx.currentTime,0.1);
+        oscR.frequency.setTargetAtTime(freqR,audioCtx.currentTime,0.1);
+        gainNode.gain.setTargetAtTime(z/300,audioCtx.currentTime,0.2);
+    }
+
+    document.getElementById('readout').innerHTML=
+      `BASE: ${freqL.toFixed(2)} Hz<br>
+       OFFSET: ${beat.toFixed(2)} Hz<br>
+       BINAURAL Δ: ${(freqR-freqL).toFixed(2)} Hz<br>
+       AMPLITUDE: ${(z/300).toFixed(3)}<br>
+       RATIO: ${(freqR/freqL).toFixed(5)}`;
+
+    localStorage.setItem('72_MIDAS_STATE',JSON.stringify({x,y,z}));
+}
+
+function renderLoop() {
+    requestAnimationFrame(renderLoop);
+    ctx.fillStyle='rgba(5,5,5,0.15)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    const totalPoints=144;
+    const time=audioCtx?audioCtx.currentTime:0;
+    for(let i=0;i<totalPoints;i++){
+        const radius=(Math.sqrt(i)/Math.sqrt(totalPoints))*70;
+        const theta=i*goldenAngle+(time*0.2);
+        let x=canvas.width/2+radius*Math.cos(theta);
+        let y=canvas.height/2+radius*Math.sin(theta);
+        let zMod=Math.sin(activePlanetFreq*0.001*i+time);
+        if(i%2===0){x+=zMod*5;y+=zMod*5;}
+        ctx.beginPath();
+        ctx.arc(x,y,1.5+Math.abs(zMod*3),0,Math.PI*2);
+        ctx.fillStyle=i%2===0?'#555577':'#D4AF37';
+        ctx.fill();
+    }
+}
+
+// Event Handlers
+document.getElementById('masterBtn').onclick=startSignal;
+['axisX','axisY','axisZ'].forEach(id=>document.getElementById(id).oninput=updateParams);
+
+const setPreset=(x,y,z)=>{document.getElementById('axisX').value=x;document.getElementById('axisY').value=y;document.getElementById('axisZ').value=z;updateParams();};
+document.getElementById('btn-gnosis').onclick=()=>setPreset(71,36,40);
+document.getElementById('btn-soma').onclick=()=>setPreset(0,5,20);
+document.getElementById('btn-syn').onclick=()=>setPreset(44,18,50);
+
+window.onload=()=>{
+    const s=JSON.parse(localStorage.getItem('72_MIDAS_STATE'));
+    if(s)setPreset(s.x,s.y,s.z);
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}
+};
+</script>
+</body>
+</html>
