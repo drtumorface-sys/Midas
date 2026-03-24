@@ -1,0 +1,23 @@
+{
+  "name": "72-Phase Instrument - Midas Edition",
+  "short_name": "72-Phase",
+  "description": "3D Phyllotaxis Audio-Visualizer with Planetary Hour Phase-Locking",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
