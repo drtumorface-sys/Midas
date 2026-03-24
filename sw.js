@@ -1,75 +1,38 @@
-const CACHE_NAME = 'midas-72phase-cache-v1';
-const FILES_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json',
-  '/assets/icon-180.png',
-  '/assets/icon-512.png'
+const CACHE_NAME = '72-phase-midas-v1.0.72';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;800&family=Courier+New&display=swap',
+  'https://www.transparenttextures.com/patterns/carbon-fibre.png'
 ];
 
-self.addEventListener('install', (evt) => {
-  evt.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
-  );
+// Install: Open cache and anchor assets
+self.addEventListener('install', (event) => {
   self.skipWaiting();
-});
-
-self.addEventListener('activate', (evt) => {
-  evt.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(keys.map(key => {
-        if(key !== CACHE_NAME) {
-          return caches.delete(key);
-        }
-      }));
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS);
     })
   );
-  self.clients.claim();
 });
 
-self.addEventListener('fetch', (evt) => {
-  evt.respondWith(
-    caches.match(evt.request).then(response => {
-      return response || fetch(evt.request);
+// Activate: Purge leaden/outdated caches
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      );
     })
   );
-});const CACHE_NAME = '72-phase-v1.0.72';
-const ASSETS_TO_CACHE = [
-    './',
-    './index.html',
-    './manifest.json',
-    './icon-180.png',
-    './icon-512.png'
-];
-
-self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(ASSETS_TO_CACHE))
-            .then(() => self.skipWaiting())
-    );
 });
 
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(
-                keys.filter(k => k !== CACHE_NAME)
-                    .map(k => caches.delete(k))
-            )
-        )
-    );
-    self.clients.claim();
-});
-
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(cached => cached || fetch(event.request))
-            .catch(() => caches.match('./index.html'))
-    );
+// Fetch: Serve from cache to ensure 'Zero Noise' continuity
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
 });
