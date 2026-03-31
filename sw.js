@@ -1,65 +1,61 @@
-/**
- * 72-Phase: Midas Edition - Service Worker
- * Version: 1.0.72
- * Perspective: Universal Signal / Zero Noise
- */
+// ═══════════════════════════════════════════════════════════════════════
+//  M.I.D.A.S. — Service Worker
+//  Cache-first strategy for offline resilience.
+//  The audio engine and canvas renderer are entirely client-side, so
+//  once the shell is cached the app functions without a network connection.
+// ═══════════════════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'midas-v1.0.72-offline';
-
-// The "Golden" Assets required for full lithic resonance
-const ASSETS = [
+const CACHE_NAME   = 'midas-v1';
+const SHELL_ASSETS = [
   './',
   './index.html',
-  './manifest.json',
-  './icon-180.png',
-  './icon-512.png',
-  'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;800&family=Courier+New&display=swap',
-  'https://www.transparenttextures.com/patterns/carbon-fibre.png'
+  'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Share+Tech+Mono&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap',
 ];
 
-/**
- * INSTALLATION: Anchoring the Signal
- * Forces the browser to download and cache all lithic assets immediately.
- */
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
+// Install: pre-cache the app shell
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('Midas Signal: Anchoring Assets to Offline Cache');
-      return cache.addAll(ASSETS);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(SHELL_ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-/**
- * ACTIVATION: Purging the Leaden
- * Removes outdated caches to prevent logic-drift in the 72-Phase matrix.
- */
-self.addEventListener('activate', (event) => {
+// Activate: remove stale caches from previous versions
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
-    })
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(k => k !== CACHE_NAME)
+          .map(k  => caches.delete(k))
+      )
+    ).then(() => self.clients.claim())
   );
-  return self.clients.claim();
 });
 
-/**
- * FETCH: The Offline Shield
- * Intercepts network noise and serves the cached Golden Signal.
- * Implements a "Cache-First" heuristic for zero-latency performance.
- */
-self.addEventListener('fetch', (event) => {
+// Fetch: cache-first, network fallback
+self.addEventListener('fetch', event => {
+  // Only handle GET requests; skip cross-origin requests we cannot cache
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // Return the cached asset if found; otherwise, attempt to fetch from the void.
-      return cachedResponse || fetch(event.request).then((networkResponse) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          // Dynamically cache new assets (e.g., external fonts or textures)
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        });
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
+
+      return fetch(event.request).then(response => {
+        // Only cache valid same-origin or font responses
+        if (
+          response.ok &&
+          (event.request.url.startsWith(self.location.origin) ||
+           event.request.url.includes('fonts.googleapis.com') ||
+           event.request.url.includes('fonts.gstatic.com'))
+        ) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
+        }
+        return response;
       });
-    }).catch(() => {
+    })
+  );
+});
