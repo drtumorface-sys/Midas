@@ -671,18 +671,12 @@ section { margin-bottom: 48px; }
 .therapy-btn[data-color="iadnah"]::before        { background: #1e1848; }
 .therapy-btn.active[data-color="iadnah"]::before { background: #5050c0; }
 
-/* ── IADNAH FEATURED BUTTON ── */
-.iadnah-group { margin-top: 10px; }
-.iadnah-group-label {
-  font-family: var(--font-m); font-size: 7px; letter-spacing: .38em;
-  text-transform: uppercase; color: #5050c0; padding-left: 2px; opacity: .8;
-  margin-bottom: 6px;
-}
-.iadnah-btn-wrap { display: grid; grid-template-columns: 1fr; }
-.therapy-btn.iadnah-featured {
+/* ── IADNAH CYCLE BUTTON — sits inside Ascent .therapy-grid, spans full row ── */
+/* Iadnah Cycle sits in the Ascent grid as a full-width button */
+.therapy-grid .therapy-btn.iadnah-featured {
+  grid-column: 1 / -1;   /* span all columns */
   border-color: rgba(80, 80, 192, 0.35);
   background: rgba(28, 24, 72, 0.6);
-  padding: 16px 12px;
 }
 .therapy-btn.iadnah-featured:hover {
   border-color: rgba(80, 80, 192, 0.8);
@@ -693,9 +687,9 @@ section { margin-bottom: 48px; }
   background: rgba(40, 32, 96, 0.85);
   box-shadow: 0 0 24px rgba(80, 80, 192, 0.2);
 }
-.therapy-btn.iadnah-featured .t-name { font-size: 11px; letter-spacing: .3em; color: var(--chalk); }
-.therapy-btn.iadnah-featured .t-band { color: rgba(160,160,220,0.75); font-size: 9px; }
-.therapy-btn.iadnah-featured .t-desc { color: rgba(160,160,220,0.6); font-size: 9px; }
+.therapy-btn.iadnah-featured .t-name { color: var(--chalk); letter-spacing: .25em; }
+.therapy-btn.iadnah-featured .t-band { color: rgba(160,160,220,0.75); }
+.therapy-btn.iadnah-featured .t-desc { color: rgba(160,160,220,0.6); }
 .therapy-btn.iadnah-featured.active .t-name { color: #9090e0; }
 
 /* ── IADNAH PHASE DISPLAY ── */
@@ -1597,24 +1591,23 @@ const THERAPY_MODES = [
     boxBreath: false,
     group: 'ascent',
   },
-  // ── IADNAH — the 50-minute progressive Sephirothic ascent protocol ──
-  // Not a static frequency selection. A pre-scheduled journey.
-  // Locks carrier to 134.8 Hz (IADNAH gematric frequency).
-  // Progresses through six phases: Malkuth → Yesod → Tiphareth →
-  // Abyss (Comma) → Da'at/Gamma → Return. All transitions are
-  // sample-accurate pre-scheduled Web Audio API ramps — no JS
-  // intervention during the session, zero click risk.
+  // ── IADNAH CYCLE — 50-minute progressive Sephirothic ascent ──
+  // Sits in the Ascent group as a standard selection — the practitioner
+  // chooses it the same way they choose Gamma or Alpha. Once started,
+  // the sequence runs autonomously: all six phase transitions are
+  // pre-scheduled on the Web Audio API clock at session start.
+  // No manual intervention is needed or possible during the session.
   {
     key:      'iadnah',
-    name:     'Iadnah',
-    df:       18,    // Phase 1 starting beat (overridden by schedule)
-    band:     '50 min · 6-phase',
-    desc:     'Malkuth → Yesod → Tiphareth → Abyss → Da\'at → Return',
+    name:     'Iadnah Cycle',
+    df:       18,           // Phase 1 starting beat (schedule takes over)
+    band:     '50 min',
+    desc:     'Six-phase ascent · Malkuth to Da\'at',
     color:    'iadnah',
-    breath:   [5, 0, 5],   // Phase 1: Cohere
-    note:     'The undefiled knowledge of God. The sequence begins at Malkuth and terminates at Da\'at. Remain still. The mathematics will carry you.',
+    breath:   [5, 0, 5],   // Phase 1: Cohere (overridden per phase automatically)
+    note:     'A 50-minute automatic sequence. Six phases run in order without interruption. Begin when you can remain still for the full duration.',
     boxBreath: false,
-    group:    'iadnah',
+    group:    'ascent',    // Appears in the Ascent group as a normal button
   },
 ];
 
@@ -1628,10 +1621,16 @@ const BREATH_PATTERNS = [
   { key:'drift',   name:'Drift',   breath:[5,2,7],  boxBreath:false, desc:'Gentle drift · Warm stillness', group:'slow'  },
   { key:'sigh',    name:'Sigh',    breath:[4,0,8],  boxBreath:false, desc:'Physiological reset',            group:'slow'  },
   // ACTIVE — shorter cycles, settling / returning / igniting
-  { key:'settle',  name:'Settle',  breath:[4,1,6],  boxBreath:false, desc:'Soft clarity · Settled ease',   group:'active'},
-  { key:'return',  name:'Return',  breath:[4,0,5],  boxBreath:false, desc:'Grounded re-entry',              group:'active'},
-  { key:'box',     name:'Box',     breath:[4,4,4],  boxBreath:true,  desc:'Structural boundary · 4×4',     group:'active'},
-  { key:'ignite',  name:'Ignite',  breath:[3,1,4],  boxBreath:false, desc:'Ignition · 3 — 1 — 4',         group:'active'},
+  { key:'settle',   name:'Settle',   breath:[4,1,6], boxBreath:false, desc:'Soft clarity · Settled ease',    group:'active'},
+  { key:'return',   name:'Return',   breath:[4,0,5], boxBreath:false, desc:'Grounded re-entry',               group:'active'},
+  { key:'box',      name:'Box',      breath:[4,4,4], boxBreath:true,  desc:'Structural boundary · 4×4',      group:'active'},
+  { key:'ignite',   name:'Ignite',   breath:[3,1,4], boxBreath:false, desc:'Ignition · 3 — 1 — 4',          group:'active'},
+  // Tzimtzum — divine contraction (Lurianic Kabbalah)
+  // The deliberate inward withdrawal that creates space for the other.
+  // Inhale (4): receive fully. Exhale (4): consciously contract inward.
+  // Hold-empty (4): the Chalal — the void you created. Wait in it.
+  // Assigned to Phase 4 (The Abyss) of the Iadnah sequence.
+  { key:'tzimtzum', name:'Tzimtzum', breath:[4,0,4], boxBreath:true,  desc:'Divine contraction · Hold the void', group:'active'},
 ];
 
 // ── LITHIC CARRIER PRESETS ──
@@ -2219,7 +2218,7 @@ const IADNAH_PHASES = [
   { startMin: 0,  endMin: 5,  name: 'MALKUTH',   desc: 'The Tabaan stands firm. Ground the terrestrial container.',      breathKey: 'cohere',  sigilMode: 'simple'  },
   { startMin: 5,  endMin: 12, name: 'YESOD',     desc: 'The Foundation becomes receptive. Alpha opens the mirror.',      breathKey: 'drift',   sigilMode: 'natural' },
   { startMin: 12, endMin: 22, name: 'TIPHARETH', desc: 'The Imago Christi stabilized. The Schumann lock is engaged.',    breathKey: 'sigh',    sigilMode: 'chaos'   },
-  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. The crossing begins.',     breathKey: 'box',     sigilMode: 'ogham'   },
+  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. Contract inward. Hold the void.',  breathKey: 'tzimtzum', sigilMode: 'chaos'   },
   { startMin: 27, endMin: 45, name: 'IADNAH',    desc: 'Da\'at open. The undefiled knowledge is received.',             breathKey: 'settle',  sigilMode: 'natural' },
   { startMin: 45, endMin: 50, name: 'RETURN',    desc: 'The downloaded knowledge integrates. Re-entry begins.',         breathKey: 'return',  sigilMode: 'simple'  },
 ];
@@ -3247,39 +3246,41 @@ document.getElementById('intent-input').addEventListener('keydown',e=>{
 // ── Sigil mode ──
 // Switching the visual mode also morphs the carrier frequency via
 // SIGIL_MODE_FREQ multipliers, retuning the audio resonance field.
+//
+// CRITICAL: During an active Iadnah session, sigil mode switches are
+// purely visual — the Iadnah sequence pre-schedules all audio ramps at
+// session start using the Web Audio API clock. Calling stopAudio()/
+// startAudio() mid-session would destroy those scheduled ramps and
+// produce an audible click + loss of sequence state. We therefore
+// skip the audio restart entirely when Iadnah is running.
 function setSigilMode(mode) {
   S.sigilMode = mode;
   S.sigilModeFreqMult = SIGIL_MODE_FREQ[mode] || 1.0;
   ['natural','chaos','ogham','simple'].forEach(m => {
-    document.getElementById(`smode-${m}`).classList.toggle('active', m === mode);
+    const el = document.getElementById(`smode-${m}`);
+    if (el) el.classList.toggle('active', m === mode);
   });
   updateFreqReadout();
-  if (S.running && S.audioOn) { stopAudio(); startAudio(); }
+  // Skip audio restart when Iadnah sequence is running — it owns its own schedule
+  const iadnahActive = S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null;
+  if (S.running && S.audioOn && !iadnahActive) { stopAudio(); startAudio(); }
 }
 
-// ── Therapy mode — Miller's Law grouping (7±2, two chunks of 4 + Iadnah) ──
+// ── Therapy mode — two groups: Descent (4) and Ascent (5 including Iadnah Cycle) ──
 // First call builds DOM; subsequent calls only toggle .active — no reflow.
 let _therapyGridBuilt = false;
 function renderTherapyGrid() {
   const container = document.getElementById('therapy-grid');
   if (!_therapyGridBuilt) {
     const mkBtn = m => `
-      <button class="therapy-btn" data-key="${m.key}"
+      <button class="therapy-btn${m.key === 'iadnah' ? ' iadnah-featured' : ''}" data-key="${m.key}"
               data-color="${m.color}" onclick="setTherapy('${m.key}')">
         <span class="t-name">${m.name.toUpperCase()}</span>
         <span class="t-band">${m.band}</span>
         <span class="t-desc">${m.desc}</span>
       </button>`;
-    const mkIadnahBtn = m => `
-      <button class="therapy-btn iadnah-featured" data-key="${m.key}"
-              data-color="${m.color}" onclick="setTherapy('${m.key}')">
-        <span class="t-name">${m.name.toUpperCase()} — THE UNDEFILED KNOWLEDGE</span>
-        <span class="t-band">${m.band}</span>
-        <span class="t-desc">${m.desc}</span>
-      </button>`;
     const descent = THERAPY_MODES.filter(m => m.group === 'descent');
     const ascent  = THERAPY_MODES.filter(m => m.group === 'ascent');
-    const iadnah  = THERAPY_MODES.filter(m => m.group === 'iadnah');
     container.innerHTML = `
       <div class="therapy-group">
         <span class="therapy-group-label">Descent</span>
@@ -3288,10 +3289,6 @@ function renderTherapyGrid() {
       <div class="therapy-group">
         <span class="therapy-group-label">Ascent</span>
         <div class="therapy-grid">${ascent.map(mkBtn).join('')}</div>
-      </div>
-      <div class="therapy-group iadnah-group">
-        <span class="therapy-group-label iadnah-group-label">Iadnah Protocol</span>
-        <div class="iadnah-btn-wrap">${iadnah.map(mkIadnahBtn).join('')}</div>
       </div>`;
     _therapyGridBuilt = true;
   }
@@ -3313,12 +3310,22 @@ function setTherapy(key) {
   }
   if (S.running) { stopBreath(); startBreath(); }
 
-  const noteText = S.therapy.key === 'iadnah'
-    ? 'The Iadnah Protocol begins at Malkuth and terminates at Da\'at — the undefiled knowledge of God. 50 minutes. Remain still.'
-    : S.therapy.note;
+  const IADNAH_DESCRIPTION =
+    'Six phases run automatically once started — no adjustment needed. ' +
+    'Phase 1 (0–5 min): Malkuth — 18 Hz Beta, grounding the body. ' +
+    'Phase 2 (5–12 min): Yesod — 10 Hz Alpha, the subconscious opens. ' +
+    'Phase 3 (12–22 min): Tiphareth — 7.83 Hz Schumann resonance, the solar centre locks to the Earth\'s own field. ' +
+    'Phase 4 (22–27 min): The Abyss — 23.46 Hz Comma, the threshold between worlds. ' +
+    'Phase 5 (27–45 min): Da\'at — 40 Hz Gamma, the undefiled knowledge. 18 minutes at the summit. ' +
+    'Phase 6 (45–50 min): Return — grounded re-entry. Total: 50 minutes.';
+
+  const noteText = S.therapy.key === 'iadnah' ? IADNAH_DESCRIPTION : S.therapy.note;
+  const subText  = S.therapy.key === 'iadnah'
+    ? 'Carrier: 134.8 Hz · Automatic sequence · Do not interrupt'
+    : `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`;
   setText(
     noteText,
-    `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`
+    subText
   );
 }
 
