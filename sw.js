@@ -5,7 +5,7 @@
 //  once the shell is cached the app functions without a network connection.
 // ═══════════════════════════════════════════════════════════════════════
 
-const CACHE_NAME   = 'midas-v1';
+const CACHE_NAME   = 'midas-v2';  // vault copy — v2 forces clean cache on first install
 const SHELL_ASSETS = [
   './',
   './index.html',

@@ -671,18 +671,12 @@ section { margin-bottom: 48px; }
 .therapy-btn[data-color="iadnah"]::before        { background: #1e1848; }
 .therapy-btn.active[data-color="iadnah"]::before { background: #5050c0; }
 
-/* ── IADNAH FEATURED BUTTON ── */
-.iadnah-group { margin-top: 10px; }
-.iadnah-group-label {
-  font-family: var(--font-m); font-size: 7px; letter-spacing: .38em;
-  text-transform: uppercase; color: #5050c0; padding-left: 2px; opacity: .8;
-  margin-bottom: 6px;
-}
-.iadnah-btn-wrap { display: grid; grid-template-columns: 1fr; }
-.therapy-btn.iadnah-featured {
+/* ── IADNAH CYCLE BUTTON — sits inside Ascent .therapy-grid, spans full row ── */
+/* Iadnah Cycle sits in the Ascent grid as a full-width button */
+.therapy-grid .therapy-btn.iadnah-featured {
+  grid-column: 1 / -1;   /* span all columns */
   border-color: rgba(80, 80, 192, 0.35);
   background: rgba(28, 24, 72, 0.6);
-  padding: 16px 12px;
 }
 .therapy-btn.iadnah-featured:hover {
   border-color: rgba(80, 80, 192, 0.8);
@@ -693,9 +687,9 @@ section { margin-bottom: 48px; }
   background: rgba(40, 32, 96, 0.85);
   box-shadow: 0 0 24px rgba(80, 80, 192, 0.2);
 }
-.therapy-btn.iadnah-featured .t-name { font-size: 11px; letter-spacing: .3em; color: var(--chalk); }
-.therapy-btn.iadnah-featured .t-band { color: rgba(160,160,220,0.75); font-size: 9px; }
-.therapy-btn.iadnah-featured .t-desc { color: rgba(160,160,220,0.6); font-size: 9px; }
+.therapy-btn.iadnah-featured .t-name { color: var(--chalk); letter-spacing: .25em; }
+.therapy-btn.iadnah-featured .t-band { color: rgba(160,160,220,0.75); }
+.therapy-btn.iadnah-featured .t-desc { color: rgba(160,160,220,0.6); }
 .therapy-btn.iadnah-featured.active .t-name { color: #9090e0; }
 
 /* ── IADNAH PHASE DISPLAY ── */
@@ -1597,24 +1591,23 @@ const THERAPY_MODES = [
     boxBreath: false,
     group: 'ascent',
   },
-  // ── IADNAH — the 50-minute progressive Sephirothic ascent protocol ──
-  // Not a static frequency selection. A pre-scheduled journey.
-  // Locks carrier to 134.8 Hz (IADNAH gematric frequency).
-  // Progresses through six phases: Malkuth → Yesod → Tiphareth →
-  // Abyss (Comma) → Da'at/Gamma → Return. All transitions are
-  // sample-accurate pre-scheduled Web Audio API ramps — no JS
-  // intervention during the session, zero click risk.
+  // ── IADNAH CYCLE — 50-minute progressive Sephirothic ascent ──
+  // Sits in the Ascent group as a standard selection — the practitioner
+  // chooses it the same way they choose Gamma or Alpha. Once started,
+  // the sequence runs autonomously: all six phase transitions are
+  // pre-scheduled on the Web Audio API clock at session start.
+  // No manual intervention is needed or possible during the session.
   {
     key:      'iadnah',
-    name:     'Iadnah',
-    df:       18,    // Phase 1 starting beat (overridden by schedule)
-    band:     '50 min · 6-phase',
-    desc:     'Malkuth → Yesod → Tiphareth → Abyss → Da\'at → Return',
+    name:     'Iadnah Cycle',
+    df:       18,           // Phase 1 starting beat (schedule takes over)
+    band:     '50 min',
+    desc:     'Six-phase ascent · Malkuth to Da\'at',
     color:    'iadnah',
-    breath:   [5, 0, 5],   // Phase 1: Cohere
-    note:     'The undefiled knowledge of God. The sequence begins at Malkuth and terminates at Da\'at. Remain still. The mathematics will carry you.',
+    breath:   [5, 0, 5],   // Phase 1: Cohere (overridden per phase automatically)
+    note:     'A 50-minute automatic sequence. Six phases run in order without interruption. Begin when you can remain still for the full duration.',
     boxBreath: false,
-    group:    'iadnah',
+    group:    'ascent',    // Appears in the Ascent group as a normal button
   },
 ];
 
@@ -1628,10 +1621,16 @@ const BREATH_PATTERNS = [
   { key:'drift',   name:'Drift',   breath:[5,2,7],  boxBreath:false, desc:'Gentle drift · Warm stillness', group:'slow'  },
   { key:'sigh',    name:'Sigh',    breath:[4,0,8],  boxBreath:false, desc:'Physiological reset',            group:'slow'  },
   // ACTIVE — shorter cycles, settling / returning / igniting
-  { key:'settle',  name:'Settle',  breath:[4,1,6],  boxBreath:false, desc:'Soft clarity · Settled ease',   group:'active'},
-  { key:'return',  name:'Return',  breath:[4,0,5],  boxBreath:false, desc:'Grounded re-entry',              group:'active'},
-  { key:'box',     name:'Box',     breath:[4,4,4],  boxBreath:true,  desc:'Structural boundary · 4×4',     group:'active'},
-  { key:'ignite',  name:'Ignite',  breath:[3,1,4],  boxBreath:false, desc:'Ignition · 3 — 1 — 4',         group:'active'},
+  { key:'settle',   name:'Settle',   breath:[4,1,6], boxBreath:false, desc:'Soft clarity · Settled ease',    group:'active'},
+  { key:'return',   name:'Return',   breath:[4,0,5], boxBreath:false, desc:'Grounded re-entry',               group:'active'},
+  { key:'box',      name:'Box',      breath:[4,4,4], boxBreath:true,  desc:'Structural boundary · 4×4',      group:'active'},
+  { key:'ignite',   name:'Ignite',   breath:[3,1,4], boxBreath:false, desc:'Ignition · 3 — 1 — 4',          group:'active'},
+  // Tzimtzum — divine contraction (Lurianic Kabbalah)
+  // The deliberate inward withdrawal that creates space for the other.
+  // Inhale (4): receive fully. Exhale (4): consciously contract inward.
+  // Hold-empty (4): the Chalal — the void you created. Wait in it.
+  // Assigned to Phase 4 (The Abyss) of the Iadnah sequence.
+  { key:'tzimtzum', name:'Tzimtzum', breath:[4,0,4], boxBreath:true, holdOut:4, desc:'Divine contraction · Hold the void', group:'active'},
 ];
 
 // ── LITHIC CARRIER PRESETS ──
@@ -1700,7 +1699,32 @@ const SIGIL_MODE_FREQ = {
   chaos:   PHI,       // φ ≈ 1.618 — incommensurable golden expansion
   ogham:   4 / 3,     // perfect fourth — 4:3
   natural: 5 / 4,     // major third — 5:4 (botanical harmonic)
+  abyss:   1.0,       // unity — the Abyss holds the carrier; no expansion
 };
+
+// ── SEPHIROTHIC COLOUR CANON ────────────────────────────────────────────
+// Queen's Scale (Atziluthic) HSL values for each Iadnah phase.
+// These override the gematric phyllotaxisHSL() derivation during the
+// Iadnah sequence so the sigil colour tracks the psychological station.
+//   Malkuth   — citrine / quartered earth (4 colours; citrine chosen)
+//   Yesod     — violet / astral mirror
+//   Tiphareth — gold / solar centre / Imago Christi
+//   Abyss     — near-black / the formless void between worlds
+//   Da'at     — indigo-lavender / the undefiled knowledge (hidden Sephirah)
+//   Return    — muted citrine / earth re-integrated
+const SEPHIROTH_HSL = {
+  malkuth:   { h: 72,  s: 45, l: 35 },
+  yesod:     { h: 275, s: 65, l: 42 },
+  tiphareth: { h: 45,  s: 90, l: 50 },
+  abyss:     { h: 0,   s: 0,  l: 8  },
+  iadnah:    { h: 248, s: 65, l: 55 },
+  return:    { h: 72,  s: 35, l: 30 },
+};
+
+// Which Sephirothic key maps to each entry in IADNAH_PHASES (by index)
+const IADNAH_PHASE_SEPHIRAH = [
+  'malkuth', 'yesod', 'tiphareth', 'abyss', 'iadnah', 'return'
+];
 
 // ── ACTIVE FREQUENCIES ──
 // IADNAH mode locks the carrier to 134.8 Hz — the gematric derivation of
@@ -2219,7 +2243,7 @@ const IADNAH_PHASES = [
   { startMin: 0,  endMin: 5,  name: 'MALKUTH',   desc: 'The Tabaan stands firm. Ground the terrestrial container.',      breathKey: 'cohere',  sigilMode: 'simple'  },
   { startMin: 5,  endMin: 12, name: 'YESOD',     desc: 'The Foundation becomes receptive. Alpha opens the mirror.',      breathKey: 'drift',   sigilMode: 'natural' },
   { startMin: 12, endMin: 22, name: 'TIPHARETH', desc: 'The Imago Christi stabilized. The Schumann lock is engaged.',    breathKey: 'sigh',    sigilMode: 'chaos'   },
-  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. The crossing begins.',     breathKey: 'box',     sigilMode: 'ogham'   },
+  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. Contract inward. Hold the void.',  breathKey: 'tzimtzum', sigilMode: 'abyss'   },
   { startMin: 27, endMin: 45, name: 'IADNAH',    desc: 'Da\'at open. The undefiled knowledge is received.',             breathKey: 'settle',  sigilMode: 'natural' },
   { startMin: 45, endMin: 50, name: 'RETURN',    desc: 'The downloaded knowledge integrates. Re-entry begins.',         breathKey: 'return',  sigilMode: 'simple'  },
 ];
@@ -2890,6 +2914,145 @@ function geomChaos(input, W, H) {
 }
 
 
+// ── GEOMETRY: ABYSS mode — Dissolution of the AOS path ──
+// The Abyss sigil begins as the Chaos/AOS consonant-skeleton path and
+// dissolves over the 5-minute Abyss phase (abyssElapsed: 0→300 seconds).
+//
+// Psychological rationale:
+//   At ZAX (the 10th Aethyr, the Abyss), all symbolic systems fail.
+//   The consonantal skeleton — the essential will beneath the persona —
+//   cannot maintain form either. Even the Magician's word dissolves.
+//   What remains at the Selah (d > 0.85) is a single luminous point:
+//   the Ain Soph Aur before Tzimtzum, potential before the first Sephirah.
+//
+//   The drift is deterministic (Lissajous-seeded by index), never random
+//   per frame — so the dissolution feels like slow meltwater, not flicker.
+function geomAbyss(input, W, H, abyssElapsed, t) {
+  const d = Math.min(1, Math.max(0, abyssElapsed / 300));  // 0→1 over 5 min
+
+  // ── Selah threshold: collapse to a single luminous point ──
+  if (d > 0.85) {
+    function drawSelah(ctx, accent, fill, glow) {
+      const cx = W / 2, cy = H / 2;
+      const pulse = 0.5 + 0.5 * Math.sin(t * TAU * WALHUU * 0.5);
+      const opacity = (1 - d) * glow * 4 * (0.6 + 0.4 * pulse);
+      ctx.save();
+      // Outer glow corona
+      ctx.beginPath();
+      ctx.arc(cx, cy, 12, 0, TAU);
+      ctx.fillStyle = accent(opacity * 0.35);
+      ctx.fill();
+      // Inner point
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3, 0, TAU);
+      ctx.fillStyle = accent(Math.min(1, opacity * 1.4));
+      ctx.fill();
+      ctx.restore();
+    }
+    return { draw: drawSelah };
+  }
+
+  // ── Extract consonant skeleton (identical to geomChaos) ──
+  const letters = (input || '').toUpperCase().replace(/[^A-Z]/g, '');
+  const vowels = new Set(['A','E','I','O','U']);
+  const uniqueConsonants = [];
+  const seen = new Set();
+  for (const ch of letters) {
+    if (!vowels.has(ch) && !seen.has(ch)) { uniqueConsonants.push(ch); seen.add(ch); }
+  }
+  if (uniqueConsonants.length === 0 && letters.length > 0) uniqueConsonants.push(letters[0]);
+  if (uniqueConsonants.length === 0) return geomSimple(0, W, H);
+
+  const R         = Math.min(W, H) * 0.35;
+  const gridSpace = R * 0.8;
+  const basePoints = [];
+
+  uniqueConsonants.forEach(ch => {
+    const mu = LATIN[ch] || 1;
+    const g  = mu % 9;
+    const qx = ((g % 3) - 1) * gridSpace;
+    const qy = (Math.floor(g / 3) - 1) * gridSpace;
+    const dx = ((mu % 7) - 3) * (gridSpace * 0.1);
+    const dy = ((mu % 5) - 2) * (gridSpace * 0.1);
+    basePoints.push({ x: qx + dx, y: qy + dy });
+  });
+
+  const { tx, ty, sc } = autofocus(basePoints, W, H, W * 0.15);
+
+  // ── Dissolution drift: deterministic Lissajous per point ──
+  const driftScale = d * gridSpace * 2.5;
+  const points = basePoints.map((p, i) => ({
+    x: p.x + driftScale * Math.sin(t * 0.07 + i * PHI),
+    y: p.y + driftScale * Math.cos(t * 0.11 + i * PHI * PHI),
+  }));
+
+  const pathOpacity  = 1 - d * 0.72;
+  const ourobosR     = gridSpace * 0.15 * (1 - d * 0.9);
+  const willBarAlpha = 1 - d;
+
+  function draw(ctx, accent, fill, glow) {
+    ctx.save();
+    ctx.translate(tx, ty);
+    ctx.scale(sc, sc);
+
+    if (points.length > 0) {
+      // ── Glow halo (dissolving) ──
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+      ctx.strokeStyle = accent(glow * 0.35 * pathOpacity);
+      ctx.lineWidth = 12; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.stroke();
+
+      // ── Core spline (dissolving) ──
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        const prev = basePoints[i - 1];
+        const curr = basePoints[i];
+        const gi_prev = (LATIN[uniqueConsonants[i - 1]] || 1) % 9;
+        const gi_curr = (LATIN[uniqueConsonants[i]]     || 1) % 9;
+        if (Math.abs(gi_curr - gi_prev) > 3) {
+          const mx = (points[i-1].x + points[i].x) / 2;
+          const my = (points[i-1].y + points[i].y) / 2;
+          ctx.quadraticCurveTo(mx + gridSpace * 0.3 * (1-d), my - gridSpace * 0.3 * (1-d), points[i].x, points[i].y);
+        } else {
+          ctx.lineTo(points[i].x, points[i].y);
+        }
+      }
+      ctx.strokeStyle = accent(glow * 0.95 * pathOpacity);
+      ctx.lineWidth = 2.5; ctx.lineJoin = 'miter'; ctx.miterLimit = 4; ctx.lineCap = 'square';
+      ctx.stroke();
+
+      // ── Ouroboros (self-consuming loop shrinks to nothing) ──
+      if (ourobosR > 0.5) {
+        const p0 = points[0];
+        ctx.beginPath();
+        ctx.arc(p0.x, p0.y, ourobosR, 0, TAU);
+        ctx.strokeStyle = accent(glow * 0.95 * pathOpacity);
+        ctx.lineWidth = 2.5; ctx.stroke();
+      }
+
+      // ── Will bar terminus (will dissolves completely) ──
+      if (points.length > 1 && willBarAlpha > 0.01) {
+        const pLast = points[points.length - 1];
+        const pPrev = points[points.length - 2];
+        const angle = Math.atan2(pLast.y - pPrev.y, pLast.x - pPrev.x);
+        const perp  = angle + Math.PI / 2;
+        const barL  = gridSpace * 0.2 * willBarAlpha;
+        ctx.beginPath();
+        ctx.moveTo(pLast.x - Math.cos(perp) * barL, pLast.y - Math.sin(perp) * barL);
+        ctx.lineTo(pLast.x + Math.cos(perp) * barL, pLast.y + Math.sin(perp) * barL);
+        ctx.strokeStyle = accent(glow * 0.95 * willBarAlpha);
+        ctx.lineWidth = 2.5; ctx.stroke();
+      }
+    }
+
+    ctx.restore();
+  }
+  return { draw };
+}
+
+
 // ── GEOMETRY: OGHAM mode — Phonetic stemline ──
 // Each letter of the input maps to its historical aicme strokes
 // along a central druim (vertical stave), reading bottom to top.
@@ -3074,7 +3237,22 @@ function drawSigil(t) {
   const breathScale = 1 + 0.028 * wave;   // subtle breath — not fighting autofocus
   const glow  = 0.52 + 0.24 * (wave * 0.5 + 0.5);
 
-  const { h, s, l } = phyllotaxisHSL(S.G);
+  // ── Iadnah phase colour override ──
+  // During the Iadnah sequence each phase maps to its Sephirothic station.
+  // The canonical Queen's Scale HSL values replace the gematric phyllotaxisHSL
+  // derivation so the sigil colour tracks psychological ascent: earth → astral
+  // → solar → void → Da'at → earth returned.
+  let _hslOverride = null;
+  if (S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null) {
+    const _elapsedM = (S.ac ? S.ac.currentTime - _iadnahStartCtxTime : 0) / 60;
+    const _phaseIdx = IADNAH_PHASES.findIndex((p, i) => {
+      const next = IADNAH_PHASES[i + 1];
+      return _elapsedM >= p.startMin && (!next || _elapsedM < next.startMin);
+    });
+    const _sephKey = IADNAH_PHASE_SEPHIRAH[_phaseIdx >= 0 ? _phaseIdx : 0];
+    _hslOverride = SEPHIROTH_HSL[_sephKey] || null;
+  }
+  const { h, s, l } = _hslOverride || phyllotaxisHSL(S.G);
   const _sigilLight = document.documentElement.getAttribute('data-theme') === 'light';
   // Light mode: invert luminance — sigil strokes become dark on luminous glass.
   // Dark mode:  use native l  (low, warm tones glowing on dark ground).
@@ -3102,6 +3280,15 @@ function drawSigil(t) {
     case 'chaos':   geom = geomChaos(S.rawInput || '', W, H);  break;
     case 'ogham':   geom = geomOgham(S.rawInput || '', W, H);  break;
     case 'natural': geom = geomNatural(S.G, W, H);             break;
+    case 'abyss': {
+      // Compute elapsed seconds within the Abyss phase (starts at 22:00)
+      let _abyssElapsed = 0;
+      if (_iadnahStartCtxTime !== null && S.ac) {
+        _abyssElapsed = Math.max(0, S.ac.currentTime - _iadnahStartCtxTime - 22 * 60);
+      }
+      geom = geomAbyss(S.rawInput || '', W, H, _abyssElapsed, t);
+      break;
+    }
     default:        geom = geomSimple(S.G, W, H);
   }
   geom.draw(CTX, accent, fill, glow);
@@ -3127,7 +3314,17 @@ function drawSigil(t) {
     const theta = n * GOLD_RAD_INL;
     const r     = Math.sqrt(n / 89) * maxR;
     const dt    = n * PHI;                   // Δtₙ = n·φ — sovereign drift
-    const pulse = 0.5 + 0.5 * Math.sin(TAU * WALHUU * t + dt);
+    // ── Phase 5 Gamma pulse: 40 Hz (Da'at entrainment) ──────────────────
+    // During the Da'at phase (27–45 min) the F₁₁ particle field pulses at
+    // 40 Hz — the Gamma binding frequency — adding visible flicker entrainment
+    // alongside the binaural beat. Safe: tiny dots at ≤28% opacity on a
+    // sinusoidal waveform; coverage < 5% canvas — no photosensitive risk.
+    let _pHz = WALHUU;
+    if (S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null && S.ac) {
+      const _em = (S.ac.currentTime - _iadnahStartCtxTime) / 60;
+      if (_em >= 27 && _em < 45) _pHz = 40;
+    }
+    const pulse = 0.5 + 0.5 * Math.sin(TAU * _pHz * t + dt);
     const px    = cx89 + Math.cos(theta) * r;
     const py    = cy89 + Math.sin(theta) * r;
     const rad   = (0.9 + 0.9 * pulse) * breathScale;
@@ -3162,9 +3359,15 @@ function breathDefs() {
     {label:'HOLD',   dur:bHold*1000, stroke:'#b07030', offset:()=>0},
     {label:'EXHALE', dur:bOut *1000, stroke:'#2e3a38', offset:t=>RING_C*t},
   ];
-  // Box / double-hold: append second HOLD matching the first
-  if (bp.boxBreath && bHold > 0) {
-    phases.push({label:'HOLD', dur:bHold*1000, stroke:'#b07030', offset:()=>0});
+  // Box / double-hold: append post-exhale HOLD.
+  // holdOut field overrides bHold for patterns where the pre-exhale hold
+  // is silent (0) but a post-exhale hold is required (e.g. Tzimtzum: [4,0,4]
+  // with holdOut:4 → the Chalal, the void of divine contraction).
+  if (bp.boxBreath) {
+    const holdOutDur = bp.holdOut !== undefined ? bp.holdOut : bHold;
+    if (holdOutDur > 0) {
+      phases.push({label:'HOLD', dur:holdOutDur*1000, stroke:'#b07030', offset:()=>0});
+    }
   }
   return phases.filter(p => p.dur > 0);
 }
@@ -3247,39 +3450,41 @@ document.getElementById('intent-input').addEventListener('keydown',e=>{
 // ── Sigil mode ──
 // Switching the visual mode also morphs the carrier frequency via
 // SIGIL_MODE_FREQ multipliers, retuning the audio resonance field.
+//
+// CRITICAL: During an active Iadnah session, sigil mode switches are
+// purely visual — the Iadnah sequence pre-schedules all audio ramps at
+// session start using the Web Audio API clock. Calling stopAudio()/
+// startAudio() mid-session would destroy those scheduled ramps and
+// produce an audible click + loss of sequence state. We therefore
+// skip the audio restart entirely when Iadnah is running.
 function setSigilMode(mode) {
   S.sigilMode = mode;
   S.sigilModeFreqMult = SIGIL_MODE_FREQ[mode] || 1.0;
   ['natural','chaos','ogham','simple'].forEach(m => {
-    document.getElementById(`smode-${m}`).classList.toggle('active', m === mode);
+    const el = document.getElementById(`smode-${m}`);
+    if (el) el.classList.toggle('active', m === mode);
   });
   updateFreqReadout();
-  if (S.running && S.audioOn) { stopAudio(); startAudio(); }
+  // Skip audio restart when Iadnah sequence is running — it owns its own schedule
+  const iadnahActive = S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null;
+  if (S.running && S.audioOn && !iadnahActive) { stopAudio(); startAudio(); }
 }
 
-// ── Therapy mode — Miller's Law grouping (7±2, two chunks of 4 + Iadnah) ──
+// ── Therapy mode — two groups: Descent (4) and Ascent (5 including Iadnah Cycle) ──
 // First call builds DOM; subsequent calls only toggle .active — no reflow.
 let _therapyGridBuilt = false;
 function renderTherapyGrid() {
   const container = document.getElementById('therapy-grid');
   if (!_therapyGridBuilt) {
     const mkBtn = m => `
-      <button class="therapy-btn" data-key="${m.key}"
+      <button class="therapy-btn${m.key === 'iadnah' ? ' iadnah-featured' : ''}" data-key="${m.key}"
               data-color="${m.color}" onclick="setTherapy('${m.key}')">
         <span class="t-name">${m.name.toUpperCase()}</span>
         <span class="t-band">${m.band}</span>
         <span class="t-desc">${m.desc}</span>
       </button>`;
-    const mkIadnahBtn = m => `
-      <button class="therapy-btn iadnah-featured" data-key="${m.key}"
-              data-color="${m.color}" onclick="setTherapy('${m.key}')">
-        <span class="t-name">${m.name.toUpperCase()} — THE UNDEFILED KNOWLEDGE</span>
-        <span class="t-band">${m.band}</span>
-        <span class="t-desc">${m.desc}</span>
-      </button>`;
     const descent = THERAPY_MODES.filter(m => m.group === 'descent');
     const ascent  = THERAPY_MODES.filter(m => m.group === 'ascent');
-    const iadnah  = THERAPY_MODES.filter(m => m.group === 'iadnah');
     container.innerHTML = `
       <div class="therapy-group">
         <span class="therapy-group-label">Descent</span>
@@ -3288,10 +3493,6 @@ function renderTherapyGrid() {
       <div class="therapy-group">
         <span class="therapy-group-label">Ascent</span>
         <div class="therapy-grid">${ascent.map(mkBtn).join('')}</div>
-      </div>
-      <div class="therapy-group iadnah-group">
-        <span class="therapy-group-label iadnah-group-label">Iadnah Protocol</span>
-        <div class="iadnah-btn-wrap">${iadnah.map(mkIadnahBtn).join('')}</div>
       </div>`;
     _therapyGridBuilt = true;
   }
@@ -3313,12 +3514,22 @@ function setTherapy(key) {
   }
   if (S.running) { stopBreath(); startBreath(); }
 
-  const noteText = S.therapy.key === 'iadnah'
-    ? 'The Iadnah Protocol begins at Malkuth and terminates at Da\'at — the undefiled knowledge of God. 50 minutes. Remain still.'
-    : S.therapy.note;
+  const IADNAH_DESCRIPTION =
+    'Six phases run automatically once started — no adjustment needed. ' +
+    'Phase 1 (0–5 min): Malkuth — 18 Hz Beta, grounding the body. ' +
+    'Phase 2 (5–12 min): Yesod — 10 Hz Alpha, the subconscious opens. ' +
+    'Phase 3 (12–22 min): Tiphareth — 7.83 Hz Schumann resonance, the solar centre locks to the Earth\'s own field. ' +
+    'Phase 4 (22–27 min): The Abyss — 23.46 Hz Comma, the threshold between worlds. ' +
+    'Phase 5 (27–45 min): Da\'at — 40 Hz Gamma, the undefiled knowledge. 18 minutes at the summit. ' +
+    'Phase 6 (45–50 min): Return — grounded re-entry. Total: 50 minutes.';
+
+  const noteText = S.therapy.key === 'iadnah' ? IADNAH_DESCRIPTION : S.therapy.note;
+  const subText  = S.therapy.key === 'iadnah'
+    ? 'Carrier: 134.8 Hz · Automatic sequence · Do not interrupt'
+    : `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`;
   setText(
     noteText,
-    `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`
+    subText
   );
 }
 
