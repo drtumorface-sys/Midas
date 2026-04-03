@@ -169,6 +169,67 @@
 }
 .settings-close:hover { color: var(--chalk); background: rgba(255,255,255,0.04); }
 
+.settings-tabs { display: flex; gap: 6px; margin-bottom: 22px; }
+.stab {
+  flex: 1; background: var(--schist); border: 1px solid var(--granite);
+  color: var(--ash); font-family: var(--font-m); font-size: 9px;
+  letter-spacing: .28em; text-transform: uppercase; padding: 9px 6px;
+  cursor: pointer; border-radius: 10px; transition: all .25s;
+}
+.stab:hover  { border-color: var(--copper); color: var(--chalk); }
+.stab.active { border-color: var(--amber); background: rgba(192,128,16,.08); color: var(--amber); }
+.audio-setting-group { margin-bottom: 20px; }
+.asetting-label {
+  font-family: var(--font-m); font-size: 9px; letter-spacing: .32em;
+  text-transform: uppercase; color: var(--ash); margin-bottom: 10px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.asetting-hint {
+  font-family: var(--font-b); font-style: italic; font-size: 11px;
+  letter-spacing: .03em; color: var(--ash); opacity: .6; text-transform: none;
+}
+.abtn-row { display: flex; gap: 6px; }
+.abtn {
+  flex: 1; background: var(--schist); border: 1px solid var(--granite);
+  color: var(--ash); cursor: pointer; border-radius: 10px; padding: 10px 4px;
+  text-align: center; transition: all .25s;
+}
+.abtn:hover  { border-color: var(--copper); }
+.abtn.active {
+  border-color: var(--verdigris); background: rgba(56,120,112,.1); color: var(--quartz);
+  box-shadow: 0 0 10px rgba(56,120,112,0.1);
+}
+.abtn-name {
+  display: block; font-family: var(--font-m); font-size: 9px;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 3px;
+}
+.abtn-sub {
+  display: block; font-family: var(--font-b); font-style: italic;
+  font-size: 10px; color: var(--ash); opacity: .75;
+}
+.abtn.active .abtn-sub { opacity: 1; color: var(--copper); }
+.ainfo-row {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 12px;
+  background: var(--obsidian); border: 1px solid var(--schist);
+  border-radius: 10px; padding: 12px 14px;
+}
+.ainfo-key {
+  font-family: var(--font-m); font-size: 8px; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--ash); align-self: center;
+}
+.ainfo-val {
+  font-family: var(--font-m); font-size: 10px; color: var(--copper); letter-spacing: .1em;
+}
+.audio-restart-note {
+  font-family: var(--font-m); font-size: 9px; letter-spacing: .18em;
+  color: var(--amber); text-align: center; padding: 10px;
+  border: 1px solid rgba(192,128,16,.2); border-radius: 10px; margin-top: 6px;
+}
+[data-theme="light"] .abtn { background: rgba(255,255,255,0.55); border-color: rgba(160,150,140,.3); }
+[data-theme="light"] .abtn.active { background: rgba(255,255,255,.9); }
+[data-theme="light"] .ainfo-row { background: rgba(255,255,255,.45); }
+[data-theme="light"] .stab { background: rgba(255,255,255,.55); border-color: rgba(160,150,140,.3); }
+
 .palette-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -607,6 +668,85 @@ section { margin-bottom: 48px; }
 .therapy-btn.active[data-color="beta"]::before   { background: #c07050; }
 .therapy-btn.active[data-color="cohere"]::before { background: #4870a8; }
 .therapy-btn.active[data-color="gamma"]::before  { background: #a04858; }
+.therapy-btn[data-color="iadnah"]::before        { background: #1e1848; }
+.therapy-btn.active[data-color="iadnah"]::before { background: #5050c0; }
+
+/* ── IADNAH FEATURED BUTTON ── */
+.iadnah-group { margin-top: 10px; }
+.iadnah-group-label {
+  font-family: var(--font-m); font-size: 7px; letter-spacing: .38em;
+  text-transform: uppercase; color: #5050c0; padding-left: 2px; opacity: .8;
+  margin-bottom: 6px;
+}
+.iadnah-btn-wrap { display: grid; grid-template-columns: 1fr; }
+.therapy-btn.iadnah-featured {
+  border-color: rgba(80, 80, 192, 0.35);
+  background: rgba(28, 24, 72, 0.6);
+  padding: 16px 12px;
+}
+.therapy-btn.iadnah-featured:hover {
+  border-color: rgba(80, 80, 192, 0.8);
+  box-shadow: 0 2px 18px rgba(80, 80, 192, 0.15);
+}
+.therapy-btn.iadnah-featured.active {
+  border-color: #5050c0;
+  background: rgba(40, 32, 96, 0.85);
+  box-shadow: 0 0 24px rgba(80, 80, 192, 0.2);
+}
+.therapy-btn.iadnah-featured .t-name { font-size: 11px; letter-spacing: .3em; color: var(--chalk); }
+.therapy-btn.iadnah-featured .t-band { color: rgba(160,160,220,0.75); font-size: 9px; }
+.therapy-btn.iadnah-featured .t-desc { color: rgba(160,160,220,0.6); font-size: 9px; }
+.therapy-btn.iadnah-featured.active .t-name { color: #9090e0; }
+
+/* ── IADNAH PHASE DISPLAY ── */
+#iadnah-phase-display {
+  display: none;
+  background: rgba(18, 14, 48, 0.85);
+  border: 1px solid rgba(80, 80, 192, 0.3);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 10px;
+}
+#iadnah-phase-display.visible { display: block; }
+.iadnah-phase-name {
+  font-family: var(--font-d); font-size: 11px; letter-spacing: .35em;
+  text-transform: uppercase; color: #7070d0; margin-bottom: 6px;
+}
+.iadnah-phase-desc {
+  font-family: var(--font-b); font-style: italic; font-size: 12px;
+  color: rgba(160, 160, 220, 0.7); margin-bottom: 10px; line-height: 1.5;
+}
+.iadnah-progress-bar {
+  height: 2px; background: rgba(80, 80, 192, 0.2); border-radius: 2px; overflow: hidden;
+}
+.iadnah-progress-fill {
+  height: 100%; background: #5050c0; border-radius: 2px;
+  transition: width 1s linear; width: 0%;
+}
+.iadnah-time {
+  font-family: var(--font-m); font-size: 9px; letter-spacing: .25em;
+  color: rgba(80, 80, 192, 0.6); margin-top: 6px; text-align: right;
+}
+
+/* ── CRACKLING INDICATOR ── */
+.crackling-indicator {
+  display: none; align-items: center; gap: 6px; margin-top: 8px;
+  background: rgba(80, 40, 0, 0.4); border: 1px solid rgba(192, 96, 0, 0.35);
+  border-radius: 8px; padding: 6px 10px;
+}
+.crackling-indicator.active { display: flex; }
+.crackling-indicator-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #c06000;
+  animation: crackling-pulse 1.2s infinite;
+}
+@keyframes crackling-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.crackling-indicator-text {
+  font-family: var(--font-m); font-size: 8px; letter-spacing: .18em;
+  color: rgba(192, 128, 64, 0.85); text-transform: uppercase;
+}
 
 .t-name { display: block; font-size: 10px; color: inherit; margin-bottom: 2px; }
 .t-band { display: block; font-size: 8px; color: var(--ash); }
@@ -983,9 +1123,64 @@ footer {
 <div id="settings-overlay">
   <div class="settings-panel">
     <button class="settings-close" onclick="closeSettings()">CLOSE ✕</button>
-    <div class="settings-title">Sanctuary Colours</div>
-    <div class="palette-grid" id="palette-grid">
-      <!-- rendered by JS -->
+    <div class="settings-tabs">
+      <button class="stab active" id="stab-colour" onclick="switchSettingsTab('colour')">COLOURS</button>
+      <button class="stab" id="stab-audio" onclick="switchSettingsTab('audio')">AUDIO</button>
+    </div>
+    <div class="settings-pane" id="spane-colour">
+      <div class="settings-title">Sanctuary Colours</div>
+      <div class="palette-grid" id="palette-grid"><!-- rendered by JS --></div>
+    </div>
+    <div class="settings-pane" id="spane-audio" style="display:none;">
+      <div class="settings-title">Audio Engine</div>
+      <div class="audio-setting-group">
+        <div class="asetting-label">BUFFER SIZE
+          <span class="asetting-hint">Larger = more stable in background · Smaller = lower latency</span>
+        </div>
+        <div class="abtn-row" id="latency-btns">
+          <button class="abtn" data-hint="interactive" onclick="setLatencyHint('interactive')">
+            <span class="abtn-name">RESPONSIVE</span>
+            <span class="abtn-sub">~128 samples · 2.7 ms</span>
+          </button>
+          <button class="abtn" data-hint="balanced" onclick="setLatencyHint('balanced')">
+            <span class="abtn-name">BALANCED</span>
+            <span class="abtn-sub">~512 samples · 10.7 ms</span>
+          </button>
+          <button class="abtn active" data-hint="playback" onclick="setLatencyHint('playback')">
+            <span class="abtn-name">DEEP BUFFER</span>
+            <span class="abtn-sub">~2048 samples · 42.7 ms</span>
+          </button>
+        </div>
+      </div>
+      <div class="audio-setting-group">
+        <div class="asetting-label">SAMPLE RATE
+          <span class="asetting-hint">Match your device's native rate to eliminate resampling ghosts</span>
+        </div>
+        <div class="abtn-row" id="samplerate-btns">
+          <button class="abtn" data-rate="44100" onclick="setSampleRate(44100)">
+            <span class="abtn-name">44.1 kHz</span>
+            <span class="abtn-sub">CD standard</span>
+          </button>
+          <button class="abtn active" data-rate="48000" onclick="setSampleRate(48000)">
+            <span class="abtn-name">48 kHz</span>
+            <span class="abtn-sub">Mobile native ✓</span>
+          </button>
+        </div>
+      </div>
+      <div class="audio-setting-group">
+        <div class="asetting-label">ACTIVE ENGINE
+          <span class="asetting-hint">Current AudioContext state</span>
+        </div>
+        <div class="ainfo-row" id="audio-state-row">
+          <span class="ainfo-key">State</span><span class="ainfo-val" id="ainfo-state">—</span>
+          <span class="ainfo-key">Sample rate</span><span class="ainfo-val" id="ainfo-sr">—</span>
+          <span class="ainfo-key">Base latency</span><span class="ainfo-val" id="ainfo-lat">—</span>
+          <span class="ainfo-key">Buffer hint</span><span class="ainfo-val" id="ainfo-hint">—</span>
+        </div>
+      </div>
+      <div class="audio-restart-note" id="audio-restart-note" style="display:none;">
+        ⟳ Changes take effect on the next session start
+      </div>
     </div>
   </div>
 </div>
@@ -1039,10 +1234,10 @@ footer {
       </div>
     </div>
     <div class="sigil-mode-row">
-      <button class="sigil-mode-btn active" id="smode-simple"  onclick="setSigilMode('simple')">Simple</button>
+      <button class="sigil-mode-btn active" id="smode-natural" onclick="setSigilMode('natural')">Natural</button>
       <button class="sigil-mode-btn"        id="smode-chaos"   onclick="setSigilMode('chaos')">Chaos</button>
       <button class="sigil-mode-btn"        id="smode-ogham"   onclick="setSigilMode('ogham')">Ogham</button>
-      <button class="sigil-mode-btn"        id="smode-bandrun" onclick="setSigilMode('bandrun')">Bandrún</button>
+      <button class="sigil-mode-btn"        id="smode-simple"  onclick="setSigilMode('simple')">Simple</button>
     </div>
   </section>
 
@@ -1057,6 +1252,16 @@ footer {
       <span>Left &nbsp;<em id="fr-fL">—</em> Hz</span>
       <span>Right &nbsp;<em id="fr-fR">—</em> Hz</span>
       <span>Beat &nbsp;<em id="fr-df">—</em> Hz</span>
+    </div>
+    <div id="iadnah-phase-display">
+      <div class="iadnah-phase-name" id="iadnah-phase-name">MALKUTH</div>
+      <div class="iadnah-phase-desc" id="iadnah-phase-desc">The Tabaan stands firm.</div>
+      <div class="iadnah-progress-bar"><div class="iadnah-progress-fill" id="iadnah-progress-fill"></div></div>
+      <div class="iadnah-time" id="iadnah-time">0:00 / 50:00</div>
+    </div>
+    <div class="crackling-indicator" id="crackling-indicator">
+      <div class="crackling-indicator-dot"></div>
+      <span class="crackling-indicator-text" id="crackling-text">Buffer pressure · Increase buffer size in Audio settings</span>
     </div>
   </section>
 
@@ -1392,6 +1597,25 @@ const THERAPY_MODES = [
     boxBreath: false,
     group: 'ascent',
   },
+  // ── IADNAH — the 50-minute progressive Sephirothic ascent protocol ──
+  // Not a static frequency selection. A pre-scheduled journey.
+  // Locks carrier to 134.8 Hz (IADNAH gematric frequency).
+  // Progresses through six phases: Malkuth → Yesod → Tiphareth →
+  // Abyss (Comma) → Da'at/Gamma → Return. All transitions are
+  // sample-accurate pre-scheduled Web Audio API ramps — no JS
+  // intervention during the session, zero click risk.
+  {
+    key:      'iadnah',
+    name:     'Iadnah',
+    df:       18,    // Phase 1 starting beat (overridden by schedule)
+    band:     '50 min · 6-phase',
+    desc:     'Malkuth → Yesod → Tiphareth → Abyss → Da\'at → Return',
+    color:    'iadnah',
+    breath:   [5, 0, 5],   // Phase 1: Cohere
+    note:     'The undefiled knowledge of God. The sequence begins at Malkuth and terminates at Da\'at. Remain still. The mathematics will carry you.',
+    boxBreath: false,
+    group:    'iadnah',
+  },
 ];
 
 // ── BREATH PATTERNS — decoupled from therapy/tone selection ──
@@ -1448,7 +1672,8 @@ const S = {
   softMode:  true,
   volume:    0.65,
   volumeDb:  -18,
-  sigilMode: 'simple',            // 'simple' | 'chaos' | 'ogham' | 'bandrun'
+  sigilMode: 'natural',           // 'natural' | 'simple' | 'chaos' | 'ogham'
+  sigilModeFreqMult: 1.0,         // carrier frequency multiplier driven by sigil mode
 
   running:   false,
   audioOn:   true,
@@ -1464,9 +1689,29 @@ const S = {
 };
 
 
+// ── SIGIL MODE → CARRIER FREQUENCY MULTIPLIER ──
+// Each mode shifts the carrier by a musically/mathematically meaningful ratio.
+//   simple  — 1:1   Unity, unmodified ground state
+//   chaos   — φ     Golden Ratio expansion (~1.618×)
+//   ogham   — 4:3   Perfect Fourth, natural harmonic ascent
+//   natural — 5:4   Major Third, botanical harmonic
+const SIGIL_MODE_FREQ = {
+  simple:  1.0,
+  chaos:   PHI,       // φ ≈ 1.618 — incommensurable golden expansion
+  ogham:   4 / 3,     // perfect fourth — 4:3
+  natural: 5 / 4,     // major third — 5:4 (botanical harmonic)
+};
+
 // ── ACTIVE FREQUENCIES ──
+// IADNAH mode locks the carrier to 134.8 Hz — the gematric derivation of
+// IADNAH through the Mishnaic-weight Latin cipher:
+//   Γ_raw = 63 → t = ln(64)/ln(10001) = 0.4514 → f_mapped = 269.6 Hz → /2 = 134.8 Hz
+const IADNAH_F0 = 134.8;
+
 function activeF0() {
-  return S.freqMode === 'lithic' ? S.lithicHz : S.f0;
+  if (S.therapy && S.therapy.key === 'iadnah') return IADNAH_F0;
+  const base = S.freqMode === 'lithic' ? S.lithicHz : S.f0;
+  return Math.max(60, base * (S.sigilModeFreqMult || 1.0));
 }
 
 function activePair() {
@@ -1677,12 +1922,28 @@ function buildAudioGraph() {
   subR.connect(subGainR); subGainR.connect(merger, 0, 1);
   subL.start(); subR.start();
 
+  // ── Body Resonator — shared mono 40 Hz sine for Iadnah Phase 5 ──
+  // Delivers a felt 40 Hz vibration to BOTH channels simultaneously (not binaural).
+  // Starts at gain=0; activated by scheduleIadnahSequence() in Phase 5.
+  // Routes directly into the merger (both channels) before the shaper,
+  // so it passes through the full velvet curtain + limiter chain.
+  const bodyResOsc  = ac.createOscillator();
+  const bodyResGain = ac.createGain();
+  bodyResOsc.type = 'sine';
+  bodyResOsc.frequency.value = 40;  // Gamma / Da'at binding frequency
+  bodyResGain.gain.value = 0;       // Silent until Phase 5
+  bodyResOsc.connect(bodyResGain);
+  bodyResGain.connect(merger, 0, 0);  // Left — shared
+  bodyResGain.connect(merger, 0, 1);  // Right — shared (not binaural)
+  bodyResOsc.start();
+
   const nodes = {
     master, lpf, shaper, convolver, dryGain, wetGain,
     gainL, gainR,
     walhuuOsc, walhuuEnvL, walhuuEnvR,
     tremoloL, tremoloR, tremoloDepthL: trDepthL, tremoloDepthR: trDepthR,
     subL, subR,
+    bodyResOsc, bodyResGain,
     oscL: [], oscR: [],
   };
 
@@ -1921,24 +2182,249 @@ function teardownAudio() {
   const n   = S.nodes;
   const stop = o => { if (o) try { o.stop(); } catch(e){} };
   [...(n.oscL||[]), ...(n.oscR||[])].forEach(stop);
-  [n.walhuuOsc, n.formantLFO, n.noiseSource, n.tremoloL, n.tremoloR, n.subL, n.subR].forEach(stop);
+  [n.walhuuOsc, n.formantLFO, n.noiseSource, n.tremoloL, n.tremoloR, n.subL, n.subR, n.bodyResOsc].forEach(stop);
   (n._breathLFOs   || []).forEach(stop);
   (n._latticeOscs  || []).forEach(stop);
   S.nodes = {};
 }
 
+// ═══════════════════════════════════════════════════════════════════════
+//  IADNAH SEQUENCE ENGINE
+//
+//  Schedules all 50-minute parameter ramps on the Web Audio API clock
+//  at session start. Zero JavaScript intervention during playback —
+//  all transitions are sample-accurate via linearRampToValueAtTime.
+//
+//  The Iadnah architecture (from the vault specification):
+//    Phase 1 (0–5min)   MALKUTH     — 18Hz Beta,  carrier 134.8 Hz
+//    Phase 2 (5–12min)  YESOD       — 10Hz Alpha, carrier 134.8 Hz
+//    Phase 3 (12–22min) TIPHARETH   — 7.83Hz Schumann (Earth), carrier 83.3 Hz (φ⁻¹)
+//    Phase 4 (22–27min) ABYSS       — 23.46Hz Comma beat, carrier returns 134.8 Hz
+//    Phase 5 (27–45min) IADNAH      — 40Hz Gamma + body resonator 0.08 amplitude
+//    Phase 6 (45–50min) RETURN      — 40→10→18Hz, body resonator fades out
+//
+//  CARRIER + BEAT → absolute oscillator frequencies:
+//    fL(t) = carrier(t) − beat(t)/2
+//    fR(t) = carrier(t) + beat(t)/2
+//
+//  When both carrier and beat ramp simultaneously (Phases 3, 4) the
+//  individual oscillator ramps are computed at each waypoint.
+// ═══════════════════════════════════════════════════════════════════════
+
+let _iadnahStartCtxTime = null;   // AudioContext clock time when sequence began
+let _iadnahRaf = null;            // requestAnimationFrame handle for phase display
+
+// Phase definitions for the display loop
+const IADNAH_PHASES = [
+  { startMin: 0,  endMin: 5,  name: 'MALKUTH',   desc: 'The Tabaan stands firm. Ground the terrestrial container.',      breathKey: 'cohere',  sigilMode: 'simple'  },
+  { startMin: 5,  endMin: 12, name: 'YESOD',     desc: 'The Foundation becomes receptive. Alpha opens the mirror.',      breathKey: 'drift',   sigilMode: 'natural' },
+  { startMin: 12, endMin: 22, name: 'TIPHARETH', desc: 'The Imago Christi stabilized. The Schumann lock is engaged.',    breathKey: 'sigh',    sigilMode: 'chaos'   },
+  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. The crossing begins.',     breathKey: 'box',     sigilMode: 'ogham'   },
+  { startMin: 27, endMin: 45, name: 'IADNAH',    desc: 'Da\'at open. The undefiled knowledge is received.',             breathKey: 'settle',  sigilMode: 'natural' },
+  { startMin: 45, endMin: 50, name: 'RETURN',    desc: 'The downloaded knowledge integrates. Re-entry begins.',         breathKey: 'return',  sigilMode: 'simple'  },
+];
+
+function scheduleIadnahSequence(ctx, nodes) {
+  const t0   = ctx.currentTime;
+  const m    = 60;   // seconds per minute — readability alias
+  const PHI_INV  = 0.618033988749895;
+  const F0       = IADNAH_F0;            // 134.8 Hz
+  const F0_TIP   = F0 * PHI_INV;        // 83.296 Hz — Tiphareth carrier (phi-reduction)
+
+  // ── Helper: set L/R oscillator frequency waypoints ──
+  // Computes absolute fL/fR from carrier+beat and calls linearRamp.
+  // Web Audio: ramps stack — later ramps target from wherever the previous left off.
+  const rampLR = (time, carrier, beat) => {
+    const fL = carrier - beat / 2;
+    const fR = carrier + beat / 2;
+    if (nodes.oscL[0]) nodes.oscL[0].frequency.linearRampToValueAtTime(fL, time);
+    if (nodes.oscR[0]) nodes.oscR[0].frequency.linearRampToValueAtTime(fR, time);
+    // Sub-octave tracks the L channel (split is auditory, sub shares left centre)
+    if (nodes.subL) nodes.subL.frequency.linearRampToValueAtTime(Math.max(30, fL/2), time);
+    if (nodes.subR) nodes.subR.frequency.linearRampToValueAtTime(Math.max(30, fR/2), time);
+  };
+
+  // ── Set initial values at t0 (no ramp — these are the Phase 1 values) ──
+  // Phase 1: carrier=134.8, beat=18Hz → fL=125.8, fR=143.8
+  rampLR(t0 + 0.001, F0, 18);
+
+  // ── PHASE 1 → PHASE 2 transition (5:00 → 7:00) ──
+  // Beat 18→10 Hz over 2 minutes. Carrier holds at 134.8 Hz.
+  rampLR(t0 + 5*m,  F0, 18);    // hold to the moment the ramp starts
+  rampLR(t0 + 7*m,  F0, 10);    // complete: fL=129.8, fR=139.8
+
+  // ── PHASE 2 → PHASE 3 transition (12:00 → 15:00) ──
+  // Both carrier (134.8→83.3) and beat (10→7.83) ramp simultaneously over 3 minutes.
+  rampLR(t0 + 12*m, F0,     10);     // hold to ramp start
+  rampLR(t0 + 15*m, F0_TIP, 7.83);  // Tiphareth lock: fL=79.385, fR=87.215
+
+  // Walhuu LFO deepens to cardiac HRV resonance rate at Tiphareth
+  if (nodes.walhuuOsc)
+    nodes.walhuuOsc.frequency.linearRampToValueAtTime(0.1625, t0 + 15*m);
+
+  // ── PHASE 3 → PHASE 4 transition (Abyss, 22:00 → 27:00) ──
+  // Beat: 7.83→23.46 Hz over 2 minutes (finishes 24:00)
+  // Carrier: 83.3→134.8 Hz over 5 minutes (finishes 27:00)
+  // These are independent ramps — compute waypoints at critical moments:
+  //   t0+24m: carrier=83.3+(134.8-83.3)×(2/5)=103.9, beat=23.46 → fL=92.17, fR=115.63
+  //   t0+26m: carrier=83.3+(134.8-83.3)×(4/5)=124.5, beat=23.46 → fL=112.77, fR=136.23
+  //   t0+27m: carrier=134.8, beat=40 → fL=114.8, fR=154.8
+  rampLR(t0 + 22*m, F0_TIP, 7.83);                          // hold
+  rampLR(t0 + 24*m, 103.9,  23.46);                         // beat ends; carrier mid-ramp
+  // Pink noise surge at Abyss
+  if (nodes.noiseGain) nodes.noiseGain.gain.linearRampToValueAtTime(0.90, t0 + 24*m);
+  // Limiter tightens for amplitude surge — done via master gain duck (−6dB ≈ ×0.5)
+  if (nodes.master)    nodes.master.gain.setTargetAtTime(S.volume * 0.4, t0 + 22*m, 2.0);
+
+  // ── PHASE 4 → PHASE 5 transition (26:00 → 27:00) ──
+  // Beat 23.46→40 Hz over 60 seconds; carrier finishes return to 134.8 Hz.
+  rampLR(t0 + 26*m, 124.5,  23.46);                         // carrier mid; beat holds
+  rampLR(t0 + 27*m, F0,     40);                            // Gamma lock: fL=114.8, fR=154.8
+
+  // Body resonator fades in over 2 minutes starting at 26:00
+  if (nodes.bodyResGain) {
+    nodes.bodyResGain.gain.linearRampToValueAtTime(0,    t0 + 26*m);
+    nodes.bodyResGain.gain.linearRampToValueAtTime(0.08, t0 + 28*m);
+  }
+  // Noise returns to base; master gain restores
+  if (nodes.noiseGain) nodes.noiseGain.gain.linearRampToValueAtTime(0.72, t0 + 29*m);
+  if (nodes.master)    nodes.master.gain.setTargetAtTime(S.volume * 0.8, t0 + 27*m, 1.5);
+  // Walhuu returns to standard 0.137 Hz rate
+  if (nodes.walhuuOsc)
+    nodes.walhuuOsc.frequency.linearRampToValueAtTime(0.137, t0 + 28*m);
+
+  // ── PHASE 5 hold (27:00 → 45:00) — Gamma maintained ──
+  // No ramps during this phase. The schedule holds 40 Hz for 18 minutes.
+
+  // ── PHASE 5 → PHASE 6 transition (45:00 → 47:00 → 50:00) ──
+  // Return: 40→10 Hz over 2 min, then 10→18 Hz over 3 min
+  rampLR(t0 + 45*m, F0, 40);        // hold — Gamma anchor
+  rampLR(t0 + 47*m, F0, 10);        // first arc: return to Alpha
+  rampLR(t0 + 50*m, F0, 18);        // second arc: ground at Beta
+
+  // Body resonator fades out over 3 minutes starting at 47:00
+  if (nodes.bodyResGain)
+    nodes.bodyResGain.gain.linearRampToValueAtTime(0, t0 + 50*m);
+
+  _iadnahStartCtxTime = t0;
+}
+
+// ── IADNAH Phase Display — requestAnimationFrame loop ──
+// Reads elapsed time relative to the AudioContext clock for accuracy.
+function startIadnahDisplay() {
+  const phasePanel = document.getElementById('iadnah-phase-display');
+  const phaseName  = document.getElementById('iadnah-phase-name');
+  const phaseDesc  = document.getElementById('iadnah-phase-desc');
+  const progressEl = document.getElementById('iadnah-progress-fill');
+  const timeEl     = document.getElementById('iadnah-time');
+  phasePanel.classList.add('visible');
+  let _lastPhaseIdx = -1;
+
+  function tick() {
+    if (!S.running || !S.ac || S.therapy.key !== 'iadnah') {
+      phasePanel.classList.remove('visible');
+      return;
+    }
+    const elapsed  = S.ac.currentTime - (_iadnahStartCtxTime || S.ac.currentTime);
+    const elapsedM = elapsed / 60;
+    const totalM   = 50;
+    const pct      = Math.min(100, (elapsedM / totalM) * 100);
+
+    // Update progress bar
+    progressEl.style.width = pct.toFixed(1) + '%';
+
+    // Update time display
+    const m = Math.floor(elapsed / 60);
+    const s = Math.floor(elapsed % 60);
+    timeEl.textContent = `${m}:${String(s).padStart(2,'0')} / 50:00`;
+
+    // Determine current phase
+    const phaseIdx = IADNAH_PHASES.findIndex((p, i) => {
+      const next = IADNAH_PHASES[i+1];
+      return elapsedM >= p.startMin && (!next || elapsedM < next.startMin);
+    });
+    const phase = phaseIdx >= 0 ? IADNAH_PHASES[phaseIdx] : IADNAH_PHASES[IADNAH_PHASES.length-1];
+
+    // Only update DOM when phase changes
+    if (phaseIdx !== _lastPhaseIdx) {
+      phaseName.textContent = phase.name;
+      phaseDesc.textContent = phase.desc;
+      _lastPhaseIdx = phaseIdx;
+
+      // Switch breath pattern display
+      if (typeof setBreathPattern === 'function') setBreathPattern(phase.breathKey);
+      // Switch sigil mode
+      if (typeof setSigilMode === 'function') setSigilMode(phase.sigilMode);
+    }
+
+    _iadnahRaf = requestAnimationFrame(tick);
+  }
+  _iadnahRaf = requestAnimationFrame(tick);
+}
+
+function stopIadnahDisplay() {
+  if (_iadnahRaf) { cancelAnimationFrame(_iadnahRaf); _iadnahRaf = null; }
+  const phasePanel = document.getElementById('iadnah-phase-display');
+  if (phasePanel) phasePanel.classList.remove('visible');
+  _iadnahStartCtxTime = null;
+}
+
+// ── Crackling Watchdog ──
+// Monitors AudioContext clock vs wall clock for buffer underrun signatures.
+let _cracklWatchdogRaf = null;
+let _lastAcTime = null;
+let _lastWallTime = null;
+
+function startCracklWatchdog() {
+  if (_cracklWatchdogRaf) return;
+  function check() {
+    if (!S.ac || S.ac.state !== 'running') {
+      _cracklWatchdogRaf = requestAnimationFrame(check);
+      return;
+    }
+    const now  = performance.now() / 1000;
+    const acNow = S.ac.currentTime;
+    if (_lastWallTime !== null && _lastAcTime !== null) {
+      const wallDelta = now - _lastWallTime;
+      const acDelta   = acNow - _lastAcTime;
+      // Buffer underrun: audio clock slows/jumps vs wall clock
+      if (wallDelta > 0.15 && Math.abs(acDelta - wallDelta) > 0.08) {
+        const el = document.getElementById('crackling-indicator');
+        if (el) el.classList.add('active');
+      }
+    }
+    _lastWallTime = now;
+    _lastAcTime   = acNow;
+    _cracklWatchdogRaf = requestAnimationFrame(check);
+  }
+  _cracklWatchdogRaf = requestAnimationFrame(check);
+}
+
+function stopCracklWatchdog() {
+  if (_cracklWatchdogRaf) { cancelAnimationFrame(_cracklWatchdogRaf); _cracklWatchdogRaf = null; }
+}
+
+const AUDIO_CONFIG = (() => {
+  try {
+    const stored = localStorage.getItem('midas_audio_config');
+    if (stored) return JSON.parse(stored);
+  } catch(e) {}
+  return { latencyHint: 'playback', sampleRate: 48000 };
+})();
+
 function initAudio() {
   if (!S.ac) {
-    // latencyHint:'playback' requests the OS's largest native buffer — the key
-    // change that prevents underruns when the tab moves to background.
-    // sampleRate:48000 locks to the hardware-native clock, eliminating the
-    // resampling artifacts Gemini identifies as "ghost" crackling.
     S.ac = new (window.AudioContext || window.webkitAudioContext)({
-      latencyHint: 'playback',
-      sampleRate:  48000,
+      latencyHint: AUDIO_CONFIG.latencyHint,
+      sampleRate:  AUDIO_CONFIG.sampleRate,
     });
+    S.ac.onstatechange = () => {
+      if (S.ac.state === 'suspended' && S.running && S.audioOn) {
+        S.ac.resume().catch(() => {});
+      }
+    };
   }
-  if (S.ac.state === 'suspended') S.ac.resume();
+  if (S.ac.state === 'suspended') S.ac.resume().catch(() => {});
 }
 
 function startAudio() {
@@ -1947,11 +2433,23 @@ function startAudio() {
   _polyLastBeat = null; _polyStep = 0;
   if (S.polyRaf) cancelAnimationFrame(S.polyRaf);
   S.polyRaf = requestAnimationFrame(polyTick);
+
+  // IADNAH: schedule the full 50-minute progressive sequence
+  if (S.therapy.key === 'iadnah' && S.ac && S.nodes) {
+    scheduleIadnahSequence(S.ac, S.nodes);
+    startIadnahDisplay();
+  } else {
+    stopIadnahDisplay();
+  }
+
+  // Start crackling watchdog for all sessions
+  startCracklWatchdog();
 }
 
 function stopAudio() {
   teardownAudio();
   if (S.polyRaf) { cancelAnimationFrame(S.polyRaf); S.polyRaf = null; }
+  stopIadnahDisplay();
 }
 
 // ── dB → linear gain conversion ──
@@ -2071,17 +2569,25 @@ const OGHAM_MAP = {
 };
 
 
-// ── GEOMETRY: SIMPLE mode ──
-// The raw mathematical form of the catalyst before containment.
-// VF rotated copies of a base 8-point star, each rotated VO degrees,
-// bounded by a dashed containment ring at VK-derived radius.
-// Derived directly from the tripartite prime modulo:
-//   VF = (G mod 7)×2  — number of rotation copies
-//   VO = (G mod 13)×3 — rotation step in degrees
-//   VK = (G mod 31)×5 — radial boundary
+// ── GEOMETRY: SIMPLE mode — ℒ_SS + Shannon-Hartley Expansion ──
+//
+// τ_k(Γ) = ⌊Γ/F_k⌋ mod 3  →  0=Curve(𝒞)  1=Angle(Λ)  2=Fractal(𝔽)
+//
+// Shannon Entropy H(S) of the gematric value sequence drives central
+// vortex ring density: sparse centre for repetitive words, dense for
+// high-entropy sequences. Vortex ring count ∈ [3, 9].
+//
+// Fractal Node 𝔽: terminus spawns a φ⁻² scaled copy of the 8-vector
+// sigil (one level of recursion, depth-limited).
+//
+// Interstitial Delta Encoding δ_k = |μ(s_{k+1}) − μ(s_k)| mod 7:
+// places δ_k bridge nodes along the arc between adjacent arm endpoints,
+// forming a crystalline web proportional to the phonetic leap.
 function geomSimple(G, W, H) {
-  if (G === 0) {
-    // Latent state — single soft ring
+  const FIB_8 = [1, 1, 2, 3, 5, 8, 13, 21];
+  const Gamma  = S.rawSum;
+
+  if (Gamma === 0) {
     return {
       draw(ctx, accent, fill, glow) {
         const R = W * 0.28;
@@ -2097,75 +2603,178 @@ function geomSimple(G, W, H) {
     };
   }
 
-  const { VF, VO, VK } = sigilVectors(G);
-  const copies   = Math.max(2, VF);          // rotation copy count
-  const rotStep  = VO;                        // degrees per copy
-  const outerR   = W * 0.30 + VK * 0.28;    // star outer radius
-  const innerR   = outerR * 0.44;            // star inner radius
-  const ringR    = outerR * 1.18;            // dashed containment ring
-
-  // Build the base 8-point star path points (centred at 0,0)
-  const nPoints = 8;
-  const starPts = [];
-  for (let i = 0; i < nPoints; i++) {
-    const a = (i / nPoints) * TAU - TAU/4;
-    const r = i % 2 === 0 ? outerR : innerR;
-    starPts.push({ x: r * Math.cos(a), y: r * Math.sin(a) });
+  // ── Shannon Entropy H(S) ──
+  // Computed over the per-letter gematric values of the raw input.
+  const gVals = (S.rawInput || '').toUpperCase().replace(/[^A-Z]/g, '')
+    .split('').map(c => LATIN[c] || 0).filter(v => v > 0);
+  let H_S = 0;
+  if (gVals.length > 1) {
+    const freq = {};
+    gVals.forEach(v => { freq[v] = (freq[v] || 0) + 1; });
+    const n = gVals.length;
+    H_S = -Object.values(freq).reduce((s, c) => {
+      const p = c / n; return s + p * Math.log2(p);
+    }, 0);
   }
+  // Normalise: H_S / log2(length) → [0, 1]
+  const hNorm = gVals.length > 1
+    ? Math.min(H_S / Math.log2(gVals.length), 1)
+    : 0;
 
-  // All points across all copies for autofocus
-  const allPts = [];
-  for (let c = 0; c < copies; c++) {
-    const rot = (c * rotStep * Math.PI) / 180;
-    starPts.forEach(p => {
-      allPts.push({
-        x: p.x * Math.cos(rot) - p.y * Math.sin(rot),
-        y: p.x * Math.sin(rot) + p.y * Math.cos(rot),
-      });
-    });
+  // ── Tertiary morphological operator τ_k (mod 3) ──
+  // 0 = Curve (𝒞)   1 = Angle (Λ)   2 = Fractal (𝔽)
+  const morphology = FIB_8.map(F => Math.floor(Gamma / F) % 3);
+  const valence    = morphology.reduce((v, m) => v + (m === 1 ? 1 : m === 0 ? -1 : 0), 0);
+
+  // ── Interstitial delta array δ_k ──
+  // Uses raw LATIN values (not mod-24) for maximum phonetic range.
+  const rawVals = gVals.length >= 2 ? gVals : [0, 0];
+  const deltas  = Array.from({ length: 8 }, (_, i) => {
+    const a = rawVals[i % rawVals.length];
+    const b = rawVals[(i + 1) % rawVals.length];
+    return Math.abs(a - b) % 7;
+  });
+
+  const R     = Math.min(W, H) * 0.30;
+  const L     = R * 0.28;
+  const C     = R * 0.22;
+  const alpha = Math.PI / 6;
+  const cx    = W / 2, cy = H / 2;
+
+  // Precompute all 8 endpoints for the delta webbing pass
+  const eps = FIB_8.map((_, i) => {
+    const theta = ((i + 1) * Math.PI / 4) - (Math.PI / 2);
+    return { x: R * Math.cos(theta), y: R * Math.sin(theta), theta };
+  });
+
+  // ── Fractal node renderer (φ⁻² scaled mini-sigil, depth-limited) ──
+  function drawFractalNode(ctx, accent, glow, ox, oy, sc) {
+    const rr = R * sc, ll = L * sc, cc = C * sc;
+    ctx.save();
+    ctx.translate(ox, oy);
+    for (let k = 1; k <= 8; k++) {
+      const th = (k * Math.PI / 4) - (Math.PI / 2);
+      const fx = rr * Math.cos(th), fy = rr * Math.sin(th);
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(fx, fy);
+      ctx.strokeStyle = accent(glow * 0.55 * sc);
+      ctx.lineWidth = 1.1; ctx.stroke();
+      const m = morphology[k - 1];
+      if (m === 1) {
+        const p1x = fx - ll * Math.cos(th - alpha);
+        const p1y = fy - ll * Math.sin(th - alpha);
+        const p2x = fx - ll * Math.cos(th + alpha);
+        const p2y = fy - ll * Math.sin(th + alpha);
+        ctx.beginPath();
+        ctx.moveTo(fx, fy); ctx.lineTo(p1x, p1y);
+        ctx.moveTo(fx, fy); ctx.lineTo(p2x, p2y);
+        ctx.strokeStyle = accent(glow * 0.65 * sc);
+        ctx.lineWidth = 1.0; ctx.stroke();
+      } else if (m === 0) {
+        const qcx = fx + cc * Math.cos(th + Math.PI / 2);
+        const qcy = fy + cc * Math.sin(th + Math.PI / 2);
+        const qex = fx - cc * Math.cos(th);
+        const qey = fy - cc * Math.sin(th);
+        ctx.beginPath(); ctx.moveTo(fx, fy);
+        ctx.quadraticCurveTo(qcx, qcy, qex, qey);
+        ctx.strokeStyle = accent(glow * 0.50 * sc);
+        ctx.lineWidth = 1.0; ctx.stroke();
+      }
+      // Fractal nodes within fractal nodes do not recurse further
+    }
+    ctx.restore();
   }
-  allPts.push({ x: -ringR, y: 0 }, { x: ringR, y: 0 });
-
-  const { tx, ty, sc } = autofocus(allPts, W, H, W * 0.06);
 
   function draw(ctx, accent, fill, glow) {
     ctx.save();
-    ctx.translate(tx, ty);
-    ctx.scale(sc, sc);
+    ctx.translate(cx, cy);
 
-    // Draw VF rotated copies of the star
-    for (let c = 0; c < copies; c++) {
-      const rot = (c * rotStep * Math.PI) / 180;
-
-      ctx.save();
-      ctx.rotate(rot);
-
-      // Interior fill — very low alpha, the accumulated overlaps create depth
-      ctx.beginPath();
-      starPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-      ctx.closePath();
-      ctx.fillStyle = fill + (glow * 0.09) + ')';
-      ctx.fill();
-
-      // Edge
-      ctx.beginPath();
-      starPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-      ctx.closePath();
-      ctx.strokeStyle = accent(glow * 0.75);
-      ctx.lineWidth = 1.6;
-      ctx.lineJoin = 'round';
+    // ── Entropy-driven central vortex ──
+    // H(S) ↑ → more rings, slightly thicker (dense singularity for chaotic input)
+    // H(S) ↓ → fewer rings (sparse, open centre for repetitive input)
+    const ringCount = 3 + Math.round(hNorm * 6);  // [3, 9]
+    for (let i = 1; i <= ringCount; i++) {
+      const rr = R * 0.12 * i * PHI;
+      ctx.beginPath(); ctx.arc(0, 0, rr, 0, TAU);
+      ctx.strokeStyle = accent(glow * (0.08 + 0.055 * (ringCount + 1 - i) / ringCount));
+      ctx.lineWidth = 0.55 + hNorm * 0.35;
       ctx.stroke();
+    }
 
-      ctx.restore();
+    // ── Interstitial delta webbing ──
+    // δ_k bridge nodes on the arc between adjacent arm endpoints (radius R).
+    // 0 = void, 1–6 = 1–6 nodes forming a graduated crystalline lattice.
+    for (let k = 0; k < 8; k++) {
+      const n = deltas[k];
+      if (n === 0) continue;
+      const e1 = eps[k], e2 = eps[(k + 1) % 8];
+      let da = e2.theta - e1.theta;
+      if (da >  Math.PI) da -= TAU;
+      if (da < -Math.PI) da += TAU;
+      // Collect nodes: endpoints + n bridge points
+      const nodes = [{ x: e1.x, y: e1.y }];
+      for (let j = 1; j <= n; j++) {
+        const t   = j / (n + 1);
+        const ang = e1.theta + t * da;
+        nodes.push({ x: R * Math.cos(ang), y: R * Math.sin(ang) });
+      }
+      nodes.push({ x: e2.x, y: e2.y });
+      // Draw chain of thin lines and dot-nodes along the arc
+      for (let j = 0; j < nodes.length - 1; j++) {
+        ctx.beginPath();
+        ctx.moveTo(nodes[j].x, nodes[j].y);
+        ctx.lineTo(nodes[j + 1].x, nodes[j + 1].y);
+        ctx.strokeStyle = accent(glow * 0.22);
+        ctx.lineWidth = 0.7; ctx.stroke();
+      }
+      // Bridge node dots (not the endpoints — those are drawn with the arms)
+      for (let j = 1; j <= n; j++) {
+        ctx.beginPath(); ctx.arc(nodes[j].x, nodes[j].y, 1.5, 0, TAU);
+        ctx.fillStyle = accent(glow * 0.50); ctx.fill();
+      }
+    }
+
+    // ── Eight primary vectors ──
+    for (let k = 1; k <= 8; k++) {
+      const theta = (k * Math.PI / 4) - (Math.PI / 2);
+      const ex = R * Math.cos(theta);
+      const ey = R * Math.sin(theta);
+
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(ex, ey);
+      ctx.strokeStyle = accent(glow * 0.75);
+      ctx.lineWidth = 1.6; ctx.lineJoin = 'round'; ctx.stroke();
+
+      const m = morphology[k - 1];
+      if (m === 1) {
+        // Netzachian Angle (Λ)
+        const p1x = ex - L * Math.cos(theta - alpha);
+        const p1y = ey - L * Math.sin(theta - alpha);
+        const p2x = ex - L * Math.cos(theta + alpha);
+        const p2y = ey - L * Math.sin(theta + alpha);
+        ctx.beginPath();
+        ctx.moveTo(ex, ey); ctx.lineTo(p1x, p1y);
+        ctx.moveTo(ex, ey); ctx.lineTo(p2x, p2y);
+        ctx.strokeStyle = accent(glow * 0.92);
+        ctx.lineWidth = 1.4; ctx.stroke();
+      } else if (m === 0) {
+        // Yesodic Curve (𝒞)
+        const qcx = ex + C * Math.cos(theta + Math.PI / 2);
+        const qcy = ey + C * Math.sin(theta + Math.PI / 2);
+        const qex = ex - C * Math.cos(theta);
+        const qey = ey - C * Math.sin(theta);
+        ctx.beginPath(); ctx.moveTo(ex, ey);
+        ctx.quadraticCurveTo(qcx, qcy, qex, qey);
+        ctx.strokeStyle = accent(glow * 0.68);
+        ctx.lineWidth = 1.4; ctx.stroke();
+      } else {
+        // Fractal Node (𝔽) — φ⁻² scaled mini-sigil at terminus
+        drawFractalNode(ctx, accent, glow, ex, ey, 1 / (PHI * PHI));
+      }
     }
 
     // Dashed containment ring
-    ctx.beginPath();
-    ctx.arc(0, 0, ringR, 0, TAU);
-    ctx.strokeStyle = accent(glow * 0.35);
-    ctx.lineWidth = 1;
-    ctx.setLineDash([8, 13]);
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, 0, R * 1.18, 0, TAU);
+    ctx.strokeStyle = accent(glow * 0.30);
+    ctx.lineWidth = 0.9; ctx.setLineDash([8, 13]); ctx.stroke();
     ctx.setLineDash([]);
 
     // Centre node
@@ -2175,84 +2784,104 @@ function geomSimple(G, W, H) {
 
     ctx.restore();
   }
-  return { draw };
+  return { draw, valence };
 }
 
 
-// ── GEOMETRY: CHAOS mode ──
-// The Φ-proportional polar matrix: 8 vertices placed on a lattice of
-// 24 Futhark radial axes × 5 Ogham orbital rings (Rₘ = R₀ × Φᵐ).
-// Gᵢ = G + (i × F(i+2)) walks the lattice deterministically.
-// The result is a closed, asymmetric polygon — raw energetic geometry
-// before any orthographic containment is applied.
-// Rendered as two-pass (glow layer + sharp edge) with vertex nodes.
-function geomChaos(G, W, H) {
-  const R0    = W * 0.068;
-  const verts = computeSigilVertices(G, R0);
+// ── GEOMETRY: CHAOS mode — Austin Osman Spare (AOS) Topological Matrix ──
+// The input is phonetically reduced: vowels and duplicate consonants stripped,
+// leaving an ordered set S′ of unique consonants. Each is mapped onto a 3×3
+// Saturnian Kamea by gᵢ = μ(cᵢ) mod 9, then connected via a continuous path.
+// Origin marked with Ouroboros void circle; terminus capped with a Will bar.
+function geomChaos(input, W, H) {
+  const letters = (input || '').toUpperCase().replace(/[^A-Z]/g, '');
 
-  const points = [...verts];
-  const { tx, ty, sc } = autofocus(points, W, H, W * 0.09);
+  // AOS phonetic reduction — strip vowels, keep unique consonants in order
+  const vowels = new Set(['A','E','I','O','U']);
+  const uniqueConsonants = [];
+  const seen = new Set();
+  for (const ch of letters) {
+    if (!vowels.has(ch) && !seen.has(ch)) {
+      uniqueConsonants.push(ch);
+      seen.add(ch);
+    }
+  }
+  // Fallbacks
+  if (uniqueConsonants.length === 0 && letters.length > 0) uniqueConsonants.push(letters[0]);
+  if (uniqueConsonants.length === 0) return geomSimple(0, W, H);
+
+  const R        = Math.min(W, H) * 0.35;
+  const gridSpace = R * 0.8;
+  const points   = [];
+
+  // Map each consonant to 3×3 Saturnian grid via Latin cipher mod 9
+  uniqueConsonants.forEach(ch => {
+    const mu = LATIN[ch] || 1;
+    const g  = mu % 9;
+    const qx = ((g % 3) - 1) * gridSpace;
+    const qy = (Math.floor(g / 3) - 1) * gridSpace;
+    // Subtle stochastic offset bound by φ-residues
+    const dx = ((mu % 7) - 3) * (gridSpace * 0.1);
+    const dy = ((mu % 5) - 2) * (gridSpace * 0.1);
+    points.push({ x: qx + dx, y: qy + dy });
+  });
+
+  const { tx, ty, sc } = autofocus(points, W, H, W * 0.15);
 
   function draw(ctx, accent, fill, glow) {
     ctx.save();
     ctx.translate(tx, ty);
     ctx.scale(sc, sc);
 
-    // Ghost scaffold — faint Ogham orbital rings
-    for (let m = 1; m <= 5; m++) {
-      const Rm = R0 * Math.pow(PHI, m);
-      ctx.beginPath(); ctx.arc(0, 0, Rm, 0, TAU);
-      ctx.strokeStyle = `rgba(50,50,66,${0.10 + 0.03 * m})`;
-      ctx.lineWidth = 0.3; ctx.stroke();
-    }
-
-    if (G > 0) {
-      // Glow pass — thick, soft
+    if (points.length > 0) {
+      // ── Glow halo ──
       ctx.beginPath();
-      ctx.moveTo(verts[0].x, verts[0].y);
-      for (let i = 1; i < verts.length; i++) ctx.lineTo(verts[i].x, verts[i].y);
-      ctx.closePath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
       ctx.strokeStyle = accent(glow * 0.35);
-      ctx.lineWidth = 9; ctx.lineJoin = 'round'; ctx.stroke();
+      ctx.lineWidth = 12; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.stroke();
 
-      // Interior fill
+      // ── Core spline path ──
       ctx.beginPath();
-      ctx.moveTo(verts[0].x, verts[0].y);
-      for (let i = 1; i < verts.length; i++) ctx.lineTo(verts[i].x, verts[i].y);
-      ctx.closePath();
-      ctx.fillStyle = fill + (glow * 0.14) + ')';
-      ctx.fill();
-
-      // Sharp edge
-      ctx.beginPath();
-      ctx.moveTo(verts[0].x, verts[0].y);
-      for (let i = 1; i < verts.length; i++) ctx.lineTo(verts[i].x, verts[i].y);
-      ctx.closePath();
-      ctx.strokeStyle = accent(glow * 0.92);
-      ctx.lineWidth = 1.6; ctx.lineJoin = 'miter'; ctx.miterLimit = 6;
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        // Bézier curve where grid jump > 3 (non-adjacent cell)
+        const prev = points[i - 1];
+        const curr = points[i];
+        const gi_prev = (LATIN[uniqueConsonants[i - 1]] || 1) % 9;
+        const gi_curr = (LATIN[uniqueConsonants[i]]     || 1) % 9;
+        if (Math.abs(gi_curr - gi_prev) > 3) {
+          const mx = (prev.x + curr.x) / 2;
+          const my = (prev.y + curr.y) / 2;
+          ctx.quadraticCurveTo(mx + gridSpace * 0.3, my - gridSpace * 0.3, curr.x, curr.y);
+        } else {
+          ctx.lineTo(curr.x, curr.y);
+        }
+      }
+      ctx.strokeStyle = accent(glow * 0.95);
+      ctx.lineWidth = 2.5; ctx.lineJoin = 'miter'; ctx.miterLimit = 4; ctx.lineCap = 'square';
       ctx.stroke();
 
-      // Vertex nodes
-      verts.forEach((v, i) => {
-        const Gi = G + ((i + 1) * fib(i + 3));
-        const m  = (Gi % 5) + 1;
-        ctx.beginPath(); ctx.arc(v.x, v.y, 2 + m * 0.6, 0, TAU);
-        ctx.fillStyle = accent(glow);
-        ctx.fill();
-      });
+      // ── Origin: Ouroboros void circle ──
+      const p0 = points[0];
+      ctx.beginPath();
+      ctx.arc(p0.x, p0.y, gridSpace * 0.15, 0, TAU);
+      ctx.strokeStyle = accent(glow * 0.95);
+      ctx.lineWidth = 2.5; ctx.stroke();
 
-      // Centre node
-      ctx.beginPath(); ctx.arc(0, 0, 3, 0, TAU);
-      ctx.fillStyle = fill + (glow * 0.5) + ')'; ctx.fill();
-
-    } else {
-      // Latent — soft pulsing ring
-      ctx.beginPath(); ctx.arc(0, 0, R0 * Math.pow(PHI, 3), 0, TAU);
-      ctx.strokeStyle = accent(glow * 0.2);
-      ctx.lineWidth = 0.8; ctx.setLineDash([6, 14]); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.beginPath(); ctx.arc(0, 0, 5, 0, TAU);
-      ctx.fillStyle = accent(glow * 0.3); ctx.fill();
+      // ── Terminus: Will bar (perpendicular to final vector) ──
+      if (points.length > 1) {
+        const pLast = points[points.length - 1];
+        const pPrev = points[points.length - 2];
+        const angle = Math.atan2(pLast.y - pPrev.y, pLast.x - pPrev.x);
+        const perp  = angle + Math.PI / 2;
+        const barL  = gridSpace * 0.2;
+        ctx.beginPath();
+        ctx.moveTo(pLast.x - Math.cos(perp) * barL, pLast.y - Math.sin(perp) * barL);
+        ctx.lineTo(pLast.x + Math.cos(perp) * barL, pLast.y + Math.sin(perp) * barL);
+        ctx.strokeStyle = accent(glow * 0.95);
+        ctx.lineWidth = 2.5; ctx.stroke();
+      }
     }
 
     ctx.restore();
@@ -2346,268 +2975,93 @@ function geomOgham(input, W, H) {
 }
 
 
-// ── GEOMETRY: BANDRUN mode — Elder Futhark Bandrún ──
-//
-// Transliterates the input phonetically into Elder Futhark runes,
-// then stacks them onto a central Irminsul stave as a composite
-// bind-rune, following the orthographic rationale from the directive:
-//
-//   • Ansuz (A)   — mirrored branches left & right from stave
-//   • Raido (R)   — loop + descending leg, nested right
-//   • Isa   (I)   — no branches (vertical only), pure stave extension
-//   • Nauðiz (N)  — intersecting diagonal binding cross
-//   • Othala (O)  — diamond anchor with descending feet at base
-//   • Kenaz (K)   — single angled torch-branch, right
-//   • Berkanan (B)— two right-side loops (approximated as two arcs)
-//   • Ehwaz (E)   — mirrored M-shape, both sides
-//   • Wunjo (W)   — single right flag
-//   • Tiwaz (T)   — upward arrow, both sides
-//   • Sowilo (S)  — lightning angle, right
-//   • Fehu (F)    — two branches right, upper angles
-//   • Uruz (U)    — inverted V arch
-//   • Mannaz (M)  — Ehwaz + centre crossing
-//   • Laguz (L)   — single left downward branch
-//   • Hagalaz (H) — mirrored H crossing
-//   • Dagaz (D)   — butterfly / infinity, both sides
-//   • Jera (J/Y)  — rotated half-chevrons top and bottom
-//   • Perthro (P) — cup-shape right
-//   • Algiz (Z)   — upward trident
-//   • Gebo (G/X)  — X cross on stave
-//   • Þorn (TH)   — right-side triangular tooth
-//
-// The stave grows by a fixed unit per rune. Each rune emits a set of
-// line segments relative to its node position on the stave.
-// All segments are collected → autofocus → rendered with glow+edge.
+// ── GEOMETRY: NATURAL mode — Geometric Sunflower ──
+// Phyllotaxis-governed floral sigil: petals placed at Golden Angle intervals,
+// count drawn from Fibonacci set via G. Central disc filled with phyllotactic
+// seed dots. Petal shape is a closed cubic Bézier pair (leaf silhouette).
+function geomNatural(G, W, H) {
+  if (G === 0) return geomSimple(0, W, H);
 
-const FUTHARK_RUNES = {
-  A: (x,y,U) => [
-    // Ansuz — mirrored branches
-    [x,y, x-U*0.7, y+U*0.5],   // left
-    [x,y, x+U*0.7, y+U*0.5],   // right (primary)
-    [x,y, x-U*0.7, y+U*0.9],   // left lower
-    [x,y, x+U*0.7, y+U*0.9],   // right lower
-  ],
-  R: (x,y,U) => [
-    // Raido — loop approximated as two lines + diagonal leg
-    [x,y,       x+U*0.7, y+U*0.4],
-    [x+U*0.7,   y+U*0.4, x,     y+U*0.8],
-    [x,         y+U*0.8, x+U*0.7,y+U*1.4],
-  ],
-  O: (x,y,U) => [
-    // Othala — diamond
-    [x,         y,       x+U*0.6, y+U*0.6],
-    [x+U*0.6,   y+U*0.6, x,       y+U*1.2],
-    [x,         y+U*1.2, x-U*0.6, y+U*0.6],
-    [x-U*0.6,   y+U*0.6, x,       y],
-    // feet
-    [x-U*0.6,   y+U*0.6, x-U*1.0, y+U*1.2],
-    [x+U*0.6,   y+U*0.6, x+U*1.0, y+U*1.2],
-  ],
-  N: (x,y,U) => [
-    // Nauðiz — diagonal friction cross
-    [x-U*0.7, y,       x+U*0.7, y+U*1.0],
-  ],
-  I: (x,y,U) => [],  // Isa — pure stave, no branches
-  E: (x,y,U) => [
-    // Ehwaz — mirrored M
-    [x, y,       x+U*0.7, y+U*0.5],
-    [x+U*0.7, y+U*0.5, x, y+U*1.0],
-    [x, y,       x-U*0.7, y+U*0.5],
-    [x-U*0.7, y+U*0.5, x, y+U*1.0],
-  ],
-  B: (x,y,U) => [
-    // Berkanan — two right loops (approximated as angled lines)
-    [x, y,       x+U*0.7, y+U*0.45],
-    [x+U*0.7, y+U*0.45, x, y+U*0.9],
-    [x, y+U*0.9, x+U*0.7, y+U*1.35],
-    [x+U*0.7, y+U*1.35, x, y+U*1.8],
-  ],
-  T: (x,y,U) => [
-    // Tiwaz — upward arrow
-    [x, y,       x+U*0.7, y+U*0.7],
-    [x, y,       x-U*0.7, y+U*0.7],
-  ],
-  F: (x,y,U) => [
-    // Fehu — two right branches angled upward
-    [x, y,       x+U*0.8, y-U*0.5],
-    [x, y+U*0.7, x+U*0.8, y+U*0.2],
-  ],
-  U: (x,y,U) => [
-    // Uruz — inverted V
-    [x-U*0.5, y, x, y+U*0.9],
-    [x,       y+U*0.9, x+U*0.5, y],
-  ],
-  K: (x,y,U) => [
-    // Kenaz — single torch right
-    [x, y, x+U*0.7, y+U*0.7],
-  ],
-  H: (x,y,U) => [
-    // Hagalaz — mirrored diagonal
-    [x-U*0.7, y,       x+U*0.7, y+U*1.0],
-    [x+U*0.7, y,       x-U*0.7, y+U*1.0],
-  ],
-  G: (x,y,U) => [
-    // Gebo — X cross
-    [x-U*0.7, y-U*0.7, x+U*0.7, y+U*0.7],
-    [x+U*0.7, y-U*0.7, x-U*0.7, y+U*0.7],
-  ],
-  W: (x,y,U) => [
-    // Wunjo — right flag
-    [x, y,       x+U*0.8, y+U*0.5],
-    [x+U*0.8, y+U*0.5, x, y+U*1.0],
-  ],
-  S: (x,y,U) => [
-    // Sowilo — lightning
-    [x, y, x+U*0.7, y+U*0.5],
-    [x+U*0.7, y+U*0.5, x, y+U*1.0],
-  ],
-  M: (x,y,U) => [
-    // Mannaz — Ehwaz + centre cross
-    [x, y,       x+U*0.7, y+U*0.5],
-    [x+U*0.7,y+U*0.5, x, y+U*1.0],
-    [x, y,       x-U*0.7, y+U*0.5],
-    [x-U*0.7,y+U*0.5, x, y+U*1.0],
-    [x-U*0.35,y+U*0.25, x+U*0.35, y+U*0.75],
-  ],
-  L: (x,y,U) => [
-    // Laguz — left downward
-    [x, y, x-U*0.7, y+U*0.8],
-  ],
-  D: (x,y,U) => [
-    // Dagaz — butterfly
-    [x-U*0.7, y,       x+U*0.7, y+U*0.7],
-    [x+U*0.7, y,       x-U*0.7, y+U*0.7],
-    [x-U*0.7, y+U*0.7, x+U*0.7, y+U*1.4],
-    [x+U*0.7, y+U*0.7, x-U*0.7, y+U*1.4],
-  ],
-  P: (x,y,U) => [
-    // Perthro — cup right
-    [x, y,       x+U*0.7, y+U*0.4],
-    [x+U*0.7, y+U*0.4, x, y+U*0.8],
-  ],
-  Z: (x,y,U) => [
-    // Algiz — upward trident
-    [x, y+U*0.7, x,       y],
-    [x, y,       x+U*0.6, y+U*0.5],
-    [x, y,       x-U*0.6, y+U*0.5],
-  ],
-  J: (x,y,U) => [
-    // Jera — two chevrons
-    [x-U*0.6, y,       x+U*0.6, y+U*0.6],
-    [x-U*0.6, y+U*0.6, x+U*0.6, y+U*1.2],
-  ],
-  C: (x,y,U) => [
-    // Kenaz alias
-    [x, y, x+U*0.7, y+U*0.7],
-  ],
-  V: (x,y,U) => [
-    // Uruz alias
-    [x-U*0.5, y, x, y+U*0.9],
-    [x, y+U*0.9, x+U*0.5, y],
-  ],
-  Q: (x,y,U) => [
-    [x, y, x+U*0.7, y+U*0.5],
-  ],
-  X: (x,y,U) => [
-    [x-U*0.7, y-U*0.7, x+U*0.7, y+U*0.7],
-    [x+U*0.7, y-U*0.7, x-U*0.7, y+U*0.7],
-  ],
-  Y: (x,y,U) => [
-    [x, y,       x+U*0.6, y+U*0.5],
-    [x, y,       x-U*0.6, y+U*0.5],
-    [x, y+U*0.5, x,       y+U*1.2],
-  ],
-};
+  const R        = Math.min(W, H) * 0.30;
+  const GOLD_R   = GOLD_ANG * (Math.PI / 180);
 
-// Unit height each rune occupies on the stave
-const FUTHARK_HEIGHT = {
-  A:1.2, R:1.6, O:1.4, N:1.2, I:0.8, E:1.2, B:2.0, T:0.9, F:0.9,
-  U:1.0, K:0.8, H:1.2, G:1.6, W:1.2, S:1.2, M:1.2, L:1.0, D:1.6,
-  P:0.9, Z:1.0, J:1.4, C:0.8, V:1.0, Q:0.8, X:1.6, Y:1.4,
-};
+  // Petal count from Fibonacci set — cycles with G
+  const PETAL_N  = [8, 13, 21, 34];
+  const nPetals  = PETAL_N[G % PETAL_N.length];
 
-function geomBandrun(input, W, H) {
-  const letters = (input || '').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 12);
-  if (!letters.length) {
-    // No input — show latent Chaos form
-    return geomChaos(0, W, H);
-  }
-
-  const U       = W * 0.095;   // base unit — scales all rune proportions
-  const gap     = U * 0.4;     // gap between rune zones
-  const staveX  = 0;
-
-  // Walk the stave downward, accumulating rune segments
-  const allSegs = [];
-  let y = 0;
-
-  letters.split('').forEach(ch => {
-    const runeH    = (FUTHARK_HEIGHT[ch] || 1.0) * U;
-    const renderer = FUTHARK_RUNES[ch];
-    if (renderer) {
-      const segs = renderer(staveX, y, U);
-      allSegs.push(...segs);
-    }
-    y += runeH + gap;
-  });
-
-  const staveTop    = -U * 0.6;                   // small cap above first rune
-  const staveBottom = y + U * 0.4;                // tail below last rune
-
-  // Collect all points for autofocus
-  const points = [
-    { x: staveX, y: staveTop }, { x: staveX, y: staveBottom },
-    ...allSegs.flatMap(([x0,y0,x1,y1]) => [{x:x0,y:y0},{x:x1,y:y1}]),
-  ];
-  const { tx, ty, sc } = autofocus(points, W, H, W * 0.09);
+  const discR    = R * 0.28;          // central disc radius
+  const petalL   = R * 0.70;          // petal length from disc rim to tip
+  const petalW   = petalL * 0.26;     // petal half-width (bezier spread)
 
   function draw(ctx, accent, fill, glow) {
     ctx.save();
-    ctx.translate(tx, ty);
-    ctx.scale(sc, sc);
+    ctx.translate(W / 2, H / 2);
 
-    // ── Irminsul (central stave) ──
-    // Glow layer
-    ctx.beginPath();
-    ctx.moveTo(staveX, staveTop); ctx.lineTo(staveX, staveBottom);
-    ctx.strokeStyle = accent(glow * 0.3);
-    ctx.lineWidth = 9; ctx.lineCap = 'square'; ctx.stroke();
-    // Sharp centre line
-    ctx.beginPath();
-    ctx.moveTo(staveX, staveTop); ctx.lineTo(staveX, staveBottom);
-    ctx.strokeStyle = accent(glow * 0.92);
-    ctx.lineWidth = 2; ctx.stroke();
+    // ── Petals — cubic Bézier leaf silhouette, golden-angle placed ──
+    for (let k = 0; k < nPetals; k++) {
+      const theta = k * GOLD_R;
+      const cosT  = Math.cos(theta),  sinT  = Math.sin(theta);
+      const cosP  = Math.cos(theta + Math.PI / 2);
+      const sinP  = Math.sin(theta + Math.PI / 2);
 
-    // Terminal caps
-    [staveTop, staveBottom].forEach(yy => {
-      ctx.beginPath(); ctx.arc(staveX, yy, 3.5, 0, TAU);
-      ctx.fillStyle = accent(glow); ctx.fill();
+      // Base on disc rim, tip at outer radius
+      const bx = discR * cosT,           by = discR * sinT;
+      const tx = (discR + petalL) * cosT, ty = (discR + petalL) * sinT;
+
+      // Left side control points — wide near base, taper toward tip
+      const c1x = bx + petalW * cosP + petalL * 0.28 * cosT;
+      const c1y = by + petalW * sinP + petalL * 0.28 * sinT;
+      const c2x = tx + petalW * 0.35 * cosP - petalL * 0.22 * cosT;
+      const c2y = ty + petalW * 0.35 * sinP - petalL * 0.22 * sinT;
+      // Right side (mirrored)
+      const c3x = tx - petalW * 0.35 * cosP - petalL * 0.22 * cosT;
+      const c3y = ty - petalW * 0.35 * sinP - petalL * 0.22 * sinT;
+      const c4x = bx - petalW * cosP + petalL * 0.28 * cosT;
+      const c4y = by - petalW * sinP + petalL * 0.28 * sinT;
+
+      // Filled petal
+      ctx.beginPath();
+      ctx.moveTo(bx, by);
+      ctx.bezierCurveTo(c1x, c1y, c2x, c2y, tx, ty);
+      ctx.bezierCurveTo(c3x, c3y, c4x, c4y, bx, by);
+      ctx.closePath();
+      ctx.fillStyle = fill + (glow * 0.16) + ')';
+      ctx.fill();
+      // Edge — alternate brightness for depth illusion
+      ctx.strokeStyle = accent(glow * (k % 2 === 0 ? 0.78 : 0.52));
+      ctx.lineWidth = 1.1; ctx.lineJoin = 'round'; ctx.stroke();
+    }
+
+    // ── Outer containment ring ──
+    ctx.beginPath(); ctx.arc(0, 0, discR + petalL + R * 0.04, 0, TAU);
+    ctx.strokeStyle = accent(glow * 0.18);
+    ctx.lineWidth = 0.7; ctx.setLineDash([5, 9]); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // ── Central disc rings ──
+    [1.0, 0.62].forEach((s, i) => {
+      ctx.beginPath(); ctx.arc(0, 0, discR * s, 0, TAU);
+      ctx.strokeStyle = accent(glow * (0.55 + i * 0.22));
+      ctx.lineWidth = 0.9 + i * 0.5; ctx.stroke();
     });
 
-    // ── Rune branches ──
-    allSegs.forEach(([x0,y0,x1,y1]) => {
-      // Glow halo
-      ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1);
-      ctx.strokeStyle = accent(glow * 0.28);
-      ctx.lineWidth = 7; ctx.lineCap = 'square'; ctx.stroke();
-      // Edge line
-      ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1);
-      ctx.strokeStyle = accent(glow * 0.95);
-      ctx.lineWidth = 1.8; ctx.lineCap = 'square'; ctx.stroke();
-    });
+    // ── Phyllotaxis seed dots inside disc ──
+    const nSeeds = 21;
+    for (let k = 0; k < nSeeds; k++) {
+      const r     = Math.sqrt((k + 0.5) / nSeeds) * discR * 0.82;
+      const angle = k * GOLD_R;
+      ctx.beginPath();
+      ctx.arc(r * Math.cos(angle), r * Math.sin(angle), 1.5, 0, TAU);
+      ctx.fillStyle = accent(glow * 0.68); ctx.fill();
+    }
 
-    // ── Rune node markers on stave ──
-    let ym = 0;
-    letters.split('').forEach(ch => {
-      const runeH = (FUTHARK_HEIGHT[ch] || 1.0) * U;
-      ctx.beginPath(); ctx.arc(staveX, ym, 2, 0, TAU);
-      ctx.fillStyle = fill + (glow * 0.7) + ')'; ctx.fill();
-      ym += runeH + gap;
-    });
+    // ── Centre node ──
+    ctx.beginPath(); ctx.arc(0, 0, 4, 0, TAU);
+    ctx.fillStyle = fill + (glow * 0.95) + ')'; ctx.fill();
+    ctx.strokeStyle = accent(glow * 0.65); ctx.lineWidth = 0.9; ctx.stroke();
 
     ctx.restore();
   }
-
   return { draw };
 }
 
@@ -2630,7 +3084,10 @@ function drawSigil(t) {
   const fill   = `hsla(${h.toFixed(1)},${s.toFixed(0)}%,${lDraw.toFixed(0)}%,`;
 
   CTX.clearRect(0, 0, W, H);
-  CTX.fillStyle = _sigilLight ? 'rgba(252,250,248,0.0)' : '#0a0a0e';
+  // Light: warm-white at 72% opacity — proper canvas containment on mobile.
+  // Fully transparent previously caused the dark instrument glass background
+  // to bleed through the canvas on mobile where CSS compositing order differs.
+  CTX.fillStyle = _sigilLight ? 'rgba(252, 248, 244, 0.72)' : '#0a0a0e';
   CTX.fillRect(0, 0, W, H);
 
   // Breath pulse: scale the entire canvas around its centre
@@ -2642,9 +3099,9 @@ function drawSigil(t) {
   // Select and draw the active geometry
   let geom;
   switch (S.sigilMode) {
-    case 'chaos':   geom = geomChaos(S.G, W, H);  break;
-    case 'ogham':   geom = geomOgham(S.rawInput || '', W, H); break;
-    case 'bandrun': geom = geomBandrun(S.rawInput || '', W, H); break;
+    case 'chaos':   geom = geomChaos(S.rawInput || '', W, H);  break;
+    case 'ogham':   geom = geomOgham(S.rawInput || '', W, H);  break;
+    case 'natural': geom = geomNatural(S.G, W, H);             break;
     default:        geom = geomSimple(S.G, W, H);
   }
   geom.draw(CTX, accent, fill, glow);
@@ -2742,7 +3199,8 @@ function stopBreath() {
 // ── MAIN LOOP ──
 let _lastTs=null;
 function loop(ts) {
-  if(!_lastTs)_lastTs=ts; S.t+=(ts-_lastTs)/1000; _lastTs=ts;
+  if(!_lastTs)_lastTs=ts;
+  S.t += Math.min((ts-_lastTs)/1000, 0.1); _lastTs=ts;
   drawSigil(S.t);
   drawFaeries(S.t);
   drawBoxTracer(S.t);
@@ -2787,14 +3245,19 @@ document.getElementById('intent-input').addEventListener('keydown',e=>{
 });
 
 // ── Sigil mode ──
+// Switching the visual mode also morphs the carrier frequency via
+// SIGIL_MODE_FREQ multipliers, retuning the audio resonance field.
 function setSigilMode(mode) {
   S.sigilMode = mode;
-  ['simple','chaos','ogham','bandrun'].forEach(m => {
+  S.sigilModeFreqMult = SIGIL_MODE_FREQ[mode] || 1.0;
+  ['natural','chaos','ogham','simple'].forEach(m => {
     document.getElementById(`smode-${m}`).classList.toggle('active', m === mode);
   });
+  updateFreqReadout();
+  if (S.running && S.audioOn) { stopAudio(); startAudio(); }
 }
 
-// ── Therapy mode — Miller's Law grouping (7±2, two chunks of 4) ──
+// ── Therapy mode — Miller's Law grouping (7±2, two chunks of 4 + Iadnah) ──
 // First call builds DOM; subsequent calls only toggle .active — no reflow.
 let _therapyGridBuilt = false;
 function renderTherapyGrid() {
@@ -2807,8 +3270,16 @@ function renderTherapyGrid() {
         <span class="t-band">${m.band}</span>
         <span class="t-desc">${m.desc}</span>
       </button>`;
+    const mkIadnahBtn = m => `
+      <button class="therapy-btn iadnah-featured" data-key="${m.key}"
+              data-color="${m.color}" onclick="setTherapy('${m.key}')">
+        <span class="t-name">${m.name.toUpperCase()} — THE UNDEFILED KNOWLEDGE</span>
+        <span class="t-band">${m.band}</span>
+        <span class="t-desc">${m.desc}</span>
+      </button>`;
     const descent = THERAPY_MODES.filter(m => m.group === 'descent');
     const ascent  = THERAPY_MODES.filter(m => m.group === 'ascent');
+    const iadnah  = THERAPY_MODES.filter(m => m.group === 'iadnah');
     container.innerHTML = `
       <div class="therapy-group">
         <span class="therapy-group-label">Descent</span>
@@ -2817,6 +3288,10 @@ function renderTherapyGrid() {
       <div class="therapy-group">
         <span class="therapy-group-label">Ascent</span>
         <div class="therapy-grid">${ascent.map(mkBtn).join('')}</div>
+      </div>
+      <div class="therapy-group iadnah-group">
+        <span class="therapy-group-label iadnah-group-label">Iadnah Protocol</span>
+        <div class="iadnah-btn-wrap">${iadnah.map(mkIadnahBtn).join('')}</div>
       </div>`;
     _therapyGridBuilt = true;
   }
@@ -2827,12 +3302,22 @@ function renderTherapyGrid() {
 }
 
 function setTherapy(key) {
+  const wasIadnah = S.therapy && S.therapy.key === 'iadnah';
   S.therapy=THERAPY_MODES.find(m=>m.key===key)||THERAPY_MODES[1];
   renderTherapyGrid(); updateFreqReadout();
-  if(S.running&&S.audioOn){stopAudio();startAudio();}
-  if(S.running){stopBreath();startBreath();}
+
+  if (S.running && S.audioOn) {
+    // Stopping an active Iadnah session: clean up phase display
+    if (wasIadnah && key !== 'iadnah') stopIadnahDisplay();
+    stopAudio(); startAudio();
+  }
+  if (S.running) { stopBreath(); startBreath(); }
+
+  const noteText = S.therapy.key === 'iadnah'
+    ? 'The Iadnah Protocol begins at Malkuth and terminates at Da\'at — the undefiled knowledge of God. 50 minutes. Remain still.'
+    : S.therapy.note;
   setText(
-    S.therapy.note,
+    noteText,
     `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`
   );
 }
@@ -3151,8 +3636,7 @@ function drawBoxTracer(t) {
     remaining -= p.dur;
   }
 
-  // ── Phase-mapped hue: INHALE teal · HOLD amber · EXHALE deep blue ─
-  const phaseHue = { INHALE: 176, HOLD: 35, EXHALE: 210 };
+  // ── Phase-mapped colour: INHALE teal · HOLD amber · EXHALE deep blue ─
   const phaseHSL = {
     INHALE: { h: 176, s: 60, l: 58 },
     HOLD:   { h:  35, s: 70, l: 62 },
@@ -3352,8 +3836,49 @@ function setPalette(key) {
   try { localStorage.setItem('midas_palette', key); } catch(e){}
 }
 
-function openSettings()  { document.getElementById('settings-overlay').classList.add('open'); }
+function openSettings() {
+  document.getElementById('settings-overlay').classList.add('open');
+  refreshAudioStatePanel();
+  document.querySelectorAll('#latency-btns .abtn').forEach(b =>
+    b.classList.toggle('active', b.dataset.hint === AUDIO_CONFIG.latencyHint));
+  document.querySelectorAll('#samplerate-btns .abtn').forEach(b =>
+    b.classList.toggle('active', parseInt(b.dataset.rate) === AUDIO_CONFIG.sampleRate));
+}
 function closeSettings() { document.getElementById('settings-overlay').classList.remove('open'); }
+
+function switchSettingsTab(tab) {
+  document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.settings-pane').forEach(p => p.style.display = 'none');
+  document.getElementById('stab-' + tab).classList.add('active');
+  document.getElementById('spane-' + tab).style.display = '';
+  if (tab === 'audio') refreshAudioStatePanel();
+}
+
+function refreshAudioStatePanel() {
+  const ac = S.ac;
+  document.getElementById('ainfo-state').textContent = ac ? ac.state : 'not initialised';
+  document.getElementById('ainfo-sr').textContent    = ac ? ac.sampleRate + ' Hz' : '—';
+  document.getElementById('ainfo-lat').textContent   = ac ? (ac.baseLatency != null ? (ac.baseLatency * 1000).toFixed(1) + ' ms' : 'n/a') : '—';
+  document.getElementById('ainfo-hint').textContent  = AUDIO_CONFIG.latencyHint;
+}
+
+function setLatencyHint(hint) {
+  AUDIO_CONFIG.latencyHint = hint;
+  try { localStorage.setItem('midas_audio_config', JSON.stringify(AUDIO_CONFIG)); } catch(e) {}
+  document.querySelectorAll('#latency-btns .abtn').forEach(b =>
+    b.classList.toggle('active', b.dataset.hint === hint));
+  document.getElementById('audio-restart-note').style.display = S.ac ? 'block' : 'none';
+  refreshAudioStatePanel();
+}
+
+function setSampleRate(rate) {
+  AUDIO_CONFIG.sampleRate = rate;
+  try { localStorage.setItem('midas_audio_config', JSON.stringify(AUDIO_CONFIG)); } catch(e) {}
+  document.querySelectorAll('#samplerate-btns .abtn').forEach(b =>
+    b.classList.toggle('active', parseInt(b.dataset.rate) === rate));
+  document.getElementById('audio-restart-note').style.display = S.ac ? 'block' : 'none';
+  refreshAudioStatePanel();
+}
 
 // ── Light Mode ──
 let _lightMode = false;
@@ -3487,6 +4012,15 @@ async function bootMidas() {
 }
 
 bootMidas();
+
+// ── Background audio resilience ───────────────────────────────────────
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    if (S.ac && S.ac.state === 'suspended') S.ac.resume().catch(() => {});
+    _lastTs = null;
+    if (S.running && bStart !== null) bStart = performance.now();
+  }
+});
 
 // LF bridge
 setInterval(()=>{
