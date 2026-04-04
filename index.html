@@ -720,29 +720,29 @@ section { margin-bottom: 48px; }
 .therapy-btn[data-color="iadnah"]::before        { background: #1e1848; }
 .therapy-btn.active[data-color="iadnah"]::before { background: #5050c0; }
 
-/* ── IADNAH CYCLE BUTTON — sits inside Ascent .therapy-grid, spans full row ── */
-/* Iadnah Cycle sits in the Ascent grid as a full-width button */
-.therapy-grid .therapy-btn.iadnah-featured {
+/* ── CYCLE MODE BUTTON — sits inside Ascent .therapy-grid, spans full row ── */
+/* Cycle Mode sits in the Ascent grid as a full-width button */
+.therapy-grid .therapy-btn.cycle-featured {
   grid-column: 1 / -1;   /* span all columns */
   border-color: rgba(80, 80, 192, 0.35);
   background: rgba(28, 24, 72, 0.6);
 }
-.therapy-btn.iadnah-featured:hover {
+.therapy-btn.cycle-featured:hover {
   border-color: rgba(80, 80, 192, 0.8);
   box-shadow: 0 2px 18px rgba(80, 80, 192, 0.15);
 }
-.therapy-btn.iadnah-featured.active {
+.therapy-btn.cycle-featured.active {
   border-color: #5050c0;
   background: rgba(40, 32, 96, 0.85);
   box-shadow: 0 0 24px rgba(80, 80, 192, 0.2);
 }
-.therapy-btn.iadnah-featured .t-name { color: var(--chalk); letter-spacing: .25em; }
-.therapy-btn.iadnah-featured .t-band { color: rgba(160,160,220,0.75); }
-.therapy-btn.iadnah-featured .t-desc { color: rgba(160,160,220,0.6); }
-.therapy-btn.iadnah-featured.active .t-name { color: #9090e0; }
+.therapy-btn.cycle-featured .t-name { color: var(--chalk); letter-spacing: .25em; }
+.therapy-btn.cycle-featured .t-band { color: rgba(160,160,220,0.75); }
+.therapy-btn.cycle-featured .t-desc { color: rgba(160,160,220,0.6); }
+.therapy-btn.cycle-featured.active .t-name { color: #9090e0; }
 
-/* ── IADNAH PHASE DISPLAY ── */
-#iadnah-phase-display {
+/* ── CYCLE MODE PHASE DISPLAY ── */
+#cycle-phase-display {
   display: none;
   background: rgba(18, 14, 48, 0.85);
   border: 1px solid rgba(80, 80, 192, 0.3);
@@ -750,23 +750,23 @@ section { margin-bottom: 48px; }
   padding: 14px 16px;
   margin-top: 10px;
 }
-#iadnah-phase-display.visible { display: block; }
-.iadnah-phase-name {
+#cycle-phase-display.visible { display: block; }
+.cycle-phase-name {
   font-family: var(--font-d); font-size: 11px; letter-spacing: .35em;
   text-transform: uppercase; color: #7070d0; margin-bottom: 6px;
 }
-.iadnah-phase-desc {
+.cycle-phase-desc {
   font-family: var(--font-b); font-style: italic; font-size: 12px;
   color: rgba(160, 160, 220, 0.7); margin-bottom: 10px; line-height: 1.5;
 }
-.iadnah-progress-bar {
+.cycle-progress-bar {
   height: 2px; background: rgba(80, 80, 192, 0.2); border-radius: 2px; overflow: hidden;
 }
-.iadnah-progress-fill {
+.cycle-progress-fill {
   height: 100%; background: #5050c0; border-radius: 2px;
   transition: width 1s linear; width: 0%;
 }
-.iadnah-time {
+.cycle-time {
   font-family: var(--font-m); font-size: 9px; letter-spacing: .25em;
   color: rgba(80, 80, 192, 0.6); margin-top: 6px; text-align: right;
 }
@@ -1466,7 +1466,7 @@ footer {
         <br><br>
         <strong>Radial Grammar (Simple)</strong> — Eight vectors, each modified by a morphological operator τₖ (stretch, compress, reflect, rotate, shear, void) derived from the Fibonacci hash of Γ. Shannon entropy vortex rings surround the central structure. Carrier at unity (1:1). The geometric ground state.
         <br><br>
-        The <em>F₁₁ particle field</em> — 89 points (Fibonacci 11th term) on a Vogel spiral at the Golden Angle, each pulsing at ω = 0.137 Hz with an irrational phase offset n·φ — ensures no two particles ever pulse in unison. During the Da'at phase of the Iadnah Cycle, this field pulses at <strong>40 Hz</strong>: visible Gamma-frequency photostimulation alongside the binaural beat.
+        The <em>F₁₁ particle field</em> — 89 points (Fibonacci 11th term) on a Vogel spiral at the Golden Angle, each pulsing at ω = 0.137 Hz with an irrational phase offset n·φ — ensures no two particles ever pulse in unison. During the Da'at phase of Cycle Mode, this field pulses at <strong>40 Hz</strong>: visible Gamma-frequency photostimulation alongside the binaural beat.
       </div>
     </div>
 
@@ -1485,7 +1485,7 @@ footer {
         <br><br>
         The carrier f₀ is constrained to [75–150 Hz] — well below the 1,500 Hz binaural processing limit. At this depth the carrier also engages infrasonic bone conduction, producing cranial resonance independent of the auditory pathway.
         <br><br>
-        <strong>Descent protocols</strong> decelerate cortical arousal toward delta and theta. <strong>Ascent protocols</strong> stabilise, integrate, and return. The Iadnah Cycle traverses all bands in sequence.
+        <strong>Descent protocols</strong> decelerate cortical arousal toward delta and theta. <strong>Ascent protocols</strong> stabilise, integrate, and return. Cycle Mode traverses all bands in sequence.
       </div>
       <div class="about-data-row">
         <span class="about-data-key">Coherence</span><span class="about-data-val">Δf 0.5 Hz · Baroreflex entrainment · 6 breaths/min · HRV maximisation</span>
@@ -1557,7 +1557,7 @@ footer {
     <!-- VII -->
     <div class="about-section">
       <div class="about-section-label">Module VII</div>
-      <div class="about-section-title">The Iadnah Cycle</div>
+      <div class="about-section-title">Cycle Mode</div>
       <div class="about-body">
         <em>IADNAH</em> is the Enochian term for the undefiled knowledge of God — the pure, unfiltered signal beneath the noise of the Qliphothic shell. Its Latin cipher value (Γ = 63, Mishnaic weights) produces a carrier of <strong>134.8 Hz</strong> through the gematric derivation formula, locked for the full 50-minute session.
         <br><br>
@@ -1657,11 +1657,11 @@ footer {
       <span>fR &nbsp;<em id="fr-fR">—</em> Hz</span>
       <span>Δf &nbsp;<em id="fr-df">—</em> Hz</span>
     </div>
-    <div id="iadnah-phase-display">
-      <div class="iadnah-phase-name" id="iadnah-phase-name">MALKUTH</div>
-      <div class="iadnah-phase-desc" id="iadnah-phase-desc">The Tabaan stands firm.</div>
-      <div class="iadnah-progress-bar"><div class="iadnah-progress-fill" id="iadnah-progress-fill"></div></div>
-      <div class="iadnah-time" id="iadnah-time">0:00 / 50:00</div>
+    <div id="cycle-phase-display">
+      <div class="cycle-phase-name" id="cycle-phase-name">MALKUTH</div>
+      <div class="cycle-phase-desc" id="cycle-phase-desc">The Tabaan stands firm.</div>
+      <div class="cycle-progress-bar"><div class="cycle-progress-fill" id="cycle-progress-fill"></div></div>
+      <div class="cycle-time" id="cycle-time">0:00 / 50:00</div>
     </div>
     <div class="crackling-indicator" id="crackling-indicator">
       <div class="crackling-indicator-dot"></div>
@@ -2005,15 +2005,15 @@ const THERAPY_MODES = [
     boxBreath: false,
     group: 'ascent',
   },
-  // ── IADNAH CYCLE — 50-minute progressive Sephirothic ascent ──
+  // ── CYCLE MODE — 50-minute progressive Sephirothic ascent ──
   // Sits in the Ascent group as a standard selection — the practitioner
   // chooses it the same way they choose Gamma or Alpha. Once started,
   // the sequence runs autonomously: all six phase transitions are
   // pre-scheduled on the Web Audio API clock at session start.
   // No manual intervention is needed or possible during the session.
   {
-    key:      'iadnah',
-    name:     'Iadnah Cycle',
+    key:      'cycle',
+    name:     'Cycle Mode',
     df:       18,           // Phase 1 starting beat (schedule takes over)
     band:     '50 min',
     desc:     'Six-phase ascent · Malkuth to Da\'at',
@@ -2111,9 +2111,9 @@ const SIGIL_MODE_FREQ = {
 };
 
 // ── SEPHIROTHIC COLOUR CANON ────────────────────────────────────────────
-// Queen's Scale (Atziluthic) HSL values for each Iadnah phase.
+// Queen's Scale (Atziluthic) HSL values for each Cycle Mode phase.
 // These override the gematric phyllotaxisHSL() derivation during the
-// Iadnah sequence so the sigil colour tracks the psychological station.
+// Cycle Mode sequence so the sigil colour tracks the psychological station.
 //   Malkuth   — citrine / quartered earth (4 colours; citrine chosen)
 //   Yesod     — violet / astral mirror
 //   Tiphareth — gold / solar centre / Imago Christi
@@ -2129,19 +2129,19 @@ const SEPHIROTH_HSL = {
   return:    { h: 72,  s: 35, l: 30 },
 };
 
-// Which Sephirothic key maps to each entry in IADNAH_PHASES (by index)
-const IADNAH_PHASE_SEPHIRAH = [
+// Which Sephirothic key maps to each entry in CYCLE_PHASES (by index)
+const CYCLE_PHASE_SEPHIRAH = [
   'malkuth', 'yesod', 'tiphareth', 'abyss', 'iadnah', 'return'
 ];
 
 // ── ACTIVE FREQUENCIES ──
-// IADNAH mode locks the carrier to 134.8 Hz — the gematric derivation of
-// IADNAH through the Mishnaic-weight Latin cipher:
+// Cycle Mode locks the carrier to 134.8 Hz — the gematric derivation of
+// IADNAH (Enochian: undefiled knowledge) through the Mishnaic-weight Latin cipher:
 //   Γ_raw = 63 → t = ln(64)/ln(10001) = 0.4514 → f_mapped = 269.6 Hz → /2 = 134.8 Hz
-const IADNAH_F0 = 134.8;
+const CYCLE_F0 = 134.8;
 
 function activeF0() {
-  if (S.therapy && S.therapy.key === 'iadnah') return IADNAH_F0;
+  if (S.therapy && S.therapy.key === 'cycle') return CYCLE_F0;
   const base = S.freqMode === 'lithic' ? S.lithicHz : S.f0;
   return Math.max(60, base * (S.sigilModeFreqMult || 1.0));
 }
@@ -2355,9 +2355,9 @@ function buildAudioGraph() {
   subR.connect(subGainR); subGainR.connect(merger, 0, 1);
   subL.start(); subR.start();
 
-  // ── Body Resonator — shared mono 40 Hz sine for Iadnah Phase 5 ──
+  // ── Body Resonator — shared mono 40 Hz sine for Cycle Mode Phase 5 ──
   // Delivers a felt 40 Hz vibration to BOTH channels simultaneously (not binaural).
-  // Starts at gain=0; activated by scheduleIadnahSequence() in Phase 5.
+  // Starts at gain=0; activated by scheduleCycleSequence() in Phase 5.
   // Routes directly into the merger (both channels) before the shaper,
   // so it passes through the full velvet curtain + limiter chain.
   const bodyResOsc  = ac.createOscillator();
@@ -2625,13 +2625,13 @@ function teardownAudio() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
-//  IADNAH SEQUENCE ENGINE
+//  CYCLE MODE SEQUENCE ENGINE
 //
 //  Schedules all 50-minute parameter ramps on the Web Audio API clock
 //  at session start. Zero JavaScript intervention during playback —
 //  all transitions are sample-accurate via linearRampToValueAtTime.
 //
-//  The Iadnah architecture (from the vault specification):
+//  The Cycle Mode architecture (from the vault specification):
 //    Phase 1 (0–5min)   MALKUTH     — 18Hz Beta,  carrier 134.8 Hz
 //    Phase 2 (5–12min)  YESOD       — 10Hz Alpha, carrier 134.8 Hz
 //    Phase 3 (12–22min) TIPHARETH   — 7.83Hz Schumann (Earth), carrier 83.3 Hz (φ⁻¹)
@@ -2647,11 +2647,11 @@ function teardownAudio() {
 //  individual oscillator ramps are computed at each waypoint.
 // ═══════════════════════════════════════════════════════════════════════
 
-let _iadnahStartCtxTime = null;   // AudioContext clock time when sequence began
-let _iadnahRaf = null;            // requestAnimationFrame handle for phase display
+let _cycleStartCtxTime = null;   // AudioContext clock time when sequence began
+let _cycleRaf = null;            // requestAnimationFrame handle for phase display
 
 // Phase definitions for the display loop
-const IADNAH_PHASES = [
+const CYCLE_PHASES = [
   { startMin: 0,  endMin: 5,  name: 'MALKUTH',   desc: 'The Tabaan stands firm. Ground the terrestrial container.',      breathKey: 'cohere',  sigilMode: 'simple'  },
   { startMin: 5,  endMin: 12, name: 'YESOD',     desc: 'The Foundation becomes receptive. Alpha opens the mirror.',      breathKey: 'drift',   sigilMode: 'natural' },
   { startMin: 12, endMin: 22, name: 'TIPHARETH', desc: 'The Imago Christi stabilized. The Schumann lock is engaged.',    breathKey: 'sigh',    sigilMode: 'chaos'   },
@@ -2660,11 +2660,11 @@ const IADNAH_PHASES = [
   { startMin: 45, endMin: 50, name: 'RETURN',    desc: 'The downloaded knowledge integrates. Re-entry begins.',         breathKey: 'return',  sigilMode: 'simple'  },
 ];
 
-function scheduleIadnahSequence(ctx, nodes) {
+function scheduleCycleSequence(ctx, nodes) {
   const t0   = ctx.currentTime;
   const m    = 60;   // seconds per minute — readability alias
   const PHI_INV  = 0.618033988749895;
-  const F0       = IADNAH_F0;            // 134.8 Hz
+  const F0       = CYCLE_F0;            // 134.8 Hz
   const F0_TIP   = F0 * PHI_INV;        // 83.296 Hz — Tiphareth carrier (phi-reduction)
 
   // ── Helper: set L/R oscillator frequency waypoints ──
@@ -2742,26 +2742,26 @@ function scheduleIadnahSequence(ctx, nodes) {
   if (nodes.bodyResGain)
     nodes.bodyResGain.gain.linearRampToValueAtTime(0, t0 + 50*m);
 
-  _iadnahStartCtxTime = t0;
+  _cycleStartCtxTime = t0;
 }
 
-// ── IADNAH Phase Display — requestAnimationFrame loop ──
+// ── Cycle Mode Phase Display — requestAnimationFrame loop ──
 // Reads elapsed time relative to the AudioContext clock for accuracy.
-function startIadnahDisplay() {
-  const phasePanel = document.getElementById('iadnah-phase-display');
-  const phaseName  = document.getElementById('iadnah-phase-name');
-  const phaseDesc  = document.getElementById('iadnah-phase-desc');
-  const progressEl = document.getElementById('iadnah-progress-fill');
-  const timeEl     = document.getElementById('iadnah-time');
+function startCycleDisplay() {
+  const phasePanel = document.getElementById('cycle-phase-display');
+  const phaseName  = document.getElementById('cycle-phase-name');
+  const phaseDesc  = document.getElementById('cycle-phase-desc');
+  const progressEl = document.getElementById('cycle-progress-fill');
+  const timeEl     = document.getElementById('cycle-time');
   phasePanel.classList.add('visible');
   let _lastPhaseIdx = -1;
 
   function tick() {
-    if (!S.running || !S.ac || S.therapy.key !== 'iadnah') {
+    if (!S.running || !S.ac || S.therapy.key !== 'cycle') {
       phasePanel.classList.remove('visible');
       return;
     }
-    const elapsed  = S.ac.currentTime - (_iadnahStartCtxTime || S.ac.currentTime);
+    const elapsed  = S.ac.currentTime - (_cycleStartCtxTime || S.ac.currentTime);
     const elapsedM = elapsed / 60;
     const totalM   = 50;
     const pct      = Math.min(100, (elapsedM / totalM) * 100);
@@ -2775,11 +2775,11 @@ function startIadnahDisplay() {
     timeEl.textContent = `${m}:${String(s).padStart(2,'0')} / 50:00`;
 
     // Determine current phase
-    const phaseIdx = IADNAH_PHASES.findIndex((p, i) => {
-      const next = IADNAH_PHASES[i+1];
+    const phaseIdx = CYCLE_PHASES.findIndex((p, i) => {
+      const next = CYCLE_PHASES[i+1];
       return elapsedM >= p.startMin && (!next || elapsedM < next.startMin);
     });
-    const phase = phaseIdx >= 0 ? IADNAH_PHASES[phaseIdx] : IADNAH_PHASES[IADNAH_PHASES.length-1];
+    const phase = phaseIdx >= 0 ? CYCLE_PHASES[phaseIdx] : CYCLE_PHASES[CYCLE_PHASES.length-1];
 
     // Only update DOM when phase changes
     if (phaseIdx !== _lastPhaseIdx) {
@@ -2793,16 +2793,16 @@ function startIadnahDisplay() {
       if (typeof setSigilMode === 'function') setSigilMode(phase.sigilMode);
     }
 
-    _iadnahRaf = requestAnimationFrame(tick);
+    _cycleRaf = requestAnimationFrame(tick);
   }
-  _iadnahRaf = requestAnimationFrame(tick);
+  _cycleRaf = requestAnimationFrame(tick);
 }
 
-function stopIadnahDisplay() {
-  if (_iadnahRaf) { cancelAnimationFrame(_iadnahRaf); _iadnahRaf = null; }
-  const phasePanel = document.getElementById('iadnah-phase-display');
+function stopCycleDisplay() {
+  if (_cycleRaf) { cancelAnimationFrame(_cycleRaf); _cycleRaf = null; }
+  const phasePanel = document.getElementById('cycle-phase-display');
   if (phasePanel) phasePanel.classList.remove('visible');
-  _iadnahStartCtxTime = null;
+  _cycleStartCtxTime = null;
 }
 
 // ── Crackling Watchdog ──
@@ -2896,12 +2896,12 @@ function startAudio() {
   if (S.polyRaf) cancelAnimationFrame(S.polyRaf);
   S.polyRaf = requestAnimationFrame(polyTick);
 
-  // IADNAH: schedule the full 50-minute progressive sequence
-  if (S.therapy.key === 'iadnah' && S.ac && S.nodes) {
-    scheduleIadnahSequence(S.ac, S.nodes);
-    startIadnahDisplay();
+  // Cycle Mode: schedule the full 50-minute progressive sequence
+  if (S.therapy.key === 'cycle' && S.ac && S.nodes) {
+    scheduleCycleSequence(S.ac, S.nodes);
+    startCycleDisplay();
   } else {
-    stopIadnahDisplay();
+    stopCycleDisplay();
   }
 
   startCracklWatchdog();
@@ -2910,7 +2910,7 @@ function startAudio() {
 function stopAudio() {
   teardownAudio();
   if (S.polyRaf) { cancelAnimationFrame(S.polyRaf); S.polyRaf = null; }
-  stopIadnahDisplay();
+  stopCycleDisplay();
 }
 
 // ── dB → linear gain conversion ──
@@ -3674,19 +3674,19 @@ function drawSigil(t) {
   const breathScale = 1 + 0.028 * wave;   // subtle breath — not fighting autofocus
   const glow  = 0.52 + 0.24 * (wave * 0.5 + 0.5);
 
-  // ── Iadnah phase colour override ──
-  // During the Iadnah sequence each phase maps to its Sephirothic station.
+  // ── Cycle Mode phase colour override ──
+  // During the Cycle Mode sequence each phase maps to its Sephirothic station.
   // The canonical Queen's Scale HSL values replace the gematric phyllotaxisHSL
   // derivation so the sigil colour tracks psychological ascent: earth → astral
   // → solar → void → Da'at → earth returned.
   let _hslOverride = null;
-  if (S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null) {
-    const _elapsedM = (S.ac ? S.ac.currentTime - _iadnahStartCtxTime : 0) / 60;
-    const _phaseIdx = IADNAH_PHASES.findIndex((p, i) => {
-      const next = IADNAH_PHASES[i + 1];
+  if (S.therapy && S.therapy.key === 'cycle' && _cycleStartCtxTime !== null) {
+    const _elapsedM = (S.ac ? S.ac.currentTime - _cycleStartCtxTime : 0) / 60;
+    const _phaseIdx = CYCLE_PHASES.findIndex((p, i) => {
+      const next = CYCLE_PHASES[i + 1];
       return _elapsedM >= p.startMin && (!next || _elapsedM < next.startMin);
     });
-    const _sephKey = IADNAH_PHASE_SEPHIRAH[_phaseIdx >= 0 ? _phaseIdx : 0];
+    const _sephKey = CYCLE_PHASE_SEPHIRAH[_phaseIdx >= 0 ? _phaseIdx : 0];
     _hslOverride = SEPHIROTH_HSL[_sephKey] || null;
   }
   const { h, s, l } = _hslOverride || phyllotaxisHSL(S.G);
@@ -3720,8 +3720,8 @@ function drawSigil(t) {
     case 'abyss': {
       // Compute elapsed seconds within the Abyss phase (starts at 22:00)
       let _abyssElapsed = 0;
-      if (_iadnahStartCtxTime !== null && S.ac) {
-        _abyssElapsed = Math.max(0, S.ac.currentTime - _iadnahStartCtxTime - 22 * 60);
+      if (_cycleStartCtxTime !== null && S.ac) {
+        _abyssElapsed = Math.max(0, S.ac.currentTime - _cycleStartCtxTime - 22 * 60);
       }
       geom = geomAbyss(S.rawInput || '', W, H, _abyssElapsed, t);
       break;
@@ -3757,8 +3757,8 @@ function drawSigil(t) {
     // alongside the binaural beat. Safe: tiny dots at ≤28% opacity on a
     // sinusoidal waveform; coverage < 5% canvas — no photosensitive risk.
     let _pHz = WALHUU;
-    if (S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null && S.ac) {
-      const _em = (S.ac.currentTime - _iadnahStartCtxTime) / 60;
+    if (S.therapy && S.therapy.key === 'cycle' && _cycleStartCtxTime !== null && S.ac) {
+      const _em = (S.ac.currentTime - _cycleStartCtxTime) / 60;
       if (_em >= 27 && _em < 45) _pHz = 40;
     }
     const pulse = 0.5 + 0.5 * Math.sin(TAU * _pHz * t + dt);
@@ -3912,12 +3912,12 @@ document.getElementById('intent-input').addEventListener('keydown',e=>{
 // Switching the visual mode also morphs the carrier frequency via
 // SIGIL_MODE_FREQ multipliers, retuning the audio resonance field.
 //
-// CRITICAL: During an active Iadnah session, sigil mode switches are
-// purely visual — the Iadnah sequence pre-schedules all audio ramps at
+// CRITICAL: During an active Cycle Mode session, sigil mode switches are
+// purely visual — the Cycle Mode sequence pre-schedules all audio ramps at
 // session start using the Web Audio API clock. Calling stopAudio()/
 // startAudio() mid-session would destroy those scheduled ramps and
 // produce an audible click + loss of sequence state. We therefore
-// skip the audio restart entirely when Iadnah is running.
+// skip the audio restart entirely when Cycle Mode is running.
 function setSigilMode(mode) {
   S.sigilMode = mode;
   S.sigilModeFreqMult = SIGIL_MODE_FREQ[mode] || 1.0;
@@ -3926,19 +3926,19 @@ function setSigilMode(mode) {
     if (el) el.classList.toggle('active', m === mode);
   });
   updateFreqReadout();
-  // Skip audio restart when Iadnah sequence is running — it owns its own schedule
-  const iadnahActive = S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null;
-  if (S.running && S.audioOn && !iadnahActive) { stopAudio(); startAudio(); }
+  // Skip audio restart when Cycle Mode sequence is running — it owns its own schedule
+  const cycleActive = S.therapy && S.therapy.key === 'cycle' && _cycleStartCtxTime !== null;
+  if (S.running && S.audioOn && !cycleActive) { stopAudio(); startAudio(); }
 }
 
-// ── Therapy mode — two groups: Descent (4) and Ascent (5 including Iadnah Cycle) ──
+// ── Therapy mode — two groups: Descent (4) and Ascent (5 including Cycle Mode) ──
 // First call builds DOM; subsequent calls only toggle .active — no reflow.
 let _therapyGridBuilt = false;
 function renderTherapyGrid() {
   const container = document.getElementById('therapy-grid');
   if (!_therapyGridBuilt) {
     const mkBtn = m => `
-      <button class="therapy-btn${m.key === 'iadnah' ? ' iadnah-featured' : ''}" data-key="${m.key}"
+      <button class="therapy-btn${m.key === 'cycle' ? ' cycle-featured' : ''}" data-key="${m.key}"
               data-color="${m.color}" onclick="setTherapy('${m.key}')">
         <span class="t-name">${m.name.toUpperCase()}</span>
         <span class="t-band">${m.band}</span>
@@ -3964,18 +3964,18 @@ function renderTherapyGrid() {
 }
 
 function setTherapy(key) {
-  const wasIadnah = S.therapy && S.therapy.key === 'iadnah';
+  const wasCycle = S.therapy && S.therapy.key === 'cycle';
   S.therapy=THERAPY_MODES.find(m=>m.key===key)||THERAPY_MODES[1];
   renderTherapyGrid(); updateFreqReadout();
 
   if (S.running && S.audioOn) {
-    // Stopping an active Iadnah session: clean up phase display
-    if (wasIadnah && key !== 'iadnah') stopIadnahDisplay();
+    // Stopping an active Cycle Mode session: clean up phase display
+    if (wasCycle && key !== 'cycle') stopCycleDisplay();
     stopAudio(); startAudio();
   }
   if (S.running) { stopBreath(); startBreath(); }
 
-  const IADNAH_DESCRIPTION =
+  const CYCLE_DESCRIPTION =
     'Six phases pre-scheduled to the microsecond. No intervention required or possible. ' +
     'I — Malkuth (0–5 min): Δf 18 Hz Beta · sensorimotor grounding · cortical arousal normalisation. ' +
     'II — Yesod (5–12 min): Δf 10 Hz Alpha · thalamo-cortical clarity · default mode induction. ' +
@@ -3984,8 +3984,8 @@ function setTherapy(key) {
     'V — Da\'at (27–45 min): Δf 40 Hz Gamma · neural binding maximum · ASSR · 40 Hz particle field active. 18 minutes at the summit. ' +
     'VI — Return (45–50 min): Δf 18 Hz Beta · graduated re-arousal · somatic consolidation. Total: 50 minutes.';
 
-  const noteText = S.therapy.key === 'iadnah' ? IADNAH_DESCRIPTION : S.therapy.note;
-  const subText  = S.therapy.key === 'iadnah'
+  const noteText = S.therapy.key === 'cycle' ? CYCLE_DESCRIPTION : S.therapy.note;
+  const subText  = S.therapy.key === 'cycle'
     ? 'f₀ = 134.8 Hz (IADNAH gematric derivation) · Pre-scheduled · Stereo headphones required'
     : `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`;
   setText(

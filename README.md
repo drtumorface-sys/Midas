@@ -2,26 +2,26 @@
 
 **Modulated Interval Drift & Acoustic Sanctuary**
 
-A single-file therapeutic application combining binaural beat entrainment, guided breath pacing, and live sigil rendering — built on the Web Audio API and Canvas 2D, deployable as a Progressive Web App with zero dependencies.
+A single-file therapeutic application — binaural beat entrainment, guided breath pacing, and live sigil rendering — built on the Web Audio API and Canvas. Runs in any browser. Installs as a phone or desktop app. Requires no internet connection after first load. Zero external dependencies.
 
 ---
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [The Mathematics](#the-mathematics)
-   - [I. Binaural Beat Generation](#i-binaural-beat-generation)
-   - [II. Carrier Normalisation — Octave Transposition](#ii-carrier-normalisation--octave-transposition)
-   - [III. Latin Gematria — Frequency Seeding](#iii-latin-gematria--frequency-seeding)
-   - [IV. Golden Angle — Phyllotactic Chromatics](#iv-golden-angle--phyllotactic-chromatics)
-   - [V. F₁₁ Particle Field — Vogel's Disk](#v-f-particle-field--vogels-disk)
-   - [VI. Stochastic Resonance Lattice](#vi-stochastic-resonance-lattice)
-   - [VII. Pink Noise — Voss-McCartney Algorithm](#vii-pink-noise--voss-mcCartney-algorithm)
-   - [VIII. Walhuu Constant — 0.137 Hz LFO](#viii-walhuu-constant--0137-hz-lfo)
-   - [IX. Breath Pacing — Physiological Rationale](#ix-breath-pacing--physiological-rationale)
-   - [X. Miller's Law — Cognitive Load Architecture](#x-millers-law--cognitive-load-architecture)
-3. [Audio Signal Chain](#audio-signal-chain)
-4. [Visual Architecture](#visual-architecture)
+1. [What MIDAS Does](#what-midas-does)
+2. [The Mathematics, Explained](#the-mathematics-explained)
+   - [I. The Binaural Illusion](#i-the-binaural-illusion)
+   - [II. Finding the Root Tone](#ii-finding-the-root-tone)
+   - [III. Latin Gematria — The Word as Frequency](#iii-latin-gematria--the-word-as-frequency)
+   - [IV. The Golden Angle — Colour from the Seed](#iv-the-golden-angle--colour-from-the-seed)
+   - [V. The Particle Field — Eighty-Nine Points of Light](#v-the-particle-field--eighty-nine-points-of-light)
+   - [VI. The Resonance Lattice — Hidden Harmonics](#vi-the-resonance-lattice--hidden-harmonics)
+   - [VII. Pink Noise — The Acoustic Field](#vii-pink-noise--the-acoustic-field)
+   - [VIII. The Walhuu Constant — The Breath Beneath Everything](#viii-the-walhuu-constant--the-breath-beneath-everything)
+   - [IX. Breath Pacing — Why These Rhythms](#ix-breath-pacing--why-these-rhythms)
+   - [X. The Seven-Plus-Two Rule — Why the Selectors Are Sized This Way](#x-the-seven-plus-two-rule--why-the-selectors-are-sized-this-way)
+3. [The Sound Architecture](#the-sound-architecture)
+4. [The Visual Architecture](#the-visual-architecture)
 5. [Therapy Modes](#therapy-modes)
 6. [Breath Patterns](#breath-patterns)
 7. [Timbres](#timbres)
@@ -31,305 +31,254 @@ A single-file therapeutic application combining binaural beat entrainment, guide
 
 ---
 
-## Overview
+## What MIDAS Does
 
-MIDAS converts a word or phrase into a carrier frequency via Latin Gematria, then generates a precisely tuned binaural beat around that carrier. The beat frequency is selected from a clinical reference table corresponding to the chosen neurological state (Delta, Theta, Alpha, Beta, Gamma). A breath-pacing animation derived from cardiac resonance research runs concurrently but independently of the acoustic selection, and a live sigil renders the encoded word as geometry on a Canvas 2D surface.
+You type a word or phrase. MIDAS converts it into a precise tone using an ancient letter-to-number system called Latin Gematria — then wraps a second tone around the first, slightly higher, slightly lower. Played through stereo headphones, these two tones cause your auditory cortex to perceive a third tone that does not physically exist. That phantom tone oscillates at exactly the frequency of the neurological state you are targeting.
 
-All computation occurs client-side. No audio, text, or personal data is transmitted anywhere.
+Simultaneously, a breath-pacing animation draws you into a clinically-grounded respiratory rhythm. A sigil — a geometric encoding of your word — renders on the central canvas, mathematically downstream of the same seed that generated the sound.
 
----
+The word you chose, the colour on screen, the geometry you are looking at, and the sound you are hearing are all four expressions of a single number. The session is sealed.
 
-## The Mathematics
-
-### I. Binaural Beat Generation
-
-Binaural beats arise when two pure sine tones of slightly different frequencies are presented separately to each ear. The auditory cortex perceives the arithmetic difference as a phantom oscillation at frequency `Δf`.
-
-```
-fL = f₀ − Δf / 2
-fR = f₀ + Δf / 2
-```
-
-Where:
-- `f₀` — carrier frequency (Hz), derived from Gematria or selected from the Lithic grid
-- `Δf` — beat frequency (Hz), corresponding to the target brainwave band
-- `fL` — frequency presented to left ear
-- `fR` — frequency presented to right ear
-
-The perceived beat oscillates at exactly `Δf` Hz, provided both tones are below ~1500 Hz and headphones maintain channel separation. MIDAS constrains `f₀` to the 75–150 Hz range via octave transposition (see §II) to maximise binaural effectiveness.
-
-**Clinical Δf Reference:**
-
-| Mode | Δf (Hz) | Band | Effect |
-|------|---------|------|--------|
-| Cohere | 0.5 | Sub-delta | Cardiac resonance, 6 breaths/min |
-| Delta | 2.5 | Delta (0.5–4 Hz) | Deep sleep, trauma processing |
-| Theta | 6 | Theta (4–8 Hz) | Relaxation, light trance |
-| Sigh | 3.5 | Delta-Theta | Physiological reset |
-| Alpha | 10 | Alpha (8–12 Hz) | Calm focus, stress reduction |
-| Beta | 18 | Beta (13–30 Hz) | Cognitive engagement |
-| Stasis | 6 | Theta | Structural containment |
-| Gamma | 40 | Gamma (30–100 Hz) | High-frequency processing |
+All computation happens on your device. Nothing is transmitted anywhere.
 
 ---
 
-### II. Carrier Normalisation — Octave Transposition
+## The Mathematics, Explained
 
-Raw Gematria sums span several orders of magnitude. A logarithmic map compresses this range into the audio spectrum, after which recursive octave transposition forces `f₀` into the therapeutic basement window.
+### I. The Binaural Illusion
 
-**Step 1 — Logarithmic compression:**
+When two pure tones are played simultaneously — one in the left ear, one in the right — and they are close in pitch but not identical, the brain perceives a third tone that is not physically present in either ear. This is called a binaural beat.
 
-```
-t = min( ln(1 + G) / ln(1 + 10000), 1 )
-f₀ = CARRIER_MIN + t × (CARRIER_MAX − CARRIER_MIN)
-   = 80 + t × 420
-```
-
-Logarithmic mapping is chosen over linear because the perceptual scale of pitch is itself logarithmic (the musical octave is a 2:1 frequency ratio). Without log compression, moderate inputs would cluster at the low end of the range and extreme inputs would rarely reach the upper band.
-
-**Step 2 — Lithic Anchor (octave transposition):**
+The phantom tone vibrates at exactly the *difference* between the two real tones. If the left ear hears 130 Hz and the right ear hears 136 Hz, the brain generates a perceived oscillation of 6 Hz — a Theta-band frequency associated with relaxed, receptive awareness.
 
 ```
-while f₀ > 150:
-    f₀ = f₀ / 2
-f₀ = max(75, f₀)
+Left ear:  f₀ − Δf/2
+Right ear: f₀ + Δf/2
+Phantom:   Δf
 ```
 
-This recursively halves the carrier until it falls within [75, 150] Hz — the "acoustic basement" where:
-- Binaural beat perception is most reliable (both tones well below the 1500 Hz limit)
-- Sub-bass resonance supports parasympathetic nervous system activation
-- The tone pair sits below the intelligibility threshold, so the carrier does not distract
+The root tone `f₀` is the anchor — derived from your word via Gematria (see §III). The beat frequency `Δf` is the target state, selected by therapy mode. The two real tones are split symmetrically around the root so neither ear carries the heavier load.
 
-The octave relationship is musically neutral — halving a frequency preserves its harmonic identity while shifting it down one octave.
+This effect only works through headphones. Speakers blend the two channels into one before they reach you, and the illusion collapses.
+
+**The clinical reference:**
+
+| Mode | Beat (Δf) | Band | Associated State |
+|------|-----------|------|-----------------|
+| Cohere | 0.5 Hz | Sub-delta | Cardiac resonance, 6 breaths/min |
+| Delta | 2.5 Hz | Delta | Deep rest, trauma integration |
+| Theta | 6 Hz | Theta | Relaxation, light trance |
+| Sigh | 3.5 Hz | Delta-Theta | Physiological reset |
+| Alpha | 10 Hz | Alpha | Calm focus, settled ease |
+| Beta | 18 Hz | Beta | Cognitive engagement |
+| Stasis | 6 Hz | Theta | Structural containment |
+| Gamma | 40 Hz | Gamma | High-frequency binding |
 
 ---
 
-### III. Latin Gematria — Frequency Seeding
+### II. Finding the Root Tone
 
-The input word is converted to a scalar `G` by summing the positional values of its Latin letters:
+The Gematria sum for any given word can be a small number or an enormous one — a single letter yields a value of 1, a long phrase might yield thousands. Before this number becomes a tone, it must be mapped to a useful range of the audio spectrum.
+
+**Step one — logarithmic compression:**
+
+The mapping uses a logarithmic scale rather than a linear one because the human ear experiences pitch logarithmically. What we call an octave is a doubling of frequency — 220 Hz to 440 Hz feels the same distance to the ear as 440 Hz to 880 Hz, even though the second jump is twice the numerical size. By compressing the Gematria sum on a logarithmic curve, small words and large words both produce tones that fall somewhere across the full musical range, rather than clustering at one end.
 
 ```
-LATIN = { A:1, B:2, C:3, D:4, E:5, F:6, G:7, H:8, I:9, J:10,
-          K:11, L:12, M:13, N:14, O:15, P:16, Q:17, R:18, S:19,
-          T:20, U:21, V:22, W:23, X:24, Y:25, Z:26 }
-
-G = Σ LATIN[c] for each character c in the uppercase input
+t = ln(1 + G) / ln(1 + 10000)      ← maps any G to a value between 0 and 1
+f₀ = 80 + t × 420                   ← lands between 80 Hz and 500 Hz
 ```
 
-`G` seeds three downstream systems:
-1. **Carrier frequency** — via `normaliseCarrier(G)` → `f₀`
-2. **Phyllotaxis hue** — via `phyllotaxisHSL(G)` → HSL colour
-3. **Sigil geometry** — `G` modulates line weights, radii, and angular positions in all four geometry modes
+**Step two — the Lithic Anchor (octave descent):**
 
-This ensures that the visual, chromatic, and acoustic outputs are all mathematically downstream of the same input — the entire session is encoded into a single scalar.
+The mapped tone is then halved repeatedly — dropping down one octave at a time — until it falls into the range 75–150 Hz. Halving a frequency drops it one octave but does not change its musical character; the tone retains its identity at a lower register.
+
+This basement range — below the register of most speech — is where binaural beat perception is most reliable, and where sub-bass resonance tends to activate the parasympathetic nervous system rather than the alert, focused state produced by mid-range frequencies.
+
+```
+While the tone is above 150 Hz: halve it.
+Floor at 75 Hz.
+```
 
 ---
 
-### IV. Golden Angle — Phyllotactic Chromatics
+### III. Latin Gematria — The Word as Frequency
 
-The **Golden Angle** ψ ≈ 137.508° is the irrational angular increment that produces maximum equidistribution of points on a circle. It is derived from the Golden Ratio φ:
+Every letter of the Latin alphabet carries a numerical value. In MIDAS, the full classical weights are used — a base-10 stepped system reflecting the historical groupings of the alphabet:
 
-```
-φ = (1 + √5) / 2 ≈ 1.6180339887
+| A–I | 1–9 | (units) |
+|-----|-----|---------|
+| J–R | 9–80 | (tens, with J sharing I's value of 9) |
+| S–Z | 90–500 | (hundreds) |
 
-ψ = 360° × (1 − 1/φ²)
-  = 360° × (2 − φ)
-  ≈ 137.5077640500...°
-```
+The Gematria sum `G` is simply the total of all letter values in the input word. This single number cascades into three separate systems:
 
-In botanical phyllotaxis (sunflower seed heads, pinecone scales, fern fronds) this angle prevents any two successive elements from being angularly adjacent — maximising solar exposure for each element. In MIDAS it is used for two purposes:
+1. The **carrier frequency** — which tone the session is tuned to
+2. The **sigil geometry** — the shape drawn on the canvas
+3. The **chromatic hue** — the colour of the interface
 
-**Chromatic seeding:**
-```
-H = (G × 137.508) mod 360
-S = 38 + (G mod 24)     → range 38–62%, centred on φ×38.2 ≈ 61.8%
-L = 15 + (G mod 10)     → range 15–25% (subterranean luminescence)
-```
-
-Because 137.508 is irrational relative to 360, successive Gematria values produce hues that never cluster or repeat in a predictable cycle. A single character change in the input word yields a perceptually distant colour.
-
-**Saturation at φ×38.2%:** The Golden Ratio proportion 61.8% / 38.2% appears throughout natural growth patterns. Anchoring saturation near this proportion ensures chromatic vibrancy is structurally coherent across all palette rotations.
+A different word produces a different tone, a different shape, and a different colour. The same word always produces the same session — it is entirely deterministic. No randomness is introduced.
 
 ---
 
-### V. F₁₁ Particle Field — Vogel's Disk
+### IV. The Golden Angle — Colour from the Seed
 
-The sigil canvas renders 89 particles (F₁₁ in the Fibonacci sequence) arranged on a Vogel spiral — the mathematical model for a sunflower seed head.
+The Gematria seed is converted to a colour using the *Golden Angle* — a specific rotation of approximately 137.5°, derived from the Golden Ratio.
 
-**Angular position (Golden Angle dispersion):**
-```
-θₙ = n × ψ   (mod 2π)
-   = n × (137.508 × π/180)
-```
+The Golden Ratio (φ ≈ 1.618) is the proportion at which a line is divided so that the ratio of the whole to the larger part equals the ratio of the larger part to the smaller. It appears throughout natural growth: the spiral of a nautilus shell, the arrangement of seeds in a sunflower, the branching of veins. The Golden Angle is simply the rotational expression of this ratio: the angle at which successive elements are placed to achieve the most efficient possible distribution around a circle.
 
-**Radial position (uniform-area distribution):**
 ```
-rₙ = √(n / 89) × R
-```
+Golden Ratio: φ = (1 + √5) / 2 ≈ 1.618
+Golden Angle: ψ = 360° × (2 − φ) ≈ 137.508°
 
-The square-root radial formula ensures equal density per unit area — without it, points would crowd at the centre and thin out at the periphery. With it, each particle occupies the same angular sector area as every other.
-
-**Temporal phase offset (irrational drift):**
-```
-Δtₙ = n × φ
-pulse_n(t) = 0.5 + 0.5 × sin(2π × WALHUU × t + Δtₙ)
+Hue:        H = (G × 137.508) mod 360°
+Saturation: S = 38 + (G mod 24)%      → centres near the φ proportion of the colour wheel
+Lightness:  L = 15 + (G mod 10)%      → a subterranean luminosity, rich but not dominant
 ```
 
-Multiplying by φ (an irrational number) ensures no two particles ever pulse in unison at any rational time. The phase offsets are incommensurable — the field never "breathes together" as a uniform flash.
-
-89 is chosen specifically because it is F₁₁ (the 11th Fibonacci number). The Fibonacci sequence governs the number of clockwise and counter-clockwise spirals visible in a Vogel disk — biological systems use Fibonacci numbers because they are adjacent to the limit of the ratio `Fₙ/Fₙ₋₁ → φ`.
+Because 137.5° is irrational with respect to 360°, no two Gematria values within an ordinary range will ever produce the same hue. Changing a single letter in your word yields a perceptually distant colour — not a neighbouring shade.
 
 ---
 
-### VI. Stochastic Resonance Lattice
+### V. The Particle Field — Eighty-Nine Points of Light
 
-The resonance lattice injects three sine oscillators into the pink noise field at rational multiples of the carrier frequency, bypassing the waveshaper and lowpass filter:
+The background canvas is populated with 89 particles. 89 is the eleventh Fibonacci number (the sequence 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89...). The Fibonacci numbers govern the spiral packing of natural forms — the number of spirals you can count in a sunflower or a pine cone will always be adjacent Fibonacci numbers. 89 was chosen specifically for this structural kinship.
 
-```
-f₁ = f₀ × 1     (Absolute Unity)       amplitude: 0.055
-f₂ = f₀ × 3/2   (Sovereign Dominant)   amplitude: 0.038
-f₃ = f₀ × 2     (Lithic Anchor)        amplitude: 0.028
-```
+The particles are arranged on a Vogel spiral — the mathematical model for a sunflower seed head. Each particle's position is determined by two rules:
 
-The multipliers 1, 3/2, and 2 correspond to the **unison**, **perfect fifth**, and **octave** — the three most consonant intervals in Western harmonic theory, arising from small integer ratios of string length. They are also the first three terms of the harmonic series above the fundamental.
+- **Angle:** Each successive particle is rotated by exactly the Golden Angle (137.5°) from the last. Because this angle is irrational, no two particles ever share an angular alignment — they distribute themselves without clustering.
+- **Radius:** Each particle is placed at a radius proportional to the square root of its index. The square root ensures that equal numbers of particles appear in equal areas — outer zones are not sparse, inner zones are not crowded.
 
-**Stochastic resonance** is the phenomenon where adding a small amount of noise to a sub-threshold signal can make the signal detectable. Here the principle is inverted — coherent tones are embedded in the broadband pink noise at amplitudes below conscious perception, providing a subliminal harmonic scaffold that the auditory system can lock onto without the brain consciously registering discrete pitches.
+Each particle pulses — brightening and dimming — at a rate offset by an irrational multiple of its position index. Because the offset is irrational, no two particles ever pulse in synchrony. The field breathes, but never breathes as one.
 
 ---
 
-### VII. Pink Noise — Voss-McCartney Algorithm
+### VI. The Resonance Lattice — Hidden Harmonics
 
-Pink noise (1/f noise) is generated using the Voss-McCartney algorithm, which approximates the 1/f power spectrum using a bank of seven independent white noise generators updated at different rates:
+Beneath the audible layer of the binaural tones, three additional sine oscillators are woven into the noise field at amplitudes below the threshold of conscious hearing. They are placed at the three most naturally consonant intervals above the root tone:
 
-```
-For each sample i:
-  b₀ += white × 0.99886 − b₀ × 0.99886
-  b₁ += white × 0.99332 − b₁ × 0.99332
-  b₂ += white × 0.96900 − b₂ × 0.96900
-  b₃ += white × 0.86650 − b₃ × 0.86650
-  b₄ += white × 0.55000 − b₄ × 0.55000
-  b₅ += white × −0.7616
-  output = (b₀+b₁+b₂+b₃+b₄+b₅+b₆ + white×0.5362) × 0.11
-```
+| Multiplier | Interval | Character |
+|-----------|----------|-----------|
+| 1× the root | Unison | The root tone itself, undisplaced |
+| 1.5× the root | Perfect Fifth | The most stable harmonic relationship after the octave |
+| 2× the root | Octave | The root tone one register higher |
 
-Pink noise is perceptually "warmer" than white noise (which is uniform across all frequencies) because it has equal energy per octave rather than equal energy per Hz. Human perception is logarithmic in frequency — we hear octaves as equal intervals — so pink noise sounds flat and neutral, while white noise sounds high-pitched and harsh.
+These three ratios — 1:1, 3:2, and 2:1 — are the first three harmonics of the natural overtone series. They are consonant because their wave cycles align at short, regular intervals, producing periodic reinforcement rather than friction.
 
-In MIDAS, pink noise serves as the acoustic field within which the binaural tones and resonance lattice operate — providing a broadband carrier that masks environmental noise and prevents the ear from fatiguing on the pure tones.
+The principle at work is *stochastic resonance*: a small coherent signal embedded in a broadband field of noise can be more perceptible than the same signal in silence, because the noise raises weak sub-threshold signals to the point of detection. The lattice tones sit just below the level at which the ear would register them as discrete pitches — but the auditory system locks onto them as structure within the field.
+
+The root tone used for the lattice is the same `f₀` derived from Gematria. The lattice and the binaural tones are downstream of the same seed.
 
 ---
 
-### VIII. Walhuu Constant — 0.137 Hz LFO
+### VII. Pink Noise — The Acoustic Field
 
-`WALHUU = 0.137 Hz` is the fundamental modulation rate of the application. It governs:
+All tones in MIDAS are suspended within a field of pink noise — a specific variety of broadband sound that carries equal energy across each octave of the frequency spectrum.
 
-- Pink noise amplitude envelope
-- Particle pulse animation in the F₁₁ field
-- Polyrhythm tremolo phase reference
-- Glow-orb CSS animation period (`1000 / 0.137 ≈ 7299 ms`)
+White noise, by contrast, carries equal energy at every frequency — which means far more energy in the higher registers (since there are vastly more high frequencies than low ones). White noise sounds harsh and bright. Pink noise sounds neutral, warm, and steady to the ear — what most people mean when they say "static" in a comfortable sense.
 
-0.137 Hz corresponds to a period of approximately **7.3 seconds** — close to the average duration of a slow exhalation (6–10 seconds) and within the range of the body's natural low-frequency oscillations:
+Pink noise in MIDAS serves two purposes: it masks environmental sounds that might interrupt concentration, and it provides the broadband field within which the stochastic resonance lattice and binaural tones operate.
 
-```
-WALHUU period = 1 / 0.137 ≈ 7.299 seconds
-```
-
-The value also appears in the **fine structure constant** α ≈ 1/137, which governs the strength of electromagnetic coupling between charged particles and photons. Whether or not this correspondence is physically meaningful, 7.3 seconds falls in the crossover region between respiratory and cardiovascular rhythms — the temporal scale at which the breath, heart rate variability, and baroreceptor reflex naturally synchronise during deep relaxation.
+The noise is generated in real-time using the Voss-McCartney algorithm — seven independent streams of random values, each updating at a different rate, their sum approximating the ideal 1/f power spectrum. It is amplitude-modulated at the Walhuu rate (§VIII), creating the slow oceanic breath beneath everything.
 
 ---
 
-### IX. Breath Pacing — Physiological Rationale
+### VIII. The Walhuu Constant — The Breath Beneath Everything
 
-Breath patterns are expressed as `[inhale, hold, exhale]` in seconds. Each pattern is grounded in published research on respiratory physiology:
+`WALHUU = 0.137 Hz`
 
-**Coherence breathing (5-0-5):**
-At 6 breaths per minute, breathing entrains with the baroreflex — the natural ~10-second oscillation in blood pressure regulation (Mayer waves). This maximises heart rate variability (HRV) and activates the parasympathetic branch of the autonomic nervous system.
+This is the fundamental oscillation rate of the application. At 0.137 cycles per second, one complete cycle takes approximately 7.3 seconds — close to the duration of a slow natural exhalation, and squarely in the zone where respiratory and cardiovascular rhythms naturally synchronise during deep relaxation.
 
-**Extended exhale (any pattern where exhale > inhale):**
-The vagus nerve is more active during exhalation than inhalation. A longer exhale therefore produces a net increase in vagal tone, reducing heart rate and cortisol. The Release pattern (6-2-10) maximises this ratio.
+The Walhuu rate governs:
+- The slow amplitude breathing of the pink noise field
+- The pulse timing of the background particle field
+- The period of the glowing ring around the instrument panel
 
-**Physiological sigh (4-0-8):**
-A brief double-inhale followed by a long slow exhale deflates alveoli that have partially collapsed during shallow breathing. The extended exhale activates the parasympathetic nervous system via vagal afferents.
-
-**Box breathing (4-4-4-4):**
-Equal-duration phases create a symmetrical respiratory pattern that dampens sympathetic activation by forcing a controlled pause on both the inhale peak and the exhale trough. Used in high-stress performance contexts (military, surgery).
-
-Breath selection in MIDAS is **fully independent** of tone selection — any breath pattern may be paired with any therapy mode, allowing the user to decouple the cognitive depth target from the physical pacing preference.
+The value 0.137 is also notable as the approximate magnitude of the fine structure constant (α ≈ 1/137) — the dimensionless number that governs the strength of electromagnetic interaction in physics. Whether this is causal or correspondence, the temporal period it produces (7.3 seconds) is physiologically apt: it falls at the intersection of respiratory and cardiac low-frequency oscillation.
 
 ---
 
-### X. Miller's Law — Cognitive Load Architecture
+### IX. Breath Pacing — Why These Rhythms
 
-All selector grids in MIDAS are organised according to Miller's Law (1956): human working memory can hold `7 ± 2` items simultaneously. Exceeding this causes cognitive overload and decision paralysis.
+Each breath pattern is expressed as a sequence of durations in seconds: inhale, hold, exhale — or inhale, hold, exhale, hold (for box patterns).
 
-Implementation:
-- **Therapy modes** — 8 modes split into two labelled groups of 4 (DESCENT / ASCENT)
-- **Breath patterns** — 8 patterns split into two groups of 4 (SLOW / ACTIVE)
-- **Timbres** — 6 timbres split into two groups of 3 (TONAL / ORGANIC)
-- **Lithic frequencies** — displayed 3 per row in a grid
+The timing of breath directly influences the autonomic nervous system through three mechanisms:
 
-Each group carries a semantic label that names the shared intent of its members, reducing the selection from a combinatorial search to a two-step hierarchical decision: first choose the group, then choose within it.
+**Baroreflex entrainment:** The baroreflex is the body's moment-to-moment blood pressure regulation system — it naturally oscillates at approximately 0.1 Hz (one full cycle every ten seconds). When respiration is paced at exactly 6 breaths per minute (a 5-second inhale, 5-second exhale), breathing synchronises with the baroreflex, maximising *heart rate variability* — the measure of the heart's flexibility and responsiveness. This is the Cohere pattern.
+
+**Vagal tone through extended exhale:** The vagus nerve — the primary parasympathetic nerve, connecting brain to heart, lungs, and gut — is more active during exhalation than inhalation. A longer exhale therefore produces a net increase in parasympathetic tone: heart rate decreases, cortisol falls. The Release pattern (6-2-10) maximises the exhale-to-inhale ratio.
+
+**Physiological sigh:** A brief double-inhale followed by a long slow exhale deflates alveoli (the small air sacs of the lungs) that collapse during shallow breathing. The extended exhale activates parasympathetic pathways via the vagus. The pattern (4-0-8) replicates the body's natural reset mechanism.
+
+**Box breathing:** Equal-duration phases (4-4-4-4) — inhale, hold, exhale, hold — create a symmetrical respiratory rhythm that dampens sympathetic activation by enforcing a pause at both the peak of inhalation and the trough of exhalation. Used in high-intensity performance contexts to restore cognitive clarity under pressure.
+
+Breath patterns in MIDAS are fully independent of tone modes. Any pattern may be combined with any mode.
 
 ---
 
-## Audio Signal Chain
+### X. The Seven-Plus-Two Rule — Why the Selectors Are Sized This Way
+
+All selector grids are organised in groups of no more than four or five items, with never more than eight items visible in a single decision. This is not aesthetic convenience — it reflects a finding from cognitive psychology.
+
+In 1956, George Miller demonstrated that human working memory can hold approximately 7 items simultaneously, with a range of ± 2 (hence "7 ± 2" or "Miller's Law"). Present more than nine options at once and decision quality degrades — the cognitive load of comparison exceeds the capacity available, and either paralysis or arbitrary choice results.
+
+The therapy modes (8 items) are split into two labelled groups of 4: **DESCENT** and **ASCENT**. The breath patterns (8 items) are split into **SLOW** and **ACTIVE**. The timbres (6 items) into **TONAL** and **ORGANIC**.
+
+The label names the *shared intent* of the group, reducing selection from a combinatorial search (which of these eight options?) to a two-step hierarchical decision (which direction? which instrument?). The cognitive cost of choosing MIDAS's mode is intentionally low — the attention saved at selection is available for the session itself.
+
+---
+
+## The Sound Architecture
+
+Every sound you hear travels through the following chain, left to right:
 
 ```
 Oscillator L (fL) ──┐
-                    ├──► Channel Merger ──► BiquadFilter (HPF) ──► WaveShaper ──┐
-Oscillator R (fR) ──┘                                                            │
-                                                                                 ▼
-Sub-octave L ───────────────────────────────────────────────────────► Channel Merger (pre-shaper)
-Sub-octave R ──────────────────────────────────────────────────────────────────┘
-                                                                                 │
-Pink Noise L ──────────────────────────────────────────────────────────────────►├──► dryGain (0.72) ──►┐
-Pink Noise R ──────────────────────────────────────────────────────────────────►│                       │
-                                                                                 │                       ▼
-Resonance Lattice (f₀, f₀×3/2, f₀×2) ─────────────────────────────────────────┘              master GainNode
-                                                                                                       │
-                                                                              ConvolverNode (IR 1.8s) ──► wetGain (0.28) ──►┘
-                                                                                                       │
-                                                                                              VelvetLPF (BiquadFilter, 300 Hz)
-                                                                                                       │
-                                                                                            SovereignLimiter (DynamicsCompressor)
-                                                                                              threshold −3 dB, ratio 4:1
-                                                                                                       │
-                                                                                              ac.destination (DAC)
+                    ├──► Stereo Merger ──► Pre-Shaper Filter ──► WaveShaper ──┐
+Oscillator R (fR) ──┘                                                          │
+                                                                               ▼
+Sub-octave pair ────────────────────────────────────────────────► Same merger (pre-shaper)
+                                                                               │
+Pink Noise (L+R) ──────────────────────────────────────────────────────────►  ├──► Dry gain (72%) ──►┐
+                                                                               │                       │
+Resonance Lattice ─────────────────────────────────────────────────────────►  ┘                       │
+                                                                                                       ▼
+                                                                          Stone Chamber Reverb ──► Wet gain (28%) ──►┤
+                                                                                                                     │
+                                                                                                         Master Gain
+                                                                                                                     │
+                                                                                           Low-pass filter at 300 Hz
+                                                                                                                     │
+                                                                                              Sovereign Limiter (soft)
+                                                                                                                     │
+                                                                                                 Your headphones (DAC)
 ```
 
-**Key nodes:**
+**Key stages:**
 
-| Node | Purpose |
-|------|---------|
-| `WaveShaperNode` (k=25) | Thermal saturation — soft tube-glow warmth via `f(x) = ((1+k)x)/(1+k|x|)` |
-| `ConvolverNode` | Lithic stone chamber reverb — 1.8s IR with exponential decay and heavy HF smoothing |
-| `BiquadFilter` (lowpass, 300 Hz) | Velvet Curtain — severs all upper-frequency artifacts, constraining output to somatic sub-bass |
-| `DynamicsCompressor` | Sovereign Limiter — prevents DAC clipping when multiple waveforms constructively interfere |
-| Pink noise LFO (0.137 Hz) | Amplitude-modulates the noise field at the Walhuu rate — oceanic breath beneath the fundamental |
-| Resonance lattice oscillators | Harmonic anchors in 1:1, 3:2, 2:1 ratio to f₀, injected below the shaper for uncoloured consonance |
+| Stage | Purpose |
+|-------|---------|
+| **WaveShaper** (k=25) | Adds a faint warmth — even harmonics that the ear reads as the glow of a tube amplifier, without distortion |
+| **Stone Chamber Reverb** | A synthesised 1.8-second impulse response modelled on a subterranean stone enclosure — dense early reflections, a dark decaying tail, minimal high-frequency content |
+| **Low-pass filter at 300 Hz** | Severs all frequencies above 300 Hz, leaving only sub-bass and low-mid weight. Nothing bright or harsh reaches the listener |
+| **Sovereign Limiter** | A gentle compressor (threshold −3 dB, ratio 4:1) that catches any peaks where multiple waveforms briefly reinforce each other — preventing the sharp crack of digital clipping |
+| **Pink noise LFO** | The noise field slowly swells and recedes at the Walhuu rate — 0.137 Hz — creating the oceanic quality beneath the tones |
 
 ---
 
-## Visual Architecture
+## The Visual Architecture
 
-MIDAS uses three independent canvases, each on its own GPU compositor layer:
+MIDAS uses three canvases, each independent:
 
-| Canvas | Role | Layer |
-|--------|------|-------|
-| `#faerie-canvas` | Fixed background — F₁₁ phyllotaxis particle field, φ-drift animation | `z-index: 0` |
-| `#sigil-canvas` | Instrument panel — live sigil geometry + inner F₁₁ particle ring | `z-index: 2` (inside `.instrument`) |
-| `#box-tracer` | Fixed overlay — luminous tracer orbiting the instrument panel boundary | `z-index: 2` |
+| Canvas | Role |
+|--------|------|
+| Background (faerie-canvas) | The F₁₁ Vogel particle field — 89 points of light, φ-drifting, always running |
+| Centre (sigil-canvas) | The live sigil geometry — redraws every frame, responds to your word |
+| Overlay (box-tracer) | A luminous point tracing the boundary of the instrument panel |
 
-All canvases use hardware DPR scaling to eliminate sub-pixel blur on high-density displays:
+All three canvases scale automatically to match the pixel density of the display — a Retina screen or high-DPI phone will render with full sharpness, not the soft blur that appears when canvas dimensions are not matched to hardware pixels.
 
-```javascript
-canvas.width  = Math.round(cssWidth  × devicePixelRatio)
-canvas.height = Math.round(cssHeight × devicePixelRatio)
-ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0)
-```
-
-**Section compositing isolation:** Each `<section>` element uses a `::before` pseudo-element to carry its `backdrop-filter` and background. This decouples the glassmorphic blur from the element's `border-radius`, preventing the browser compositing collision that causes jagged radius edges when `backdrop-filter`, `border-radius`, and `overflow: hidden` are applied to the same node.
-
-**Font-loading gate:** The entire UI is held at `opacity: 0` until `document.fonts.ready` resolves, eliminating Flash Of Unstyled Text (FOUT) and the layout reflow that occurs when the browser substitutes system fonts before custom fonts arrive.
+The interface holds at invisible opacity until fonts have fully loaded, eliminating the brief flash of wrong-font text that occurs on slower connections.
 
 ---
 
@@ -337,17 +286,17 @@ ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0)
 
 ### DESCENT — Deceleration, depth, release
 
-| Mode | Δf | Default Breath | Carrier Note |
-|------|----|----------------|--------------|
-| Cohere | 0.5 Hz | 5-0-5 | Cardiac resonance at 6/min |
-| Delta | 2.5 Hz | 6-2-10 | Deep sleep, trauma processing |
-| Theta | 6 Hz | 5-2-7 | Relaxation, creativity |
+| Mode | Beat (Δf) | Default Breath | Character |
+|------|-----------|----------------|-----------|
+| Cohere | 0.5 Hz | 5-0-5 | Cardiac resonance at 6 breaths/min |
+| Delta | 2.5 Hz | 6-2-10 | Deep rest, integration |
+| Theta | 6 Hz | 5-2-7 | Soft trance, receptivity |
 | Sigh | 3.5 Hz | 4-0-8 | Physiological reset |
 
 ### ASCENT — Re-integration, engagement, return
 
-| Mode | Δf | Default Breath | Carrier Note |
-|------|----|----------------|--------------|
+| Mode | Beat (Δf) | Default Breath | Character |
+|------|-----------|----------------|-----------|
 | Alpha | 10 Hz | 4-1-6 | Calm focus, settled ease |
 | Beta | 18 Hz | 4-0-5 | Grounded re-entry |
 | Stasis | 6 Hz | 4-4-4-4 | Structural containment |
@@ -357,7 +306,7 @@ ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0)
 
 ## Breath Patterns
 
-Breath patterns are independently selectable from therapy modes.
+Independent of tone mode — any pattern may be paired with any mode.
 
 | Pattern | Cycle | Group | Physiological Basis |
 |---------|-------|-------|---------------------|
@@ -374,21 +323,21 @@ Breath patterns are independently selectable from therapy modes.
 
 ## Timbres
 
-Each timbre modifies the `WaveShaperNode` configuration and oscillator layering.
+Each timbre alters the harmonic character of the binaural tones.
 
-### Tonal (pitched resonance)
+### Tonal — Pitched resonance
 | Timbre | Character |
 |--------|-----------|
-| **Pure** | Clean unmodified sine — zero harmonic content, maximum phase purity |
-| **Crystal** | Bell-like partials — thin metallic overtones, still air |
-| **Vessels** | Warm bowl resonance — fundamental + 2nd harmonic emphasis |
+| **Pure** | Unmodified sine — no harmonics, complete phase clarity |
+| **Crystal** | Bell-like overtones — thin metallic partials, still air |
+| **Vessels** | Warm bowl resonance — fundamental with second harmonic emphasis |
 
-### Organic (environmental texture)
+### Organic — Environmental texture
 | Timbre | Character |
 |--------|-----------|
-| **Yidaki** | Didgeridoo formant — wood, breath, and low-earth resonance |
-| **Cave** | Stone enclosure — dense IR reverb tail, minimal high-frequency content |
-| **Pulse** | Slow oceanic swell — amplitude-modulated at sub-breath frequencies |
+| **Yidaki** | Didgeridoo formant — wood, breath, earth |
+| **Cave** | Dense stone reverb tail, minimal high-frequency content |
+| **Pulse** | Amplitude-modulated at sub-breath frequencies — slow oceanic swell |
 
 ---
 
@@ -396,7 +345,6 @@ Each timbre modifies the `WaveShaperNode` configuration and oscillator layering.
 
 ```bash
 # 1. Create a new repository on github.com
-#    e.g. github.com/yourname/midas
 
 # 2. Clone it locally
 git clone https://github.com/yourname/midas.git
@@ -414,12 +362,11 @@ git push origin main
 #    Repository → Settings → Pages → Source: Deploy from branch → main / (root)
 ```
 
-The application will be live at `https://yourname.github.io/midas/` within a few minutes.
+Live at `https://yourname.github.io/midas/` within a few minutes.
 
-**GitHub Pages notes:**
-- HTTPS is served automatically — required for Web Audio API and Service Worker
-- No build step needed — the app is a single `index.html` with no bundler dependencies
-- `sw.js` enables offline use after the first load
+- HTTPS is provided automatically — required for Web Audio and the Service Worker
+- No build step — the app is a single `index.html`, nothing to compile
+- `sw.js` enables full offline use after the first load
 
 ---
 
@@ -431,7 +378,7 @@ On supported browsers (Chrome, Edge, Safari 16.4+):
 - **Android Chrome:** `⋮` menu → "Add to Home Screen"
 - **iOS Safari:** Share sheet → "Add to Home Screen"
 
-Once installed, MIDAS launches as a standalone app without browser chrome, stores the shell in the Service Worker cache, and remains fully functional offline (the audio engine and canvas renderer have no network dependencies after initial font load).
+Once installed, MIDAS runs as a standalone app — no browser chrome, no address bar. The session shell is cached by the Service Worker. The application runs fully offline after first load: the audio engine and canvas have no network dependencies.
 
 ---
 
@@ -439,14 +386,13 @@ Once installed, MIDAS launches as a standalone app without browser chrome, store
 
 | Concern | Technology |
 |---------|-----------|
-| Audio synthesis | Web Audio API (`AudioContext`, `OscillatorNode`, `BiquadFilterNode`, `WaveShaperNode`, `ConvolverNode`, `DynamicsCompressorNode`) |
-| Rendering | Canvas 2D API with hardware DPR scaling |
+| Audio synthesis | Web Audio API — OscillatorNode, BiquadFilterNode, WaveShaperNode, ConvolverNode, DynamicsCompressorNode |
+| Rendering | Canvas 2D API, hardware DPR scaling |
 | Animation | `requestAnimationFrame` loop, 60 fps |
-| State | Plain JavaScript object `S` — no framework |
+| State | Plain JavaScript object — no framework |
 | Persistence | `localStorage` (palette, theme) |
 | Offline | Service Worker, Cache API |
-| Typography | Cinzel (titling), Cormorant Garamond (body), Share Tech Mono (data) |
-| Fonts | Google Fonts, loaded via `document.fonts.ready` gate |
+| Typography | Cinzel, Cormorant Garamond, Share Tech Mono |
 | PWA | Web App Manifest, standalone display mode |
 
 **Browser requirements:** Any modern browser with Web Audio API support (Chrome 66+, Firefox 76+, Safari 14.1+, Edge 79+). Binaural beats require stereo headphones — the effect is not perceivable on speakers or in mono.
