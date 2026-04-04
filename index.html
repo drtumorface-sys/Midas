@@ -1089,6 +1089,175 @@ footer {
   letter-spacing: .3em;
   line-height: 2.4;
 }
+
+/* ── ABOUT / CODEX OVERLAY ── */
+#about-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4,4,8,0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 600;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
+  overflow-y: auto;
+  padding: 20px 16px 40px;
+}
+#about-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.about-panel {
+  background: var(--basalt);
+  border: 1px solid var(--granite);
+  border-radius: 20px;
+  max-width: 520px;
+  width: 100%;
+  padding: 36px 28px 40px;
+  position: relative;
+  box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+}
+.about-close {
+  position: absolute;
+  top: 16px; right: 18px;
+  background: none; border: none;
+  color: var(--ash); font-family: var(--font-m);
+  font-size: 10px; letter-spacing: .2em;
+  cursor: pointer; text-transform: uppercase;
+  transition: color .25s; padding: 4px 8px; border-radius: 8px;
+}
+.about-close:hover { color: var(--chalk); background: rgba(255,255,255,0.04); }
+.about-wordmark {
+  font-family: var(--font-d);
+  font-size: 14px;
+  letter-spacing: .55em;
+  color: var(--quartz);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.about-expansion {
+  font-family: var(--font-b);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--ash);
+  text-align: center;
+  letter-spacing: .12em;
+  margin-bottom: 28px;
+}
+.about-axiom {
+  font-family: var(--font-b);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ash);
+  line-height: 1.85;
+  text-align: center;
+  border-left: 2px solid rgba(255,255,255,0.07);
+  padding: 14px 18px;
+  margin-bottom: 32px;
+  border-radius: 0 8px 8px 0;
+}
+.about-section {
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--schist);
+}
+.about-section:last-child { border-bottom: none; margin-bottom: 0; }
+.about-section-label {
+  font-family: var(--font-m);
+  font-size: 8px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 4px;
+}
+.about-section-title {
+  font-family: var(--font-d);
+  font-size: 13px;
+  letter-spacing: .22em;
+  color: var(--quartz);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.about-body {
+  font-family: var(--font-b);
+  font-size: 14px;
+  color: var(--ash);
+  line-height: 1.9;
+  letter-spacing: .02em;
+}
+.about-body strong {
+  color: var(--chalk);
+  font-weight: normal;
+  font-style: normal;
+}
+.about-body em {
+  color: var(--copper);
+  font-style: italic;
+}
+.about-data-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 16px;
+  background: var(--obsidian);
+  border: 1px solid var(--schist);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 14px 0;
+  font-family: var(--font-m);
+  font-size: 9px;
+}
+.about-data-key { color: var(--ash); letter-spacing: .22em; text-transform: uppercase; }
+.about-data-val { color: var(--copper); letter-spacing: .08em; }
+.about-equation {
+  font-family: var(--font-m);
+  font-size: 9px;
+  color: var(--verdigris);
+  letter-spacing: .12em;
+  background: var(--obsidian);
+  border: 1px solid var(--schist);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0;
+  line-height: 1.8;
+}
+[data-theme="light"] .about-panel { background: rgba(255,255,255,.8); border-color: rgba(255,255,255,.9); }
+[data-theme="light"] .about-section { border-color: rgba(160,150,140,.2); }
+[data-theme="light"] .about-data-row,
+[data-theme="light"] .about-equation { background: rgba(255,255,255,.5); border-color: rgba(160,150,140,.25); }
+
+/* ── CODEX TRIGGER ── */
+.codex-trigger {
+  position: fixed;
+  top: 86px; right: 16px;
+  border: 1px solid var(--granite);
+  color: var(--ash);
+  font-family: var(--font-m);
+  font-size: 9px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  cursor: pointer;
+  z-index: 100;
+  transition: all .3s;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(10,10,14,0.65);
+  border-radius: 20px;
+}
+.codex-trigger:hover {
+  border-color: var(--copper);
+  color: var(--chalk);
+  box-shadow: 0 0 12px rgba(176,112,48,0.1);
+}
+[data-theme="light"] .codex-trigger {
+  background: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03), 0 0 12px rgba(255,255,255,0.5);
+}
 </style>
 </head>
 <body>
@@ -1110,8 +1279,9 @@ footer {
     </filter>
   </defs>
 </svg>
-<button class="settings-trigger" onclick="openSettings()">HEARTH COLOURS</button>
-<button class="light-toggle" id="light-toggle" onclick="toggleLight()">LIGHT MODE</button>
+<button class="settings-trigger" onclick="openSettings()">OPTICAL FIELD</button>
+<button class="light-toggle" id="light-toggle" onclick="toggleLight()">LUMINAL MODE</button>
+<button class="codex-trigger" onclick="openAbout()">CODEX</button>
 
 <!-- SETTINGS OVERLAY -->
 <div id="settings-overlay">
@@ -1178,40 +1348,209 @@ footer {
     </div>
   </div>
 </div>
+<!-- ABOUT / CODEX OVERLAY -->
+<div id="about-overlay">
+  <div class="about-panel">
+    <button class="about-close" onclick="closeAbout()">CLOSE ✕</button>
+    <div class="about-wordmark">M · I · D · A · S</div>
+    <div class="about-expansion">Modulated Interval Drift &amp; Acoustic Sanctuary</div>
+    <div class="about-axiom">
+      The nervous system does not receive a signal.<br>
+      It becomes one.<br>
+      <em style="font-size:11px;opacity:.6;">— Stage II Axiom</em>
+    </div>
+
+    <!-- I -->
+    <div class="about-section">
+      <div class="about-section-label">Module I</div>
+      <div class="about-section-title">Phonosemantic Catalyst</div>
+      <div class="about-body">
+        The word you offer is not stored, transmitted, or analysed for meaning. It is <strong>transduced</strong> — converted into a scalar integer through the <em>Latin isopsephy cipher</em>, a Mishnaic-weight positional scheme (A=1 through Z=500 with historical letter groupings: I=J=9, U=V=W=200).
+        <br><br>
+        The raw sum Γ is logarithmically compressed into the therapeutic carrier window [75–150 Hz] — the <em>acoustic basement</em> where binaural beat perception is most reliable and the carrier sits below conscious pitch discrimination:
+      </div>
+      <div class="about-equation">
+        t = ln(1 + Γ) / ln(10001)<br>
+        f₀ = 80 + t × 420  →  octave-transpose while f₀ &gt; 150
+      </div>
+      <div class="about-body">
+        The same integer seeds the sigil geometry, the chromatic phyllotaxis field, and all harmonic ratios. Visual, acoustic, and chromatic outputs are <strong>mathematically downstream of a single number</strong>. The word becomes mathematics. The mathematics becomes the session.
+      </div>
+    </div>
+
+    <!-- II -->
+    <div class="about-section">
+      <div class="about-section-label">Module II</div>
+      <div class="about-section-title">Morphogenetic Transducer</div>
+      <div class="about-body">
+        The sigil canvas renders the catalyst as a deterministic geometric field. Four morphological grammars are available — each a distinct mathematical encoding of the same scalar:
+        <br><br>
+        <strong>Phyllotaxis (Natural)</strong> — Fibonacci-count petals (8, 13, 21, or 34 based on G mod 4) arranged at the Golden Angle ψ = 137.508°. This is the same angular spacing that maximises light capture in sunflower seed-heads. The 21 central seed-points are F₈ in the Fibonacci sequence. The carrier is shifted by 5:4 (the Major Third — the botanical harmonic).
+        <br><br>
+        <strong>Saturnian Kamea (Chaos)</strong> — The consonants of the word are extracted and mapped to the 3×3 magic square of Saturn (magic constant 15) via Latin cipher modulo 9. The path through these grid positions is unique to the word's consonantal skeleton. The carrier shifts by φ:1 (the Golden Ratio — incommensurable, maximally resistant to periodic resolution). Used at Tiphareth: the persona dissolves to its essential consonantal structure.
+        <br><br>
+        <strong>Ogham Stemline</strong> — Each letter maps to its historical Ogham aicme strokes, read bottom to top along the druim as inscribed on Irish standing stones (4th–6th century). The carrier shifts by 4:3 (the Perfect Fourth). The oldest alphabetic grammar in the Western tradition.
+        <br><br>
+        <strong>Radial Grammar (Simple)</strong> — Eight vectors, each modified by a morphological operator τₖ (stretch, compress, reflect, rotate, shear, void) derived from the Fibonacci hash of Γ. Shannon entropy vortex rings surround the central structure. Carrier at unity (1:1). The geometric ground state.
+        <br><br>
+        The <em>F₁₁ particle field</em> — 89 points (Fibonacci 11th term) on a Vogel spiral at the Golden Angle, each pulsing at ω = 0.137 Hz with an irrational phase offset n·φ — ensures no two particles ever pulse in unison. During the Da'at phase of the Iadnah Cycle, this field pulses at <strong>40 Hz</strong>: visible Gamma-frequency photostimulation alongside the binaural beat.
+      </div>
+    </div>
+
+    <!-- III -->
+    <div class="about-section">
+      <div class="about-section-label">Module III</div>
+      <div class="about-section-title">Cortical Entrainment Protocol</div>
+      <div class="about-body">
+        Two pure sine tones — fL and fR — are delivered independently to each ear through stereo headphones. The auditory cortex perceives the arithmetic difference Δf = fR − fL as a <em>phantom oscillation</em>: the binaural beat.
+      </div>
+      <div class="about-equation">
+        fL = f₀ − Δf/2 &nbsp;·&nbsp; fR = f₀ + Δf/2
+      </div>
+      <div class="about-body">
+        This is the <em>frequency-following response</em> (FFR, Galambos &amp; Makeig 1981): the olivocochlear bundle and inferior colliculus generate a periodic signal at Δf that propagates via the thalamo-cortical loop to primary auditory cortex, driving synchronous pyramidal cell firing. The effect is measurable as an <em>auditory steady-state response</em> (ASSR) in the EEG.
+        <br><br>
+        The carrier f₀ is constrained to [75–150 Hz] — well below the 1,500 Hz binaural processing limit. At this depth the carrier also engages infrasonic bone conduction, producing cranial resonance independent of the auditory pathway.
+        <br><br>
+        <strong>Descent protocols</strong> decelerate cortical arousal toward delta and theta. <strong>Ascent protocols</strong> stabilise, integrate, and return. The Iadnah Cycle traverses all bands in sequence.
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">Coherence</span><span class="about-data-val">Δf 0.5 Hz · Baroreflex entrainment · 6 breaths/min · HRV maximisation</span>
+        <span class="about-data-key">Delta</span><span class="about-data-val">Δf 2.5 Hz · Slow-wave cortical descent · deep tissue release · trauma processing</span>
+        <span class="about-data-key">Theta</span><span class="about-data-val">Δf 6.0 Hz · Hypnagogic threshold · default mode network activation</span>
+        <span class="about-data-key">Sigh</span><span class="about-data-val">Δf 3.5 Hz · Autonomic reset · alveolar reinflation · vagal surge</span>
+        <span class="about-data-key">Alpha</span><span class="about-data-val">Δf 10 Hz · Thalamo-cortical clarity · thalamic relay inhibition</span>
+        <span class="about-data-key">Beta</span><span class="about-data-val">Δf 18 Hz · Sensorimotor return · sympathetic normalisation</span>
+        <span class="about-data-key">Stasis</span><span class="about-data-val">Δf 4.0 Hz · Sympathetic dampening · structural breath boundary</span>
+        <span class="about-data-key">Gamma</span><span class="about-data-val">Δf 40 Hz · Neural binding maximum · ASSR-driven prefrontal-hippocampal coherence</span>
+      </div>
+    </div>
+
+    <!-- IV -->
+    <div class="about-section">
+      <div class="about-section-label">Module IV</div>
+      <div class="about-section-title">Vagal Induction Cycle</div>
+      <div class="about-body">
+        The respiratory rate directly controls the <em>baroreflex</em> — the natural ~10-second oscillation in blood pressure regulation (Mayer waves). At 6 breaths per minute (5-0-5 cycle), inhalation and exhalation entrain the baroreflex, maximising <strong>heart rate variability</strong> and activating the parasympathetic branch of the autonomic nervous system.
+        <br><br>
+        An extended exhale increases <em>vagal tone</em>: the vagus nerve is more active during exhalation than inhalation. A longer exhale reduces heart rate, lowers cortisol, and activates the vagal-prefrontal pathway that regulates affective and cognitive regulation. The Release cycle (6-2-10) maximises this ratio. The physiological sigh (4-0-8) additionally deflates partially-collapsed alveoli via the double-inhale, producing a rapid autonomic reset.
+        <br><br>
+        The <em>Tzimtzum cycle</em> (4-0-4-hold-4) encodes the Lurianic doctrine of divine contraction: inhale to receive; exhale as conscious inward withdrawal; hold the empty interval — the Chalal, the void created by the withdrawal — for four counts. The hold-empty phase is the only breath phase in which the practitioner actively inhabits absence.
+        <br><br>
+        Breath selection is fully decoupled from tone selection. Any pattern may be paired with any protocol.
+      </div>
+    </div>
+
+    <!-- V -->
+    <div class="about-section">
+      <div class="about-section-label">Module V</div>
+      <div class="about-section-title">Carrier Derivation</div>
+      <div class="about-body">
+        Two carrier sources are available:
+        <br><br>
+        <strong>From the Word</strong> — the gematric integer of the catalyst determines f₀. The carrier shifts when the sigil mode changes: each mode applies a harmonic ratio multiplier, retuning the acoustic field to the mathematics of its visual grammar. The visual and acoustic registers share the same root.
+        <br><br>
+        <strong>Lithic Anchors</strong> — physiologically and cosmologically indexed fixed frequencies:
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">136.1 Hz</span><span class="about-data-val">Earth — the Om frequency · 32nd octave of Earth's orbital period (Cousto 1978)</span>
+        <span class="about-data-key">174.0 Hz</span><span class="about-data-val">Yesod — foundation resonance · low-earth somatic register</span>
+        <span class="about-data-key">220.0 Hz</span><span class="about-data-val">Netzach — A3 · natural tuning reference · Venus orbital harmonic</span>
+        <span class="about-data-key">285.0 Hz</span><span class="about-data-val">Hod — Solfège Ut₃ · cellular regeneration research frequency</span>
+        <span class="about-data-key">432.0 Hz</span><span class="about-data-val">Tiphareth — A4 at natural tuning · Pythagorean proportionality</span>
+        <span class="about-data-key">528.0 Hz</span><span class="about-data-val">Geburah — C5 Solfège Mi · chlorophyll absorption resonance</span>
+      </div>
+    </div>
+
+    <!-- VI -->
+    <div class="about-section">
+      <div class="about-section-label">Module VI</div>
+      <div class="about-section-title">Acoustic Timbre Field</div>
+      <div class="about-body">
+        All carrier tones traverse a fixed signal chain before reaching the ear:
+        <br><br>
+        <em>Thermal Saturation</em> — a WaveShaper applying f(x) = ((1+k)x)/(1+k|x|) at k=25. Soft-mode halves this to k=15. The formula is the canonical tube-saturation transfer function: it adds even harmonics that the ear interprets as warmth without generating the odd-harmonic buzz of hard clipping.
+        <br><br>
+        <em>Resonance Lattice</em> — three sine oscillators at f₀×1 (unison), f₀×3/2 (perfect fifth), f₀×2 (octave) are embedded in the noise field below conscious perception. The ear locks onto these coherent anchors via stochastic resonance without registering them as discrete pitches.
+        <br><br>
+        <em>Lithic Enclosure</em> — a synthesised 1.8-second impulse response with exponential decay and heavy HF damping simulates a subterranean stone chamber. 30% wet signal.
+        <br><br>
+        <em>Velvet Curtain</em> — a BiquadFilter lowpass at 300 Hz severs all upper-frequency content unconditionally. The output is pure sub-bass and low-mid somatic weight.
+        <br><br>
+        <em>Sovereign Limiter</em> — DynamicsCompressor at −3 dB threshold, 4:1 ratio, 6 dB soft knee prevents DAC clipping when multiple waveforms constructively interfere.
+        <br><br>
+        The <em>Walhuu LFO</em> (ω = 0.137 Hz, period ≈ 7.3 s) modulates the pink noise amplitude envelope, the particle field, and the glow-orb at a single coherent rate. The value 0.137 maps to the period where respiratory and cardiovascular rhythms naturally synchronise during deep relaxation. It is also the reciprocal of the fine-structure constant (α⁻¹ ≈ 137) — the dimensionless number governing electromagnetic coupling strength between charged particles and photons.
+      </div>
+    </div>
+
+    <!-- VII -->
+    <div class="about-section">
+      <div class="about-section-label">Module VII</div>
+      <div class="about-section-title">The Iadnah Cycle</div>
+      <div class="about-body">
+        <em>IADNAH</em> is the Enochian term for the undefiled knowledge of God — the pure, unfiltered signal beneath the noise of the Qliphothic shell. Its Latin cipher value (Γ = 63, Mishnaic weights) produces a carrier of <strong>134.8 Hz</strong> through the gematric derivation formula, locked for the full 50-minute session.
+        <br><br>
+        The cycle traverses six neurological stations in strict sequence. All frequency transitions are pre-scheduled to the microsecond on the Web Audio API clock at session start — no manual intervention is possible or necessary. Each transition uses <em>linearRampToValueAtTime</em>: a continuous parameter change with no discontinuity, and therefore no audible click.
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">0–5 min</span><span class="about-data-val">Malkuth · Δf 18 Hz Beta · sensorimotor grounding · sigil: Radial · citrine palette</span>
+        <span class="about-data-key">5–12 min</span><span class="about-data-val">Yesod · Δf 10 Hz Alpha · default mode induction · astral mirror opens · sigil: Phyllotaxis · violet</span>
+        <span class="about-data-key">12–22 min</span><span class="about-data-val">Tiphareth · Δf 7.83 Hz Schumann · thalamo-cortical coupling to Earth's cavity resonance · sigil: Kamea · gold</span>
+        <span class="about-data-key">22–27 min</span><span class="about-data-val">The Abyss · Δf 23.46 Hz Pythagorean Comma · transient hypofrontality · sigil: Dissolution → single point · near-black</span>
+        <span class="about-data-key">27–45 min</span><span class="about-data-val">Da'at · Δf 40 Hz Gamma · ASSR neural binding · 40 Hz particle field · sigil: Phyllotaxis · indigo</span>
+        <span class="about-data-key">45–50 min</span><span class="about-data-val">Return · Δf 18 Hz Beta · graduated re-arousal · consolidation · sigil: Radial · muted citrine</span>
+      </div>
+      <div class="about-body">
+        The Phase IV frequency — 23.46 Hz — is the <em>Pythagorean Comma</em> as a beat frequency: the irreducible gap between a stack of twelve pure fifths and seven pure octaves (531,441/524,288). It sits precisely at the beta-gamma threshold — the edge of two oscillatory regimes. The concurrent dissolution of the sigil geometry removes the visual attentional anchor simultaneously with the acoustic crossing. What emerges from that double-removal is the closest the system can come to engineered silence within sound.
+        <br><br>
+        During Phase V, the F₁₁ particle field shifts from the Walhuu rate (0.137 Hz) to <strong>40 Hz</strong> — adding visible Gamma-frequency photostimulation in the GENUS protocol tradition (Iaccarino et al., Nature 2016). The particles are dispersed Vogel-spiral points at ≤28% opacity: well below the photosensitive seizure threshold of 25% screen coverage at high contrast.
+        <br><br>
+        <strong>Use stereo headphones.</strong> Binaural beats require channel separation. The effect is not perceivable on speakers or in mono. Remain still for the full 50 minutes once begun. The sequence cannot be paused — only stopped and restarted from Phase I.
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:8px;">
+      <span style="font-family:var(--font-m);font-size:8px;color:var(--granite);letter-spacing:.35em;">
+        ω = 0.137 Hz &nbsp;·&nbsp; φ = 1.618 &nbsp;·&nbsp; ψ = 137.508° &nbsp;·&nbsp; F₁₁ = 89
+      </span>
+    </div>
+  </div>
+</div>
+
 <div class="page">
 
   <header>
     <div class="title">M · I · D · A · S</div>
-    <div class="subtitle">The sanctuary is holding.</div>
+    <div class="subtitle">Modulated Interval Drift &amp; Acoustic Sanctuary</div>
   </header>
 
   <div class="guidance">
-    <p>Offer what is heavy. The architecture will hold the weight.<br>
-       The geometry will carry it. The resonance will dissolve it.<br>
-       You are already safe within the enclosure.</p>
+    <p>The catalyst is transcoded. The geometry is derived.<br>
+       The acoustic field is held in precise mathematical suspension.<br>
+       Surrender the weight to the resonance. The enclosure is impermeable.</p>
   </div>
 
   <!-- TEMENOS STATUS TEXT -->
   <div id="temenos-text">
-    <div class="temenos-primary" id="temenos-primary">The architecture is at rest. You are secure within the enclosure.</div>
-    <div class="temenos-secondary" id="temenos-secondary">Deposit what is heavy. The mathematics will hold the weight.</div>
+    <div class="temenos-primary" id="temenos-primary">The acoustic field is at equilibrium. The transducer awaits a catalyst.</div>
+    <div class="temenos-secondary" id="temenos-secondary">Offer the word. The isopsephy will resolve it to frequency.</div>
   </div>
 
   <!-- INTENTION -->
   <section>
-    <div class="slabel">Deposit the Catalyst</div>
+    <div class="slabel">Phonosemantic Catalyst</div>
     <div class="intent-wrap">
       <input class="intent-input" id="intent-input"
-             type="text" placeholder="Offer the word or phrase that holds the weight"
+             type="text" placeholder="The word or phrase to be transcoded into carrier frequency"
              maxlength="48" autocomplete="off" spellcheck="false"/>
-      <button class="intent-btn" onclick="processIntent()">RELINQUISH</button>
+      <button class="intent-btn" onclick="processIntent()">TRANSCODE</button>
     </div>
     <div class="f0-readout" id="f0-readout">&nbsp;</div>
   </section>
 
   <!-- UNIFIED INSTRUMENT -->
   <section>
-    <div class="slabel">The Living Seal</div>
+    <div class="slabel">Morphogenetic Transducer</div>
     <div class="instrument">
       <canvas id="sigil-canvas" width="480" height="480"></canvas>
       <div class="breath-overlay">
@@ -1228,24 +1567,24 @@ footer {
       </div>
     </div>
     <div class="sigil-mode-row">
-      <button class="sigil-mode-btn active" id="smode-natural" onclick="setSigilMode('natural')">Natural</button>
-      <button class="sigil-mode-btn"        id="smode-chaos"   onclick="setSigilMode('chaos')">Chaos</button>
+      <button class="sigil-mode-btn active" id="smode-natural" onclick="setSigilMode('natural')">Phyllotaxis</button>
+      <button class="sigil-mode-btn"        id="smode-chaos"   onclick="setSigilMode('chaos')">Kamea</button>
       <button class="sigil-mode-btn"        id="smode-ogham"   onclick="setSigilMode('ogham')">Ogham</button>
-      <button class="sigil-mode-btn"        id="smode-simple"  onclick="setSigilMode('simple')">Simple</button>
+      <button class="sigil-mode-btn"        id="smode-simple"  onclick="setSigilMode('simple')">Radial</button>
     </div>
   </section>
 
   <!-- THERAPEUTIC MODE — Δf selector -->
   <section>
-    <div class="slabel">Resonance Depth</div>
+    <div class="slabel">Cortical Entrainment Protocol</div>
     <div class="therapy-grid" id="therapy-grid">
       <!-- rendered by JS -->
     </div>
     <div class="freq-readout" id="freq-readout">
-      <span>Root &nbsp;<em id="fr-f0">—</em> Hz</span>
-      <span>Left &nbsp;<em id="fr-fL">—</em> Hz</span>
-      <span>Right &nbsp;<em id="fr-fR">—</em> Hz</span>
-      <span>Beat &nbsp;<em id="fr-df">—</em> Hz</span>
+      <span>Carrier &nbsp;<em id="fr-f0">—</em> Hz</span>
+      <span>fL &nbsp;<em id="fr-fL">—</em> Hz</span>
+      <span>fR &nbsp;<em id="fr-fR">—</em> Hz</span>
+      <span>Δf &nbsp;<em id="fr-df">—</em> Hz</span>
     </div>
     <div id="iadnah-phase-display">
       <div class="iadnah-phase-name" id="iadnah-phase-name">MALKUTH</div>
@@ -1261,7 +1600,7 @@ footer {
 
   <!-- BREATH PATTERN — decoupled from tone -->
   <section>
-    <div class="slabel">Breath Pattern</div>
+    <div class="slabel">Vagal Induction Cycle</div>
     <div id="bp-grid">
       <!-- rendered by JS -->
     </div>
@@ -1269,13 +1608,13 @@ footer {
 
   <!-- FREQUENCY SOURCE -->
   <section>
-    <div class="slabel">Root Tone</div>
+    <div class="slabel">Carrier Derivation</div>
     <div class="mode-row">
       <button class="mode-btn active" id="mode-catalyst" onclick="setFreqMode('catalyst')">
-        FROM THE WORD
+        GEMATRIC SEED
       </button>
       <button class="mode-btn" id="mode-lithic" onclick="setFreqMode('lithic')">
-        FROM THE EARTH
+        LITHIC ANCHOR
       </button>
     </div>
     <div class="lithic-grid" id="lithic-grid">
@@ -1285,20 +1624,20 @@ footer {
 
   <!-- TIMBRE -->
   <section>
-    <div class="slabel">Hearth Character</div>
+    <div class="slabel">Acoustic Timbre Field</div>
     <div class="timbre-grid" id="timbre-grid">
       <!-- rendered by JS -->
     </div>
     <div class="volume-row">
-      <span class="volume-label">Immersion</span>
+      <span class="volume-label">Field Depth</span>
       <input class="volume-slider" id="volume-slider" type="range"
              min="-60" max="0" step="1" value="-18"
              oninput="onVolumeSlider(this)"/>
       <span class="volume-val" id="volume-val">−18 dB</span>
     </div>
     <div class="soft-row">
-      <button class="soft-btn" id="soft-btn" onclick="toggleSoft()">SOFTEN THE HEARTH</button>
-      <span class="soft-desc">Acoustic friction dissolved · organic warmth</span>
+      <button class="soft-btn" id="soft-btn" onclick="toggleSoft()">ATTENUATE SHAPER</button>
+      <span class="soft-desc">WaveShaper k reduced · harmonic friction dissolved</span>
     </div>
   </section>
 
@@ -1306,16 +1645,20 @@ footer {
   <section>
     <div class="timer">
       <span class="timer-digits" id="timer-digits">00 : 00</span>
-      <span class="timer-sub"   id="timer-sub">The sanctuary is holding</span>
+      <span class="timer-sub"   id="timer-sub">Acoustic field active · enclosure sealed</span>
     </div>
-    <button class="btn-start" id="btn-start" onclick="toggleSession()">ENTER THE SANCTUARY</button>
+    <button class="btn-start" id="btn-start" onclick="toggleSession()">INITIATE PROTOCOL</button>
     <div class="btn-row">
-      <button class="btn-sec" id="btn-audio" onclick="toggleAudio()">RESONANCE OFF</button>
-      <button class="btn-sec" onclick="resetAll()">RELEASE ALL</button>
+      <button class="btn-sec" id="btn-audio" onclick="toggleAudio()">ACOUSTIC FIELD ON</button>
+      <button class="btn-sec" onclick="resetAll()">DISSOLVE ALL</button>
     </div>
   </section>
 
-  <footer>ω = 0.137 Hz &nbsp;·&nbsp; The enclosure holds &nbsp;·&nbsp; M.I.D.A.S.</footer>
+  <footer>
+    ω = 0.137 Hz &nbsp;·&nbsp; φ = 1.618033… &nbsp;·&nbsp; ψ = 137.508°<br>
+    Frequency-Following Response · Auditory Steady-State · Phyllotactic Field<br>
+    M.I.D.A.S. &nbsp;·&nbsp; The enclosure is impermeable.
+  </footer>
 </div>
 
 <script>
@@ -1496,13 +1839,13 @@ const THERAPY_MODES = [
   // ── DESCENT (4 modes) — slowing, deepening, releasing ──
   {
     key:   'cohere',
-    name:  'Cohere',
+    name:  'Coherence',
     df:    0.5,
     band:  '< 1 Hz',
-    desc:  'Cardiac resonance',
+    desc:  'Baroreflex entrainment · 6/min',
     color: 'cohere',
     breath:  [5, 0, 5],
-    note:  'Six breaths per minute. Heart and mind at one frequency.',
+    note:  'Six breaths per minute entrains the baroreflex — the natural ~10-second blood pressure oscillation. Heart rate variability reaches its peak. The autonomic nervous system locks into a single coherent rhythm.',
     boxBreath: false,
     group: 'descent',
   },
@@ -1511,10 +1854,10 @@ const THERAPY_MODES = [
     name:  'Delta',
     df:    2.5,
     band:  '0.5–4 Hz',
-    desc:  'Deep release · Lay it down',
+    desc:  'Slow-wave descent · deep release',
     color: 'delta',
     breath:  [6, 2, 10],
-    note:  'The longest exhale. The ground will hold you.',
+    note:  'The extended exhale maximises vagal efferent tone. The cortex descends toward slow-wave delta — the deepest band of organised neural oscillation. Somatic tissue releases chronic tension as sympathetic activation recedes.',
     boxBreath: false,
     group: 'descent',
   },
@@ -1523,22 +1866,22 @@ const THERAPY_MODES = [
     name:  'Theta',
     df:    6.0,
     band:  '4–8 Hz',
-    desc:  'Gentle drift · Warm stillness',
+    desc:  'Hypnagogic threshold · DMN open',
     color: 'theta',
     breath:  [5, 2, 7],
-    note:  'Follow the ring. You need not do anything.',
+    note:  'The theta band (4–8 Hz) marks the hypnagogic threshold — the boundary between waking and sleep. The default mode network activates. The thalamic relay inhibits external input. Follow the breath ring. Nothing is required of the volitional self.',
     boxBreath: false,
     group: 'descent',
   },
   {
     key:   'sigh',
-    name:  'Sigh',
+    name:  'Autonomic Sigh',
     df:    3.5,
-    band:  '2-8 Hz',
-    desc:  'Physiological reset',
+    band:  '2–8 Hz',
+    desc:  'Alveolar reinflation · autonomic reset',
     color: 'theta',
     breath:  [4, 0, 8],
-    note:  'Two inhales through the nose. One long exhale. The fastest reset the body knows.',
+    note:  'A brief double-inhale deflates partially-collapsed alveoli. The extended exhale (8 counts) activates parasympathetic dominance via vagal afferents. The fastest autonomous reset the respiratory system possesses. The body knows this pattern before the mind does.',
     boxBreath: false,
     group: 'descent',
   },
@@ -1548,10 +1891,10 @@ const THERAPY_MODES = [
     name:  'Alpha',
     df:    10.0,
     band:  '8–12 Hz',
-    desc:  'Soft clarity · Settled ease',
+    desc:  'Thalamo-cortical clarity · DMN withdrawal',
     color: 'alpha',
     breath:  [4, 1, 6],
-    note:  'Awake and at rest. Both are permitted here.',
+    note:  'The alpha band marks thalamic relay inhibition with sustained cortical coherence — awake, undistracted, inwardly available. The default mode network begins to withdraw. Prefrontal engagement is present but not dominant. Rest and alertness occupy the same moment.',
     boxBreath: false,
     group: 'ascent',
   },
@@ -1560,10 +1903,10 @@ const THERAPY_MODES = [
     name:  'Beta',
     df:    18.0,
     band:  '13–30 Hz',
-    desc:  'Grounded return · Gentle re-entry',
+    desc:  'Sensorimotor return · sympathetic rebalance',
     color: 'beta',
     breath:  [4, 0, 5],
-    note:  'The world is waiting. You may return when ready.',
+    note:  'Sensorimotor beta — the frequency of motor readiness and active engagement. The sympathetic nervous system normalises. The cortex prepares for directed attention and physical action. Re-entry is gradual. The enclosure remains until you choose to leave it.',
     boxBreath: false,
     group: 'ascent',
   },
@@ -1571,11 +1914,11 @@ const THERAPY_MODES = [
     key:   'stasis',
     name:  'Stasis',
     df:    4.0,
-    band:  '4×4 Box',
-    desc:  'Structural boundary · Still centre',
+    band:  '4×4 Boundary',
+    desc:  'Bilateral autonomic symmetry · still centre',
     color: 'delta',
-    breath:  [4, 4, 4],  // 4-4-4 — hold replaces exhale, full cycle = 16s
-    note:  'Follow the structural boundary. The perimeter holds the vacuum.',
+    breath:  [4, 4, 4],
+    note:  'Equal-duration respiratory phases create bilateral autonomic symmetry — sympathetic and parasympathetic branches held in structural balance. The perimeter tracer locks to the breath. The boundary holds the vacuum.',
     boxBreath: true,
     group: 'ascent',
   },
@@ -1583,11 +1926,11 @@ const THERAPY_MODES = [
     key:   'gamma',
     name:  'Gamma',
     df:    40,
-    band:  '30-100 Hz',
-    desc:  'Ignition · Flow entry',
+    band:  '30–100 Hz',
+    desc:  'Neural binding maximum · 40 Hz ASSR',
     color: 'gamma',
-    breath:  [3, 1, 4],   // Fibonacci: 3-1-4
-    note:  'Sharp activation. The architecture ignites.',
+    breath:  [3, 1, 4],
+    note:  'Gamma oscillations at 40 Hz are the cortical binding frequency — the mechanism by which spatially distributed neural populations are unified into coherent percepts. The auditory steady-state response at 40 Hz is measurable and reproducible. The Fibonacci breath (3-1-4) activates the architecture.',
     boxBreath: false,
     group: 'ascent',
   },
@@ -1605,7 +1948,7 @@ const THERAPY_MODES = [
     desc:     'Six-phase ascent · Malkuth to Da\'at',
     color:    'iadnah',
     breath:   [5, 0, 5],   // Phase 1: Cohere (overridden per phase automatically)
-    note:     'A 50-minute automatic sequence. Six phases run in order without interruption. Begin when you can remain still for the full duration.',
+    note:     'A 50-minute pre-scheduled oscillatory ascent. All six phase transitions are set to the microsecond at session start — linearRampToValueAtTime, no discontinuity, no click. Begin when you can remain still for the full duration. Stereo headphones required.',
     boxBreath: false,
     group:    'ascent',    // Appears in the Ascent group as a normal button
   },
@@ -1616,21 +1959,21 @@ const THERAPY_MODES = [
 // binaural beat state. Users may pair any breath with any tone.
 const BREATH_PATTERNS = [
   // SLOW — longer cycles, deeper descent
-  { key:'cohere',  name:'Cohere',  breath:[5,0,5],  boxBreath:false, desc:'Cardiac resonance · 6/min',   group:'slow'   },
-  { key:'release', name:'Release', breath:[6,2,10], boxBreath:false, desc:'Longest exhale · Deep release', group:'slow'  },
-  { key:'drift',   name:'Drift',   breath:[5,2,7],  boxBreath:false, desc:'Gentle drift · Warm stillness', group:'slow'  },
-  { key:'sigh',    name:'Sigh',    breath:[4,0,8],  boxBreath:false, desc:'Physiological reset',            group:'slow'  },
+  { key:'cohere',  name:'Cohere',   breath:[5,0,5],  boxBreath:false, desc:'Baroreflex lock · 6/min · HRV peak',         group:'slow'  },
+  { key:'release', name:'Release',  breath:[6,2,10], boxBreath:false, desc:'Maximum vagal efferent · extended exhale',   group:'slow'  },
+  { key:'drift',   name:'Drift',    breath:[5,2,7],  boxBreath:false, desc:'Parasympathetic descent · HRV induction',    group:'slow'  },
+  { key:'sigh',    name:'Sigh',     breath:[4,0,8],  boxBreath:false, desc:'Alveolar reinflation · autonomic reset',     group:'slow'  },
   // ACTIVE — shorter cycles, settling / returning / igniting
-  { key:'settle',   name:'Settle',   breath:[4,1,6], boxBreath:false, desc:'Soft clarity · Settled ease',    group:'active'},
-  { key:'return',   name:'Return',   breath:[4,0,5], boxBreath:false, desc:'Grounded re-entry',               group:'active'},
-  { key:'box',      name:'Box',      breath:[4,4,4], boxBreath:true,  desc:'Structural boundary · 4×4',      group:'active'},
-  { key:'ignite',   name:'Ignite',   breath:[3,1,4], boxBreath:false, desc:'Ignition · 3 — 1 — 4',          group:'active'},
+  { key:'settle',  name:'Settle',   breath:[4,1,6],  boxBreath:false, desc:'Vagal recovery · settled arousal state',     group:'active'},
+  { key:'return',  name:'Return',   breath:[4,0,5],  boxBreath:false, desc:'Sympathetic-parasympathetic rebalance',      group:'active'},
+  { key:'box',     name:'Boundary', breath:[4,4,4],  boxBreath:true,  desc:'Bilateral autonomic symmetry · 4×4',        group:'active'},
+  { key:'ignite',  name:'Ignite',   breath:[3,1,4],  boxBreath:false, desc:'Fibonacci cadence · φ activation',          group:'active'},
   // Tzimtzum — divine contraction (Lurianic Kabbalah)
   // The deliberate inward withdrawal that creates space for the other.
   // Inhale (4): receive fully. Exhale (4): consciously contract inward.
   // Hold-empty (4): the Chalal — the void you created. Wait in it.
   // Assigned to Phase 4 (The Abyss) of the Iadnah sequence.
-  { key:'tzimtzum', name:'Tzimtzum', breath:[4,0,4], boxBreath:true,  desc:'Divine contraction · Hold the void', group:'active'},
+  { key:'tzimtzum', name:'Tzimtzum', breath:[4,0,4], boxBreath:true, holdOut:4, desc:'Divine contraction · Hold the void', group:'active'},
 ];
 
 // ── LITHIC CARRIER PRESETS ──
@@ -1647,12 +1990,12 @@ const LITHIC_PRESETS = [
 // TONAL: harmonic, note-like timbres — pitched resonance
 // ORGANIC: timbral, environmental — breath and texture
 const TIMBRES = [
-  { key:'sine',    label:'Pure',    desc:'Clear and open',        group:'tonal'   },
-  { key:'crystal', label:'Crystal', desc:'Bell · still air',      group:'tonal'   },
-  { key:'vessels', label:'Vessels', desc:'Warm bowl resonance',   group:'tonal'   },
-  { key:'yidaki',  label:'Yidaki',  desc:'Wood · breath · earth', group:'organic' },
-  { key:'cave',    label:'Cave',    desc:'Stone enclosure',       group:'organic' },
-  { key:'pulse',   label:'Pulse',   desc:'Slow oceanic swell',    group:'organic' },
+  { key:'sine',    label:'Pure',    desc:'Zero harmonic content · phase purity',      group:'tonal'   },
+  { key:'crystal', label:'Crystal', desc:'Metallic partials · HF-bright transient',   group:'tonal'   },
+  { key:'vessels', label:'Vessels', desc:'2nd harmonic emphasis · standing resonance', group:'tonal'   },
+  { key:'yidaki',  label:'Yidaki',  desc:'Didgeridoo formant · subterranean resonance',group:'organic' },
+  { key:'cave',    label:'Lithic',  desc:'Dense IR tail · stone absorption · 1.8s',   group:'organic' },
+  { key:'pulse',   label:'Pelagic', desc:'Sub-breath AM envelope · oceanic swell',    group:'organic' },
 ];
 
 // ── STATE ──
@@ -1699,7 +2042,32 @@ const SIGIL_MODE_FREQ = {
   chaos:   PHI,       // φ ≈ 1.618 — incommensurable golden expansion
   ogham:   4 / 3,     // perfect fourth — 4:3
   natural: 5 / 4,     // major third — 5:4 (botanical harmonic)
+  abyss:   1.0,       // unity — the Abyss holds the carrier; no expansion
 };
+
+// ── SEPHIROTHIC COLOUR CANON ────────────────────────────────────────────
+// Queen's Scale (Atziluthic) HSL values for each Iadnah phase.
+// These override the gematric phyllotaxisHSL() derivation during the
+// Iadnah sequence so the sigil colour tracks the psychological station.
+//   Malkuth   — citrine / quartered earth (4 colours; citrine chosen)
+//   Yesod     — violet / astral mirror
+//   Tiphareth — gold / solar centre / Imago Christi
+//   Abyss     — near-black / the formless void between worlds
+//   Da'at     — indigo-lavender / the undefiled knowledge (hidden Sephirah)
+//   Return    — muted citrine / earth re-integrated
+const SEPHIROTH_HSL = {
+  malkuth:   { h: 72,  s: 45, l: 35 },
+  yesod:     { h: 275, s: 65, l: 42 },
+  tiphareth: { h: 45,  s: 90, l: 50 },
+  abyss:     { h: 0,   s: 0,  l: 8  },
+  iadnah:    { h: 248, s: 65, l: 55 },
+  return:    { h: 72,  s: 35, l: 30 },
+};
+
+// Which Sephirothic key maps to each entry in IADNAH_PHASES (by index)
+const IADNAH_PHASE_SEPHIRAH = [
+  'malkuth', 'yesod', 'tiphareth', 'abyss', 'iadnah', 'return'
+];
 
 // ── ACTIVE FREQUENCIES ──
 // IADNAH mode locks the carrier to 134.8 Hz — the gematric derivation of
@@ -2218,7 +2586,7 @@ const IADNAH_PHASES = [
   { startMin: 0,  endMin: 5,  name: 'MALKUTH',   desc: 'The Tabaan stands firm. Ground the terrestrial container.',      breathKey: 'cohere',  sigilMode: 'simple'  },
   { startMin: 5,  endMin: 12, name: 'YESOD',     desc: 'The Foundation becomes receptive. Alpha opens the mirror.',      breathKey: 'drift',   sigilMode: 'natural' },
   { startMin: 12, endMin: 22, name: 'TIPHARETH', desc: 'The Imago Christi stabilized. The Schumann lock is engaged.',    breathKey: 'sigh',    sigilMode: 'chaos'   },
-  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. Contract inward. Hold the void.',  breathKey: 'tzimtzum', sigilMode: 'chaos'   },
+  { startMin: 22, endMin: 27, name: 'THE ABYSS', desc: 'The Comma is heard at the threshold. Contract inward. Hold the void.',  breathKey: 'tzimtzum', sigilMode: 'abyss'   },
   { startMin: 27, endMin: 45, name: 'IADNAH',    desc: 'Da\'at open. The undefiled knowledge is received.',             breathKey: 'settle',  sigilMode: 'natural' },
   { startMin: 45, endMin: 50, name: 'RETURN',    desc: 'The downloaded knowledge integrates. Re-entry begins.',         breathKey: 'return',  sigilMode: 'simple'  },
 ];
@@ -2889,6 +3257,145 @@ function geomChaos(input, W, H) {
 }
 
 
+// ── GEOMETRY: ABYSS mode — Dissolution of the AOS path ──
+// The Abyss sigil begins as the Chaos/AOS consonant-skeleton path and
+// dissolves over the 5-minute Abyss phase (abyssElapsed: 0→300 seconds).
+//
+// Psychological rationale:
+//   At ZAX (the 10th Aethyr, the Abyss), all symbolic systems fail.
+//   The consonantal skeleton — the essential will beneath the persona —
+//   cannot maintain form either. Even the Magician's word dissolves.
+//   What remains at the Selah (d > 0.85) is a single luminous point:
+//   the Ain Soph Aur before Tzimtzum, potential before the first Sephirah.
+//
+//   The drift is deterministic (Lissajous-seeded by index), never random
+//   per frame — so the dissolution feels like slow meltwater, not flicker.
+function geomAbyss(input, W, H, abyssElapsed, t) {
+  const d = Math.min(1, Math.max(0, abyssElapsed / 300));  // 0→1 over 5 min
+
+  // ── Selah threshold: collapse to a single luminous point ──
+  if (d > 0.85) {
+    function drawSelah(ctx, accent, fill, glow) {
+      const cx = W / 2, cy = H / 2;
+      const pulse = 0.5 + 0.5 * Math.sin(t * TAU * WALHUU * 0.5);
+      const opacity = (1 - d) * glow * 4 * (0.6 + 0.4 * pulse);
+      ctx.save();
+      // Outer glow corona
+      ctx.beginPath();
+      ctx.arc(cx, cy, 12, 0, TAU);
+      ctx.fillStyle = accent(opacity * 0.35);
+      ctx.fill();
+      // Inner point
+      ctx.beginPath();
+      ctx.arc(cx, cy, 3, 0, TAU);
+      ctx.fillStyle = accent(Math.min(1, opacity * 1.4));
+      ctx.fill();
+      ctx.restore();
+    }
+    return { draw: drawSelah };
+  }
+
+  // ── Extract consonant skeleton (identical to geomChaos) ──
+  const letters = (input || '').toUpperCase().replace(/[^A-Z]/g, '');
+  const vowels = new Set(['A','E','I','O','U']);
+  const uniqueConsonants = [];
+  const seen = new Set();
+  for (const ch of letters) {
+    if (!vowels.has(ch) && !seen.has(ch)) { uniqueConsonants.push(ch); seen.add(ch); }
+  }
+  if (uniqueConsonants.length === 0 && letters.length > 0) uniqueConsonants.push(letters[0]);
+  if (uniqueConsonants.length === 0) return geomSimple(0, W, H);
+
+  const R         = Math.min(W, H) * 0.35;
+  const gridSpace = R * 0.8;
+  const basePoints = [];
+
+  uniqueConsonants.forEach(ch => {
+    const mu = LATIN[ch] || 1;
+    const g  = mu % 9;
+    const qx = ((g % 3) - 1) * gridSpace;
+    const qy = (Math.floor(g / 3) - 1) * gridSpace;
+    const dx = ((mu % 7) - 3) * (gridSpace * 0.1);
+    const dy = ((mu % 5) - 2) * (gridSpace * 0.1);
+    basePoints.push({ x: qx + dx, y: qy + dy });
+  });
+
+  const { tx, ty, sc } = autofocus(basePoints, W, H, W * 0.15);
+
+  // ── Dissolution drift: deterministic Lissajous per point ──
+  const driftScale = d * gridSpace * 2.5;
+  const points = basePoints.map((p, i) => ({
+    x: p.x + driftScale * Math.sin(t * 0.07 + i * PHI),
+    y: p.y + driftScale * Math.cos(t * 0.11 + i * PHI * PHI),
+  }));
+
+  const pathOpacity  = 1 - d * 0.72;
+  const ourobosR     = gridSpace * 0.15 * (1 - d * 0.9);
+  const willBarAlpha = 1 - d;
+
+  function draw(ctx, accent, fill, glow) {
+    ctx.save();
+    ctx.translate(tx, ty);
+    ctx.scale(sc, sc);
+
+    if (points.length > 0) {
+      // ── Glow halo (dissolving) ──
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+      ctx.strokeStyle = accent(glow * 0.35 * pathOpacity);
+      ctx.lineWidth = 12; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.stroke();
+
+      // ── Core spline (dissolving) ──
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+        const prev = basePoints[i - 1];
+        const curr = basePoints[i];
+        const gi_prev = (LATIN[uniqueConsonants[i - 1]] || 1) % 9;
+        const gi_curr = (LATIN[uniqueConsonants[i]]     || 1) % 9;
+        if (Math.abs(gi_curr - gi_prev) > 3) {
+          const mx = (points[i-1].x + points[i].x) / 2;
+          const my = (points[i-1].y + points[i].y) / 2;
+          ctx.quadraticCurveTo(mx + gridSpace * 0.3 * (1-d), my - gridSpace * 0.3 * (1-d), points[i].x, points[i].y);
+        } else {
+          ctx.lineTo(points[i].x, points[i].y);
+        }
+      }
+      ctx.strokeStyle = accent(glow * 0.95 * pathOpacity);
+      ctx.lineWidth = 2.5; ctx.lineJoin = 'miter'; ctx.miterLimit = 4; ctx.lineCap = 'square';
+      ctx.stroke();
+
+      // ── Ouroboros (self-consuming loop shrinks to nothing) ──
+      if (ourobosR > 0.5) {
+        const p0 = points[0];
+        ctx.beginPath();
+        ctx.arc(p0.x, p0.y, ourobosR, 0, TAU);
+        ctx.strokeStyle = accent(glow * 0.95 * pathOpacity);
+        ctx.lineWidth = 2.5; ctx.stroke();
+      }
+
+      // ── Will bar terminus (will dissolves completely) ──
+      if (points.length > 1 && willBarAlpha > 0.01) {
+        const pLast = points[points.length - 1];
+        const pPrev = points[points.length - 2];
+        const angle = Math.atan2(pLast.y - pPrev.y, pLast.x - pPrev.x);
+        const perp  = angle + Math.PI / 2;
+        const barL  = gridSpace * 0.2 * willBarAlpha;
+        ctx.beginPath();
+        ctx.moveTo(pLast.x - Math.cos(perp) * barL, pLast.y - Math.sin(perp) * barL);
+        ctx.lineTo(pLast.x + Math.cos(perp) * barL, pLast.y + Math.sin(perp) * barL);
+        ctx.strokeStyle = accent(glow * 0.95 * willBarAlpha);
+        ctx.lineWidth = 2.5; ctx.stroke();
+      }
+    }
+
+    ctx.restore();
+  }
+  return { draw };
+}
+
+
 // ── GEOMETRY: OGHAM mode — Phonetic stemline ──
 // Each letter of the input maps to its historical aicme strokes
 // along a central druim (vertical stave), reading bottom to top.
@@ -3073,7 +3580,22 @@ function drawSigil(t) {
   const breathScale = 1 + 0.028 * wave;   // subtle breath — not fighting autofocus
   const glow  = 0.52 + 0.24 * (wave * 0.5 + 0.5);
 
-  const { h, s, l } = phyllotaxisHSL(S.G);
+  // ── Iadnah phase colour override ──
+  // During the Iadnah sequence each phase maps to its Sephirothic station.
+  // The canonical Queen's Scale HSL values replace the gematric phyllotaxisHSL
+  // derivation so the sigil colour tracks psychological ascent: earth → astral
+  // → solar → void → Da'at → earth returned.
+  let _hslOverride = null;
+  if (S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null) {
+    const _elapsedM = (S.ac ? S.ac.currentTime - _iadnahStartCtxTime : 0) / 60;
+    const _phaseIdx = IADNAH_PHASES.findIndex((p, i) => {
+      const next = IADNAH_PHASES[i + 1];
+      return _elapsedM >= p.startMin && (!next || _elapsedM < next.startMin);
+    });
+    const _sephKey = IADNAH_PHASE_SEPHIRAH[_phaseIdx >= 0 ? _phaseIdx : 0];
+    _hslOverride = SEPHIROTH_HSL[_sephKey] || null;
+  }
+  const { h, s, l } = _hslOverride || phyllotaxisHSL(S.G);
   const _sigilLight = document.documentElement.getAttribute('data-theme') === 'light';
   // Light mode: invert luminance — sigil strokes become dark on luminous glass.
   // Dark mode:  use native l  (low, warm tones glowing on dark ground).
@@ -3101,6 +3623,15 @@ function drawSigil(t) {
     case 'chaos':   geom = geomChaos(S.rawInput || '', W, H);  break;
     case 'ogham':   geom = geomOgham(S.rawInput || '', W, H);  break;
     case 'natural': geom = geomNatural(S.G, W, H);             break;
+    case 'abyss': {
+      // Compute elapsed seconds within the Abyss phase (starts at 22:00)
+      let _abyssElapsed = 0;
+      if (_iadnahStartCtxTime !== null && S.ac) {
+        _abyssElapsed = Math.max(0, S.ac.currentTime - _iadnahStartCtxTime - 22 * 60);
+      }
+      geom = geomAbyss(S.rawInput || '', W, H, _abyssElapsed, t);
+      break;
+    }
     default:        geom = geomSimple(S.G, W, H);
   }
   geom.draw(CTX, accent, fill, glow);
@@ -3126,7 +3657,17 @@ function drawSigil(t) {
     const theta = n * GOLD_RAD_INL;
     const r     = Math.sqrt(n / 89) * maxR;
     const dt    = n * PHI;                   // Δtₙ = n·φ — sovereign drift
-    const pulse = 0.5 + 0.5 * Math.sin(TAU * WALHUU * t + dt);
+    // ── Phase 5 Gamma pulse: 40 Hz (Da'at entrainment) ──────────────────
+    // During the Da'at phase (27–45 min) the F₁₁ particle field pulses at
+    // 40 Hz — the Gamma binding frequency — adding visible flicker entrainment
+    // alongside the binaural beat. Safe: tiny dots at ≤28% opacity on a
+    // sinusoidal waveform; coverage < 5% canvas — no photosensitive risk.
+    let _pHz = WALHUU;
+    if (S.therapy && S.therapy.key === 'iadnah' && _iadnahStartCtxTime !== null && S.ac) {
+      const _em = (S.ac.currentTime - _iadnahStartCtxTime) / 60;
+      if (_em >= 27 && _em < 45) _pHz = 40;
+    }
+    const pulse = 0.5 + 0.5 * Math.sin(TAU * _pHz * t + dt);
     const px    = cx89 + Math.cos(theta) * r;
     const py    = cy89 + Math.sin(theta) * r;
     const rad   = (0.9 + 0.9 * pulse) * breathScale;
@@ -3161,9 +3702,15 @@ function breathDefs() {
     {label:'HOLD',   dur:bHold*1000, stroke:'#b07030', offset:()=>0},
     {label:'EXHALE', dur:bOut *1000, stroke:'#2e3a38', offset:t=>RING_C*t},
   ];
-  // Box / double-hold: append second HOLD matching the first
-  if (bp.boxBreath && bHold > 0) {
-    phases.push({label:'HOLD', dur:bHold*1000, stroke:'#b07030', offset:()=>0});
+  // Box / double-hold: append post-exhale HOLD.
+  // holdOut field overrides bHold for patterns where the pre-exhale hold
+  // is silent (0) but a post-exhale hold is required (e.g. Tzimtzum: [4,0,4]
+  // with holdOut:4 → the Chalal, the void of divine contraction).
+  if (bp.boxBreath) {
+    const holdOutDur = bp.holdOut !== undefined ? bp.holdOut : bHold;
+    if (holdOutDur > 0) {
+      phases.push({label:'HOLD', dur:holdOutDur*1000, stroke:'#b07030', offset:()=>0});
+    }
   }
   return phases.filter(p => p.dur > 0);
 }
@@ -3229,11 +3776,11 @@ function processIntent() {
   updateFreqReadout();
 
   document.getElementById('f0-readout').innerHTML =
-    `Root tone anchored at <em>${S.f0.toFixed(1)} Hz</em> · The seal is forming`;
+    `Γ = ${S.rawSum} → f₀ = <em>${S.f0.toFixed(1)} Hz</em> · Gematric transduction complete · Sigil scalar G = ${S.G}`;
 
   setText(
-    'The seal is forming. The burden is now held within the geometry.',
-    'Observe the synthesis. Breathe into the structural fold.'
+    'Phonosemantic transduction complete. The catalyst integer is encoded into carrier frequency, sigil geometry, and chromatic phyllotaxis field.',
+    'Visual, acoustic, and chromatic outputs are downstream of a single gematric integer.'
   );
 
   if(S.running&&S.audioOn&&S.freqMode==='catalyst'){stopAudio();startAudio();}
@@ -3311,17 +3858,17 @@ function setTherapy(key) {
   if (S.running) { stopBreath(); startBreath(); }
 
   const IADNAH_DESCRIPTION =
-    'Six phases run automatically once started — no adjustment needed. ' +
-    'Phase 1 (0–5 min): Malkuth — 18 Hz Beta, grounding the body. ' +
-    'Phase 2 (5–12 min): Yesod — 10 Hz Alpha, the subconscious opens. ' +
-    'Phase 3 (12–22 min): Tiphareth — 7.83 Hz Schumann resonance, the solar centre locks to the Earth\'s own field. ' +
-    'Phase 4 (22–27 min): The Abyss — 23.46 Hz Comma, the threshold between worlds. ' +
-    'Phase 5 (27–45 min): Da\'at — 40 Hz Gamma, the undefiled knowledge. 18 minutes at the summit. ' +
-    'Phase 6 (45–50 min): Return — grounded re-entry. Total: 50 minutes.';
+    'Six phases pre-scheduled to the microsecond. No intervention required or possible. ' +
+    'I — Malkuth (0–5 min): Δf 18 Hz Beta · sensorimotor grounding · cortical arousal normalisation. ' +
+    'II — Yesod (5–12 min): Δf 10 Hz Alpha · thalamo-cortical clarity · default mode induction. ' +
+    'III — Tiphareth (12–22 min): Δf 7.83 Hz Schumann · autonomous coupling to the Earth\'s electromagnetic cavity resonance fundamental. ' +
+    'IV — The Abyss (22–27 min): Δf 23.46 Hz Pythagorean Comma · transient hypofrontality · the sigil dissolves to a single luminous point. ' +
+    'V — Da\'at (27–45 min): Δf 40 Hz Gamma · neural binding maximum · ASSR · 40 Hz particle field active. 18 minutes at the summit. ' +
+    'VI — Return (45–50 min): Δf 18 Hz Beta · graduated re-arousal · somatic consolidation. Total: 50 minutes.';
 
   const noteText = S.therapy.key === 'iadnah' ? IADNAH_DESCRIPTION : S.therapy.note;
   const subText  = S.therapy.key === 'iadnah'
-    ? 'Carrier: 134.8 Hz · Automatic sequence · Do not interrupt'
+    ? 'f₀ = 134.8 Hz (IADNAH gematric derivation) · Pre-scheduled · Stereo headphones required'
     : `${S.therapy.name} · ${S.therapy.band} · ${S.therapy.desc}`;
   setText(
     noteText,
@@ -3339,9 +3886,9 @@ function setFreqMode(mode) {
   if(S.running&&S.audioOn){stopAudio();startAudio();}
   setText(
     mode==='lithic'
-      ? 'Baseline physiological equilibrium established. Rest within the thermal resonance of the hearth-stone.'
-      : 'The catalyst is active. The word has become mathematics.',
-    mode==='lithic' ? 'Zero external demands.' : 'The geometry will carry the weight.'
+      ? 'Lithic anchor engaged. Carrier locked to the physiological reference frequency. Gematric seed bypassed.'
+      : 'Phonosemantic transduction complete. The gematric integer is active as carrier frequency.',
+    mode==='lithic' ? 'Fixed-frequency protocol · no gematric modulation.' : 'Visual, chromatic, and acoustic fields share the same mathematical root.'
   );
 }
 
@@ -3443,13 +3990,13 @@ function toggleSoft() {
   if(S.running&&S.audioOn){stopAudio();startAudio();}
   if(S.softMode) {
     setText(
-      'Acoustic friction dissolved. The frequencies are now buffered for neurological comfort.',
-      'The hearth warms. Organic resonance active.'
+      'WaveShaper saturation reduced to k=15. High-frequency content attenuated at 432 Hz. Harmonic friction dissolved — the field yields rather than drives.',
+      'Soft-mode active. The carrier is present without assertion.'
     );
   } else {
     setText(
-      'Returning to the precise mathematical structure.',
-      'The enclosure remains constant.'
+      'WaveShaper restored to k=25. Full harmonic saturation engaged. The mathematical structure is unattenuated.',
+      'Precision mode active.'
     );
   }
 }
@@ -3460,7 +4007,7 @@ function toggleSession() {
   const btn=document.getElementById('btn-start');
   if(S.running){
     S.sessionStart=Date.now();
-    btn.textContent='LEAVE THE SANCTUARY'; btn.classList.add('on');
+    btn.textContent='TERMINATE PROTOCOL'; btn.classList.add('on');
     document.getElementById('timer-digits').style.display='block';
     document.getElementById('timer-sub').style.display='block';
     startBreath();
@@ -3470,18 +4017,18 @@ function toggleSession() {
     if('wakeLock' in navigator) navigator.wakeLock.request('screen').catch(()=>{});
     setText(
       S.G > 0
-        ? 'The bindrune is sealed. Allow the ω rhythm to carry the load.'
-        : 'The hearth is lit. Rest within the thermal resonance. Zero external demands.',
-      'The sanctuary is impermeable. You may release fully.'
+        ? `Acoustic field initialised. Carrier: ${activeF0().toFixed(1)} Hz. Frequency-following response protocol active. The enclosure is sealed.`
+        : 'Lithic anchor protocol active. Fixed-frequency field initialised. Zero gematric modulation.',
+      'Binaural beat and resonance lattice running. You may surrender the cognitive load.'
     );
   } else {
-    btn.textContent='ENTER THE SANCTUARY'; btn.classList.remove('on');
+    btn.textContent='INITIATE PROTOCOL'; btn.classList.remove('on');
     document.getElementById('timer-digits').style.display='none';
     document.getElementById('timer-sub').style.display='none';
     stopBreath(); stopAudio(); clearInterval(S.sessionIv);
     setText(
-      'The enclosure remains. Return whenever the weight becomes heavy.',
-      'The architecture is at rest.'
+      'Protocol terminated. The acoustic field is dissolved. The geometric transducer is at rest.',
+      'The architecture remains available. Reinitiate when ready.'
     );
   }
 }
@@ -3495,20 +4042,20 @@ function updateTimer() {
 function toggleAudio() {
   S.audioOn=!S.audioOn;
   const btn=document.getElementById('btn-audio');
-  btn.textContent=S.audioOn?'RESONANCE ON':'RESONANCE OFF';
+  btn.textContent=S.audioOn?'ACOUSTIC FIELD ON':'ACOUSTIC FIELD OFF';
   btn.classList.toggle('on',S.audioOn);
   if(S.audioOn&&S.running) startAudio(); else stopAudio();
   if(S.audioOn) {
     setText(
       S.freqMode==='lithic'
-        ? 'Engaging the organic matrix. Wood, breath, and earth resonance active. The hearth is insulated.'
-        : 'The resonance is now localised. Surrender the tension to the sub-harmonic root.',
-      'Allow the resonance to be felt, not merely heard.'
+        ? 'Acoustic field reinstated. Lithic anchor carrier active. Resonance lattice, pink noise field, and thermal saturation engaged.'
+        : 'Acoustic field reinstated. Binaural oscillators active. The frequency-following response protocol resumes.',
+      'Allow the sub-bass carrier to be felt somatically, not only heard.'
     );
   } else {
     setText(
-      'Withdrawing to silence. The geometric sanctuary remains.',
-      'The form holds without sound.'
+      'Acoustic field suspended. The morphogenetic transducer remains active. The geometric field holds without sound.',
+      'Sigil rendering and breath pacing continue.'
     );
   }
 }
@@ -3534,7 +4081,7 @@ function resetAll() {
   S.softMode=true;
   document.getElementById('soft-btn').classList.add('active');
   S.audioOn=true;
-  document.getElementById('btn-audio').textContent='RESONANCE ON';
+  document.getElementById('btn-audio').textContent='ACOUSTIC FIELD ON';
   document.getElementById('btn-audio').classList.add('on');
   S.volumeDb=-18;
   S.volume=dbToLinear(-18);
@@ -3542,8 +4089,8 @@ function resetAll() {
   document.getElementById('volume-val').textContent='-18 dB';
   updateFreqReadout();
   setText(
-    'The architecture is at rest. You are secure within the enclosure.',
-    'Deposit what is heavy. The mathematics will hold the weight.'
+    'The acoustic field is at equilibrium. The transducer awaits a catalyst.',
+    'Offer the word. The isopsephy will resolve it to frequency.'
   );
 }
 // ═══════════════════════════════════════════════════════════════════════
@@ -3853,6 +4400,9 @@ function openSettings() {
 }
 function closeSettings() { document.getElementById('settings-overlay').classList.remove('open'); }
 
+function openAbout()  { document.getElementById('about-overlay').classList.add('open'); }
+function closeAbout() { document.getElementById('about-overlay').classList.remove('open'); }
+
 function switchSettingsTab(tab) {
   document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.settings-pane').forEach(p => p.style.display = 'none');
@@ -3947,8 +4497,8 @@ function setText(primary, secondary = '') {
 // Initialise with idle state on load
 setTimeout(() => {
   setText(
-    'The architecture is at rest. You are secure within the enclosure.',
-    'Deposit what is heavy. The mathematics will hold the weight.'
+    'The acoustic field is at equilibrium. The transducer awaits a catalyst.',
+    'Offer the word. The isopsephy will resolve it to frequency.'
   );
 }, 800);
 

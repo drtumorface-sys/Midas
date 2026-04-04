@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- Run this file once in a browser to generate icon-192.png and icon-512.png -->
+<!-- Open it locally, then right-click each canvas and "Save image as..." -->
+<html>
+<head><title>MIDAS Icon Generator</title></head>
+<body style="background:#09090c;display:flex;gap:40px;padding:40px;flex-wrap:wrap;">
+<script>
+function drawIcon(size) {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  canvas.title = `icon-${size}.png`;
+  canvas.style.cssText = 'cursor:pointer;border:1px solid #333';
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  const cx = size / 2, cy = size / 2;
+  const R  = size * 0.42;
+  const PHI = 1.6180339887;
+  const GOLD = 137.508 * Math.PI / 180;
+
+  // Background
+  const bg = ctx.createRadialGradient(cx, cy*0.7, 0, cx, cy, size*0.7);
+  bg.addColorStop(0, '#1e1e26');
+  bg.addColorStop(1, '#09090c');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+
+  // F₁₁ phyllotaxis ring
+  for (let n = 1; n <= 89; n++) {
+    const theta = n * GOLD;
+    const r     = Math.sqrt(n / 89) * R;
+    const px    = cx + Math.cos(theta) * r;
+    const py    = cy + Math.sin(theta) * r;
+    const hue   = (n * 137.508 * 0.08) % 360;
+    const rad   = size * 0.008;
+    ctx.beginPath();
+    ctx.arc(px, py, rad, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${hue.toFixed(0)},50%,55%,0.55)`;
+    ctx.fill();
+  }
+
+  // Central M glyph
+  const fs = size * 0.32;
+  ctx.font = `600 ${fs}px 'Cinzel', serif`;
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+
+  // Glow
+  ctx.shadowColor  = '#b07030';
+  ctx.shadowBlur   = size * 0.08;
+  ctx.fillStyle    = '#c08010';
+  ctx.fillText('M', cx, cy);
+  ctx.shadowBlur   = 0;
+
+  // Download hint
+  const label = document.createElement('div');
+  label.textContent = `Right-click → Save as  icon-${size}.png`;
+  label.style.cssText = 'color:#6a6878;font:11px monospace;margin-top:6px;text-align:center';
+  document.body.appendChild(label);
+
+  return canvas;
+}
+
+drawIcon(192);
+drawIcon(512);
+</script>
+</body>
+</html>
