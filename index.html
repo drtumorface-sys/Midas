@@ -1377,15 +1377,19 @@ footer {
         <div class="abtn-row" id="latency-btns">
           <button class="abtn" data-hint="interactive" onclick="setLatencyHint('interactive')">
             <span class="abtn-name">RESPONSIVE</span>
-            <span class="abtn-sub">~128 samples · 2.7 ms</span>
+            <span class="abtn-sub">~128 smp · 2.7 ms</span>
           </button>
           <button class="abtn" data-hint="balanced" onclick="setLatencyHint('balanced')">
             <span class="abtn-name">BALANCED</span>
-            <span class="abtn-sub">~512 samples · 10.7 ms</span>
+            <span class="abtn-sub">~512 smp · 10.7 ms</span>
           </button>
           <button class="abtn active" data-hint="playback" onclick="setLatencyHint('playback')">
             <span class="abtn-name">DEEP BUFFER</span>
-            <span class="abtn-sub">~2048 samples · 42.7 ms</span>
+            <span class="abtn-sub">~2048 smp · 42.7 ms</span>
+          </button>
+          <button class="abtn" data-hint="0.5" onclick="setLatencyHint('0.5')">
+            <span class="abtn-name">ULTRA BUFFER</span>
+            <span class="abtn-sub">~24k smp · 500 ms</span>
           </button>
         </div>
       </div>
@@ -2092,7 +2096,7 @@ const S = {
   ac:     null,
   nodes:  {},
 
-  polyRaf:  null,
+  polyIv:   null,
 };
 
 
@@ -2186,18 +2190,18 @@ function updateFreqReadout() {
 const POLY_GRID    = 104;
 const POLY_BEAT_MS = WALHUU_P / 8;   // ≈ 912 ms
 
-let _polyLastBeat = null, _polyStep = 0;
+let _polyStep = 0;
 
-function polyTick(ts) {
-  if (!S.running || !S.audioOn) { S.polyRaf = requestAnimationFrame(polyTick); return; }
-  if (_polyLastBeat === null) _polyLastBeat = ts;
-  if (ts - _polyLastBeat >= POLY_BEAT_MS) {
-    _polyLastBeat += POLY_BEAT_MS;
-    _polyStep = (_polyStep + 1) % POLY_GRID;
-    modulatePulse(_polyStep % 8  === 0 ? 'L' : null);
-    modulatePulse(_polyStep % 13 === 0 ? 'R' : null);
-  }
-  S.polyRaf = requestAnimationFrame(polyTick);
+// polyTick runs on setInterval (not rAF) so it survives Android backgrounding.
+// rAF is completely frozen by the browser when the page is not visible;
+// setInterval continues to fire (throttled to ~1 s on background tabs, but alive).
+// modulatePulse schedules all audio ramps via ac.currentTime — sample-accurate
+// regardless of when this callback fires.
+function polyTick() {
+  if (!S.running || !S.audioOn) return;
+  _polyStep = (_polyStep + 1) % POLY_GRID;
+  modulatePulse(_polyStep % 8  === 0 ? 'L' : null);
+  modulatePulse(_polyStep % 13 === 0 ? 'R' : null);
 }
 
 // ── Smooth tremolo modulation (no clicks) ──
@@ -2850,9 +2854,13 @@ const AUDIO_CONFIG = (() => {
 
 function initAudio() {
   if (!S.ac) {
+    // latencyHint is stored as a string in localStorage. The Web Audio API
+    // accepts the named strings OR a number (seconds). Coerce numeric values.
+    const _hint = AUDIO_CONFIG.latencyHint;
+    const latencyHint = !isNaN(_hint) ? parseFloat(_hint) : _hint;
     S.ac = new (window.AudioContext || window.webkitAudioContext)({
-      latencyHint: AUDIO_CONFIG.latencyHint,
-      sampleRate:  AUDIO_CONFIG.sampleRate,
+      latencyHint,
+      sampleRate: AUDIO_CONFIG.sampleRate,
     });
     S.ac.onstatechange = () => {
       miLog(`AC state → ${S.ac.state}`, S.ac.state === 'running' ? 'ok' : 'warn');
@@ -2892,9 +2900,9 @@ function startAudio() {
   if (S.ac.state === 'suspended') {
     S.ac.resume().then(() => miLog('AC resumed in startAudio', 'ok')).catch(e => miLog(`Resume err: ${e}`, 'error'));
   }
-  _polyLastBeat = null; _polyStep = 0;
-  if (S.polyRaf) cancelAnimationFrame(S.polyRaf);
-  S.polyRaf = requestAnimationFrame(polyTick);
+  _polyStep = 0;
+  if (S.polyIv) clearInterval(S.polyIv);
+  S.polyIv = setInterval(polyTick, POLY_BEAT_MS);
 
   // Cycle Mode: schedule the full 50-minute progressive sequence
   if (S.therapy.key === 'cycle' && S.ac && S.nodes) {
@@ -2905,12 +2913,14 @@ function startAudio() {
   }
 
   startCracklWatchdog();
+  registerMediaSession();
 }
 
 function stopAudio() {
   teardownAudio();
-  if (S.polyRaf) { cancelAnimationFrame(S.polyRaf); S.polyRaf = null; }
+  if (S.polyIv) { clearInterval(S.polyIv); S.polyIv = null; }
   stopCycleDisplay();
+  unregisterMediaSession();
 }
 
 // ── dB → linear gain conversion ──
@@ -4534,7 +4544,8 @@ function refreshAudioStatePanel() {
   document.getElementById('ainfo-state').textContent = ac ? ac.state : 'not initialised';
   document.getElementById('ainfo-sr').textContent    = ac ? ac.sampleRate + ' Hz' : '—';
   document.getElementById('ainfo-lat').textContent   = ac ? (ac.baseLatency != null ? (ac.baseLatency * 1000).toFixed(1) + ' ms' : 'n/a') : '—';
-  document.getElementById('ainfo-hint').textContent  = AUDIO_CONFIG.latencyHint;
+  const _h = AUDIO_CONFIG.latencyHint;
+  document.getElementById('ainfo-hint').textContent  = !isNaN(_h) ? `${parseFloat(_h) * 1000} ms (ultra)` : _h;
 }
 
 function setLatencyHint(hint) {
@@ -4691,25 +4702,67 @@ bootMidas();
 // ── Mobile audio resilience ────────────────────────────────────────────
 // iOS Safari and Android Chrome suspend the AudioContext aggressively:
 // screen lock, backgrounding, phone calls, silent switch.
-// Three layers of defence: visibilitychange, touchstart, and a polling interval.
+// Four layers of defence: MediaSession, visibilitychange+pageshow,
+// touchstart, and a polling interval.
+
+// ── MediaSession API ──
+// Registers MIDAS as an active media player with the Android/iOS OS.
+// Without this, Android Chrome has no knowledge that audio is playing and
+// will aggressively suspend the AudioContext and throttle all JS timers.
+// Called on session start; cleared on session stop.
+function registerMediaSession() {
+  if (!('mediaSession' in navigator)) return;
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: 'MIDAS — Active Session',
+    artist: 'Liber Temporis',
+    album: 'Frequency-Following Response Protocol',
+  });
+  navigator.mediaSession.playbackState = 'playing';
+  // Provide handlers so the OS media controls don't auto-stop playback.
+  navigator.mediaSession.setActionHandler('play', () => {
+    if (S.ac && S.ac.state === 'suspended') S.ac.resume().catch(() => {});
+    navigator.mediaSession.playbackState = 'playing';
+    miLog('MediaSession: play action', 'ok');
+  });
+  navigator.mediaSession.setActionHandler('pause', () => {
+    // Acknowledge pause without actually stopping — keeps OS from killing AC.
+    navigator.mediaSession.playbackState = 'paused';
+    miLog('MediaSession: pause action (acknowledged, AC kept alive)', 'info');
+  });
+  navigator.mediaSession.setActionHandler('stop', null);
+  miLog('MediaSession registered', 'ok');
+}
+
+function unregisterMediaSession() {
+  if (!('mediaSession' in navigator)) return;
+  navigator.mediaSession.playbackState = 'none';
+  navigator.mediaSession.setActionHandler('play', null);
+  navigator.mediaSession.setActionHandler('pause', null);
+}
+
+function _resumeAC(reason) {
+  if (!S.ac || S.ac.state === 'running') return;
+  S.ac.resume()
+    .then(() => {
+      miLog(`AC resumed (${reason})`, 'ok');
+      if (!S.nodes || !S.nodes.master) {
+        miLog('Nodes lost — rebuilding graph', 'warn');
+        buildAudioGraph();
+      }
+      // Re-assert MediaSession playing state after resume
+      if ('mediaSession' in navigator && S.running) {
+        navigator.mediaSession.playbackState = 'playing';
+      }
+    })
+    .catch(e => miLog(`AC resume failed (${reason}): ${e}`, 'error'));
+}
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     miLog('Tab visible — checking AC', 'info');
     _lastTs = null;
     if (S.running && bStart !== null) bStart = performance.now();
-    if (S.ac && S.ac.state !== 'running') {
-      S.ac.resume()
-        .then(() => {
-          miLog('AC resumed on visibility', 'ok');
-          // If nodes were lost while backgrounded, rebuild
-          if (!S.nodes || !S.nodes.master) {
-            miLog('Nodes lost — rebuilding graph', 'warn');
-            buildAudioGraph();
-          }
-        })
-        .catch(e => miLog(`Visibility resume failed: ${e}`, 'error'));
-    }
+    if (S.running && S.audioOn) _resumeAC('visibilitychange');
     // Re-request wake lock if it was released
     if (S.running && 'wakeLock' in navigator) {
       navigator.wakeLock.request('screen')
@@ -4721,29 +4774,34 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+// pageshow fires on bfcache restore (back/forward navigation) and on some
+// Android browsers where visibilitychange is unreliable.
+window.addEventListener('pageshow', () => {
+  if (S.running && S.audioOn) _resumeAC('pageshow');
+});
+
 // Touch-to-resume: iOS requires a user gesture to un-suspend AudioContext.
 // Every touch on the page while a session is running attempts a silent resume.
 document.addEventListener('touchstart', () => {
   if (S.ac && S.ac.state === 'suspended' && S.running) {
-    S.ac.resume()
-      .then(() => miLog('AC resumed on touch', 'ok'))
-      .catch(() => {});
+    _resumeAC('touchstart');
   }
 }, { passive: true });
 
 // Polling interval: belt-and-braces for devices where visibilitychange
 // fires late or not at all (some Android WebViews, older iOS Safari).
+// 2 s is still background-friendly but recovers twice as fast as 4 s.
 setInterval(() => {
   if (!S.running || !S.audioOn || !S.ac) return;
   if (S.ac.state === 'suspended') {
     miLog('Poll: AC suspended — resuming', 'warn');
-    S.ac.resume().then(() => miLog('Poll resume OK', 'ok')).catch(() => {});
+    _resumeAC('poll');
   }
   if (S.ac.state === 'running' && (!S.nodes || !S.nodes.master)) {
     miLog('Poll: nodes missing — rebuilding', 'warn');
     buildAudioGraph();
   }
-}, 4000);
+}, 2000);
 
 // ── ON-SCREEN LOG (mobile diagnostics) ──────────────────────────────────────
 const _mLog = [];
