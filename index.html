@@ -720,6 +720,35 @@ section { margin-bottom: 48px; }
 .therapy-btn[data-color="iadnah"]::before        { background: #1e1848; }
 .therapy-btn.active[data-color="iadnah"]::before { background: #5050c0; }
 
+/* ── CUSTOM Δf SLIDER CARD ── */
+.therapy-btn.custom-card {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px 8px 8px;
+}
+.custom-card .custom-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.custom-card .custom-df-readout {
+  font-size: 11px; color: var(--copper); letter-spacing: .1em;
+  font-family: var(--font-m);
+}
+.custom-card .custom-slider {
+  -webkit-appearance: none; appearance: none; width: 100%;
+  height: 3px; background: var(--granite); outline: none;
+  cursor: pointer; border-radius: 4px; margin: 2px 0;
+}
+.custom-card .custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 14px; height: 14px; background: var(--copper);
+  border: 1px solid var(--amber); cursor: pointer; border-radius: 50%;
+}
+.custom-card .custom-slider::-moz-range-thumb {
+  width: 14px; height: 14px; background: var(--copper);
+  border: 1px solid var(--amber); cursor: pointer; border-radius: 50%;
+}
+.custom-card.active .custom-slider { background: var(--verdigris); }
+.custom-card.active .custom-df-readout { color: var(--amber); }
+
 /* ── CYCLE MODE BUTTON — sits inside Ascent .therapy-grid, spans full row ── */
 /* Cycle Mode sits in the Ascent grid as a full-width button */
 .therapy-grid .therapy-btn.cycle-featured {
@@ -1437,150 +1466,274 @@ footer {
       <em style="font-size:11px;opacity:.6;">— Stage II Axiom</em>
     </div>
 
-    <!-- I -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <!-- PART ONE — HOW TO USE MIDAS                               -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+
+    <!-- Quick Start -->
     <div class="about-section">
-      <div class="about-section-label">Module I</div>
-      <div class="about-section-title">Phonosemantic Catalyst</div>
+      <div class="about-section-label">Getting Started</div>
+      <div class="about-section-title">What MIDAS Does</div>
       <div class="about-body">
-        The word you offer is not stored, transmitted, or analysed for meaning. It is <strong>transduced</strong> — converted into a scalar integer through the <em>Latin isopsephy cipher</em>, a Mishnaic-weight positional scheme (A=1 through Z=500 with historical letter groupings: I=J=9, U=V=W=200).
+        MIDAS is a meditation and brainwave tool. It plays two slightly different tones — one in each ear — through your headphones. Your brain naturally hears the <em>difference</em> between them as a slow pulse. That pulse can guide your brainwaves toward specific states: deep sleep, relaxation, focus, or heightened awareness.
         <br><br>
-        The raw sum Γ is logarithmically compressed into the therapeutic carrier window [75–150 Hz] — the <em>acoustic basement</em> where binaural beat perception is most reliable and the carrier sits below conscious pitch discrimination:
+        Everything in the app — the sounds, the visuals, the colours — is generated from a single word you type in. The word becomes a number, the number becomes a frequency, and the frequency shapes the entire session.
+        <br><br>
+        <strong>You need stereo headphones.</strong> Earbuds or over-ear — either works. Speakers will not produce the effect.
+      </div>
+    </div>
+
+    <!-- Step-by-step -->
+    <div class="about-section">
+      <div class="about-section-label">Step by Step</div>
+      <div class="about-section-title">Running a Session</div>
+      <div class="about-body">
+        <strong>1. Type a word</strong> — Enter any word or short phrase into the <em>Phonosemantic Catalyst</em> field and press TRANSCODE. This converts your word into the base frequency for the session. Every word produces a unique tone and visual pattern.
+        <br><br>
+        <strong>2. Choose a visual pattern</strong> — Below the central canvas, pick one of four sigil styles: <em>Phyllotaxis</em> (plant-spiral geometry), <em>Kamea</em> (magic-square grid), <em>Ogham</em> (ancient Irish script), or <em>Radial</em> (geometric vectors). These are visual meditations — each one also slightly shifts the carrier tone.
+        <br><br>
+        <strong>3. Pick a brainwave mode</strong> — The <em>Cortical Entrainment Protocol</em> section has 8 frequency buttons plus a Cycle Mode. Each one targets a different mental state. See the mode guide below.
+        <br><br>
+        <strong>4. Pick a breathing pattern</strong> — The <em>Vagal Induction Cycle</em> section offers guided breathing rhythms. These are optional but recommended — controlled breathing amplifies the effect of the tones. Any breathing pattern works with any brainwave mode.
+        <br><br>
+        <strong>5. Choose a carrier source</strong> — Under <em>Carrier Derivation</em>, use either your word's frequency (<em>Gematric Seed</em>) or a fixed reference tone (<em>Lithic Anchor</em>). Lithic anchors are pre-set frequencies tied to natural and musical reference points.
+        <br><br>
+        <strong>6. Press INITIATE PROTOCOL</strong> — The session timer starts, the visual pattern animates, and the breathing guide begins. Toggle the acoustic field on separately with the audio button below.
+        <br><br>
+        <strong>7. Adjust volume</strong> — Use the <em>Field Depth</em> slider to set a comfortable listening level. Start quiet and increase gradually. −18 dB is a good starting point.
+      </div>
+    </div>
+
+    <!-- Brainwave Modes -->
+    <div class="about-section">
+      <div class="about-section-label">Mode Guide</div>
+      <div class="about-section-title">The 8 Brainwave Modes</div>
+      <div class="about-body">
+        Each mode sets a different <em>beat frequency</em> (Δf) — the speed of the pulse your brain perceives. Lower numbers are slower and more relaxing. Higher numbers are faster and more alerting. The modes are split into two groups:
+        <br><br>
+        <strong>Descent</strong> — these slow your brain down:
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">Coherence</span><span class="about-data-val">Δf 0.5 Hz · The slowest pulse — synchronises heart rate and breathing · deep calm · best paired with slow breathing (6 breaths/min)</span>
+        <span class="about-data-key">Delta</span><span class="about-data-val">Δf 2.5 Hz · Deep-sleep brainwave range · physical release · emotional processing · the deepest rest state</span>
+        <span class="about-data-key">Theta</span><span class="about-data-val">Δf 6.0 Hz · The daydream/half-asleep zone · creativity · light trance · vivid imagery and memory access</span>
+        <span class="about-data-key">Custom</span><span class="about-data-val">Δf 1–60 Hz · Drag the slider to set any frequency you want · experiment freely · the beat updates in real time</span>
+      </div>
+      <div class="about-body">
+        <strong>Ascent</strong> — these bring you back up or sharpen focus:
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">Alpha</span><span class="about-data-val">Δf 10 Hz · Relaxed alertness · calm focus · stress reduction · the "eyes closed, mind clear" state</span>
+        <span class="about-data-key">Beta</span><span class="about-data-val">Δf 18 Hz · Active thinking · concentration · physical awareness · good for waking up after deep modes</span>
+        <span class="about-data-key">Stasis</span><span class="about-data-val">Δf 7.83 Hz · The Schumann resonance — Earth's own electromagnetic pulse · grounding · the boundary between theta and alpha</span>
+        <span class="about-data-key">Gamma</span><span class="about-data-val">Δf 40 Hz · The fastest mode · peak mental performance · enhanced awareness · memory consolidation · "flow state"</span>
+      </div>
+      <div class="about-body">
+        <strong>Cycle Mode</strong> is a pre-programmed 50-minute session that moves through multiple frequencies automatically. Once started, it cannot be paused — only stopped and restarted. See the Cycle Mode section below for the full schedule.
+      </div>
+    </div>
+
+    <!-- Breathing -->
+    <div class="about-section">
+      <div class="about-section-label">Breathing Guide</div>
+      <div class="about-section-title">How the Breathing Patterns Work</div>
+      <div class="about-body">
+        The ring around the central sigil expands and contracts to guide your breath. Each pattern is shown as three numbers: <strong>inhale – hold – exhale</strong> (in seconds).
+        <br><br>
+        Breathing out for longer than you breathe in activates your vagus nerve — the main nerve responsible for calming your body. Slower breathing (around 6 breaths per minute) also synchronises your heart rate and blood pressure, creating a state of deep physiological balance.
+        <br><br>
+        You can use <strong>any breathing pattern with any brainwave mode</strong>. Experiment to find what feels right. For deep relaxation, try a long exhale (like 4-0-8 or 6-2-10). For balanced calm, 5-0-5 or 4-2-6 work well.
+      </div>
+    </div>
+
+    <!-- Visual Patterns -->
+    <div class="about-section">
+      <div class="about-section-label">Visual Guide</div>
+      <div class="about-section-title">The Four Sigil Modes</div>
+      <div class="about-body">
+        The central canvas displays a geometric pattern derived from your word. Each mode draws the same word differently. You can switch between them during a session — the pattern changes instantly.
+        <br><br>
+        <strong>Phyllotaxis</strong> — A spiral pattern based on the Golden Angle (137.508°), the same angle that sunflowers, pinecones, and many plants use to arrange their seeds. The number of petals comes from the Fibonacci sequence. It looks organic and natural.
+        <br><br>
+        <strong>Kamea</strong> — Your word's consonants are mapped onto a 3×3 magic square (the ancient "Square of Saturn" where every row, column, and diagonal adds to 15). The resulting path traces a unique sigil — similar to how Renaissance occultists created planetary seals.
+        <br><br>
+        <strong>Ogham</strong> — Your word is converted into the Ogham alphabet, the ancient Irish writing system carved on standing stones from the 4th–6th century. All 25 historical letters (feda) are supported, including the 5 forfeda (additional letters). Strokes are drawn along a vertical stem (druim) read from bottom to top.
+        <br><br>
+        <strong>Radial</strong> — Eight geometric vectors modified by mathematical operations (stretch, compress, reflect, rotate). The simplest and most abstract mode — a kind of visual "ground state."
+        <br><br>
+        Behind all four modes, 89 slowly pulsing dots form a background field. These are arranged on a Golden Angle spiral and pulse at slightly different rates so they never synchronise — a gentle visual texture that supports peripheral attention without demanding focus.
+      </div>
+    </div>
+
+    <!-- Carrier Source -->
+    <div class="about-section">
+      <div class="about-section-label">Frequency Source</div>
+      <div class="about-section-title">Where the Base Tone Comes From</div>
+      <div class="about-body">
+        The <em>carrier</em> is the base tone you hear underneath the binaural pulse. MIDAS offers two sources:
+        <br><br>
+        <strong>Gematric Seed</strong> — Your word is converted to a number using an ancient letter-value system (A=1, B=2 ... Z=500). That number is mathematically compressed into the 75–150 Hz range — a deep, low-frequency zone where binaural beats work best and the tone sits below where your ear tries to identify pitch.
+        <br><br>
+        <strong>Lithic Anchors</strong> — Pre-set reference frequencies drawn from natural and musical tuning systems:
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">136.1 Hz</span><span class="about-data-val">Earth Om — derived from Earth's orbital period, doubled 32 times into audible range</span>
+        <span class="about-data-key">174.0 Hz</span><span class="about-data-val">Foundation — a low, grounding somatic frequency</span>
+        <span class="about-data-key">220.0 Hz</span><span class="about-data-val">A3 — the natural tuning reference note (concert pitch)</span>
+        <span class="about-data-key">285.0 Hz</span><span class="about-data-val">Regeneration — a frequency used in sound-healing research</span>
+        <span class="about-data-key">432.0 Hz</span><span class="about-data-val">A4 Natural — the "Pythagorean" A, often considered more harmonious than 440 Hz</span>
+        <span class="about-data-key">528.0 Hz</span><span class="about-data-val">C5 — a Solfège frequency associated with DNA repair research</span>
+      </div>
+    </div>
+
+    <!-- Sound Shaping -->
+    <div class="about-section">
+      <div class="about-section-label">Sound Settings</div>
+      <div class="about-section-title">What the Audio Controls Do</div>
+      <div class="about-body">
+        <strong>Field Depth</strong> — Master volume slider (in decibels). Start at −18 dB and adjust to comfort.
+        <br><br>
+        <strong>Attenuate Shaper</strong> — Softens the tone. MIDAS adds warmth to the raw sine waves using a tube-saturation effect. Clicking this button reduces that effect for a cleaner, gentler sound. Useful if you find the default tone too intense.
+        <br><br>
+        <strong>Timbre options</strong> — Select from different sound textures. Each applies a different combination of warmth, reverb, and filtering to shape how the tone feels.
+      </div>
+    </div>
+
+    <!-- Cycle Mode -->
+    <div class="about-section">
+      <div class="about-section-label">Guided Session</div>
+      <div class="about-section-title">Cycle Mode — The 50-Minute Journey</div>
+      <div class="about-body">
+        Cycle Mode is a fully automated 50-minute session that moves through six phases, gradually taking you from alert waking consciousness down into deep meditative states and back. All transitions happen smoothly — no clicks or jumps. Once started, it runs on its own.
+      </div>
+      <div class="about-data-row">
+        <span class="about-data-key">0–5 min</span><span class="about-data-val">Grounding · Beta 18 Hz · Active waking state · settling in · citrine palette</span>
+        <span class="about-data-key">5–12 min</span><span class="about-data-val">Relaxation · Alpha 10 Hz · Eyes-closed calm · mind quieting · violet palette</span>
+        <span class="about-data-key">12–22 min</span><span class="about-data-val">Earth Resonance · Schumann 7.83 Hz · Deep theta · grounding with Earth's natural pulse · gold palette</span>
+        <span class="about-data-key">22–27 min</span><span class="about-data-val">The Crossing · 23.46 Hz · A brief, sharp shift to the edge between beta and gamma · the visual pattern dissolves · near-black</span>
+        <span class="about-data-key">27–45 min</span><span class="about-data-val">Peak State · Gamma 40 Hz · Maximum neural coherence · the particle field flashes at 40 Hz · indigo palette</span>
+        <span class="about-data-key">45–50 min</span><span class="about-data-val">Return · Beta 18 Hz · Gentle re-awakening · integration · muted citrine</span>
+      </div>
+      <div class="about-body">
+        <strong>Use stereo headphones.</strong> Remain still for the full 50 minutes. The session cannot be paused — only stopped and restarted from the beginning.
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════ -->
+    <!-- PART TWO — HOW IT WORKS (THE SCIENCE & MATHEMATICS)        -->
+    <!-- ════════════════════════════════════════════════════════════ -->
+
+    <div class="about-section" style="border-top:1px solid var(--granite);padding-top:18px;">
+      <div class="about-section-label" style="opacity:0.4;">Part II</div>
+      <div class="about-section-title">Under the Hood — Science &amp; Mathematics</div>
+      <div class="about-body" style="opacity:0.6;font-style:italic;">
+        Everything above tells you how to use MIDAS. Everything below explains <em>why</em> it works — the neuroscience, the mathematics, and the signal processing. You don't need any of this to use the app. Read on if you're curious.
+      </div>
+    </div>
+
+    <!-- Deep: Binaural Beats -->
+    <div class="about-section">
+      <div class="about-section-label">Science</div>
+      <div class="about-section-title">How Binaural Beats Work</div>
+      <div class="about-body">
+        When your left ear hears one frequency and your right ear hears a slightly different frequency, your brain creates a "phantom" third tone at the difference between them. This is the <em>binaural beat</em>.
+      </div>
+      <div class="about-equation">
+        Left ear = f₀ − Δf/2 &nbsp;·&nbsp; Right ear = f₀ + Δf/2
+      </div>
+      <div class="about-body">
+        For example: if the left ear gets 100 Hz and the right ear gets 110 Hz, your brain perceives a 10 Hz pulse (Alpha range). This phenomenon is called the <em>frequency-following response</em> (Galambos &amp; Makeig, 1981) — your brain's electrical activity naturally synchronises to match that beat frequency. It's measurable on an EEG.
+        <br><br>
+        The base tone (carrier) is kept between 75–150 Hz — low enough that your ear doesn't try to identify it as a musical note, and well within the range where binaural perception is strongest (below 1,500 Hz).
+        <br><br>
+        <strong>Descent modes</strong> (Coherence, Delta, Theta) slow your brainwaves down toward sleep and deep rest. <strong>Ascent modes</strong> (Alpha, Beta, Gamma) bring you back toward alertness and sharp focus.
+      </div>
+    </div>
+
+    <!-- Deep: Word-to-Frequency -->
+    <div class="about-section">
+      <div class="about-section-label">Mathematics</div>
+      <div class="about-section-title">How the Word Becomes a Frequency</div>
+      <div class="about-body">
+        Your word is converted to a number using the <em>Latin isopsephy cipher</em> — an ancient letter-value system where A=1, B=2, ... K=10, L=20, ... T=100, U=200, ... Z=500. (Historical pairings: I=J, U=V=W.) The sum of all letter values gives a single integer: Γ.
+        <br><br>
+        That number is compressed into the carrier range using a logarithmic formula:
       </div>
       <div class="about-equation">
         t = ln(1 + Γ) / ln(10001)<br>
-        f₀ = 80 + t × 420  →  octave-transpose while f₀ &gt; 150
+        f₀ = 80 + t × 420 &nbsp;→&nbsp; halved repeatedly until f₀ is between 75–150 Hz
       </div>
       <div class="about-body">
-        The same integer seeds the sigil geometry, the chromatic phyllotaxis field, and all harmonic ratios. Visual, acoustic, and chromatic outputs are <strong>mathematically downstream of a single number</strong>. The word becomes mathematics. The mathematics becomes the session.
+        The logarithm ensures that small changes in the word produce noticeable frequency shifts, while very long words don't shoot off the scale. The same number also determines the sigil geometry, the colour palette, and all harmonic ratios. <strong>Everything in the session comes from that one number.</strong>
       </div>
     </div>
 
-    <!-- II -->
+    <!-- Deep: Sigil Geometry -->
     <div class="about-section">
-      <div class="about-section-label">Module II</div>
-      <div class="about-section-title">Morphogenetic Transducer</div>
+      <div class="about-section-label">Mathematics</div>
+      <div class="about-section-title">Sigil Geometry</div>
       <div class="about-body">
-        The sigil canvas renders the catalyst as a deterministic geometric field. Four morphological grammars are available — each a distinct mathematical encoding of the same scalar:
+        <strong>Phyllotaxis</strong> — Uses Fibonacci-count petals (8, 13, 21, or 34) at the Golden Angle (ψ = 137.508°). The same spacing rule that sunflowers, pinecones, and romanesco broccoli use. The carrier shifts by 5:4 (a major third in music).
         <br><br>
-        <strong>Phyllotaxis (Natural)</strong> — Fibonacci-count petals (8, 13, 21, or 34 based on G mod 4) arranged at the Golden Angle ψ = 137.508°. This is the same angular spacing that maximises light capture in sunflower seed-heads. The 21 central seed-points are F₈ in the Fibonacci sequence. The carrier is shifted by 5:4 (the Major Third — the botanical harmonic).
+        <strong>Kamea</strong> — Consonants are mapped via modular arithmetic onto Saturn's 3×3 magic square (constant 15). The path through the grid is unique to each word. The carrier shifts by φ:1 (the Golden Ratio ≈ 1.618), an irrational number that never repeats.
         <br><br>
-        <strong>Saturnian Kamea (Chaos)</strong> — The consonants of the word are extracted and mapped to the 3×3 magic square of Saturn (magic constant 15) via Latin cipher modulo 9. The path through these grid positions is unique to the word's consonantal skeleton. The carrier shifts by φ:1 (the Golden Ratio — incommensurable, maximally resistant to periodic resolution). Used at Tiphareth: the persona dissolves to its essential consonantal structure.
+        <strong>Ogham</strong> — Letters map to historical aicme (stroke-groups): 1–5 right strokes (Beithe), 1–5 left strokes (hÚatha), 1–5 diagonal strokes (Muine), 1–5 perpendicular notches (Ailme), plus 5 geometric forfeda shapes. Carrier shifts by 4:3 (a perfect fourth).
         <br><br>
-        <strong>Ogham Stemline</strong> — Each letter maps to its historical Ogham aicme strokes, read bottom to top along the druim as inscribed on Irish standing stones (4th–6th century). The carrier shifts by 4:3 (the Perfect Fourth). The oldest alphabetic grammar in the Western tradition.
+        <strong>Radial</strong> — 8 vertices placed using a Fibonacci-weighted hash across 24 radial axes and 5 orbital rings scaled by powers of φ. Morphological operators (stretch, compress, reflect, rotate, shear, void) are derived from the hash. Carrier at 1:1 (unity).
         <br><br>
-        <strong>Radial Grammar (Simple)</strong> — Eight vectors, each modified by a morphological operator τₖ (stretch, compress, reflect, rotate, shear, void) derived from the Fibonacci hash of Γ. Shannon entropy vortex rings surround the central structure. Carrier at unity (1:1). The geometric ground state.
-        <br><br>
-        The <em>F₁₁ particle field</em> — 89 points (Fibonacci 11th term) on a Vogel spiral at the Golden Angle, each pulsing at ω = 0.137 Hz with an irrational phase offset n·φ — ensures no two particles ever pulse in unison. During the Da'at phase of Cycle Mode, this field pulses at <strong>40 Hz</strong>: visible Gamma-frequency photostimulation alongside the binaural beat.
+        The <em>F₁₁ particle field</em> (89 points, the 11th Fibonacci number) pulses at 0.137 Hz with each dot offset by n×φ — an irrational spacing that guarantees no two particles ever flash at the same time. During Cycle Mode's Gamma phase, the field accelerates to 40 Hz: visible light-frequency stimulation alongside the auditory beat.
       </div>
     </div>
 
-    <!-- III -->
+    <!-- Deep: Audio Chain -->
     <div class="about-section">
-      <div class="about-section-label">Module III</div>
-      <div class="about-section-title">Cortical Entrainment Protocol</div>
+      <div class="about-section-label">Audio Engineering</div>
+      <div class="about-section-title">The Signal Chain</div>
       <div class="about-body">
-        Two pure sine tones — fL and fR — are delivered independently to each ear through stereo headphones. The auditory cortex perceives the arithmetic difference Δf = fR − fL as a <em>phantom oscillation</em>: the binaural beat.
-      </div>
-      <div class="about-equation">
-        fL = f₀ − Δf/2 &nbsp;·&nbsp; fR = f₀ + Δf/2
-      </div>
-      <div class="about-body">
-        This is the <em>frequency-following response</em> (FFR, Galambos &amp; Makeig 1981): the olivocochlear bundle and inferior colliculus generate a periodic signal at Δf that propagates via the thalamo-cortical loop to primary auditory cortex, driving synchronous pyramidal cell firing. The effect is measurable as an <em>auditory steady-state response</em> (ASSR) in the EEG.
+        Every tone passes through five processing stages before reaching your ears:
         <br><br>
-        The carrier f₀ is constrained to [75–150 Hz] — well below the 1,500 Hz binaural processing limit. At this depth the carrier also engages infrasonic bone conduction, producing cranial resonance independent of the auditory pathway.
+        <em>Thermal Saturation</em> — Adds warmth by gently rounding the waveform (like a vacuum tube amplifier). The formula f(x) = ((1+k)x)/(1+k|x|) at k=25 generates even harmonics that sound warm without the buzzy distortion of hard clipping. "Attenuate" mode reduces this to k=15.
         <br><br>
-        <strong>Descent protocols</strong> decelerate cortical arousal toward delta and theta. <strong>Ascent protocols</strong> stabilise, integrate, and return. Cycle Mode traverses all bands in sequence.
-      </div>
-      <div class="about-data-row">
-        <span class="about-data-key">Coherence</span><span class="about-data-val">Δf 0.5 Hz · Baroreflex entrainment · 6 breaths/min · HRV maximisation</span>
-        <span class="about-data-key">Delta</span><span class="about-data-val">Δf 2.5 Hz · Slow-wave cortical descent · deep tissue release · trauma processing</span>
-        <span class="about-data-key">Theta</span><span class="about-data-val">Δf 6.0 Hz · Hypnagogic threshold · default mode network activation</span>
-        <span class="about-data-key">Sigh</span><span class="about-data-val">Δf 3.5 Hz · Autonomic reset · alveolar reinflation · vagal surge</span>
-        <span class="about-data-key">Alpha</span><span class="about-data-val">Δf 10 Hz · Thalamo-cortical clarity · thalamic relay inhibition</span>
-        <span class="about-data-key">Beta</span><span class="about-data-val">Δf 18 Hz · Sensorimotor return · sympathetic normalisation</span>
-        <span class="about-data-key">Stasis</span><span class="about-data-val">Δf 4.0 Hz · Sympathetic dampening · structural breath boundary</span>
-        <span class="about-data-key">Gamma</span><span class="about-data-val">Δf 40 Hz · Neural binding maximum · ASSR-driven prefrontal-hippocampal coherence</span>
+        <em>Resonance Lattice</em> — Three hidden tones at the base frequency, a perfect fifth above, and an octave above. They sit below conscious hearing but give the sound a richer, more "alive" quality through a phenomenon called stochastic resonance.
+        <br><br>
+        <em>Lithic Enclosure</em> — A synthetic reverb that simulates a stone cave (1.8-second decay, heavy high-frequency damping, 30% wet mix). Gives the sound a cavernous, subterranean feel.
+        <br><br>
+        <em>Velvet Curtain</em> — A low-pass filter at 300 Hz that removes all high-frequency content. The result is pure sub-bass and low-mid weight — you feel it as much as hear it.
+        <br><br>
+        <em>Sovereign Limiter</em> — A compressor that prevents the audio from clipping (distorting) when multiple tones overlap.
+        <br><br>
+        The <em>Walhuu LFO</em> (0.137 Hz, ~7.3-second cycle) slowly pulses the background noise, the particle field, and the glow effect in unison. This rate corresponds to where breathing and heart rhythm naturally synchronise during deep relaxation. As a mathematical curiosity, 137 is also the inverse of the fine-structure constant — the fundamental number governing how light and matter interact.
       </div>
     </div>
 
-    <!-- IV -->
+    <!-- Deep: Cycle Mode -->
     <div class="about-section">
-      <div class="about-section-label">Module IV</div>
-      <div class="about-section-title">Vagal Induction Cycle</div>
+      <div class="about-section-label">Deep Dive</div>
+      <div class="about-section-title">Cycle Mode — Technical Details</div>
       <div class="about-body">
-        The respiratory rate directly controls the <em>baroreflex</em> — the natural ~10-second oscillation in blood pressure regulation (Mayer waves). At 6 breaths per minute (5-0-5 cycle), inhalation and exhalation entrain the baroreflex, maximising <strong>heart rate variability</strong> and activating the parasympathetic branch of the autonomic nervous system.
+        Cycle Mode uses a fixed carrier derived from the word <em>IADNAH</em> (Enochian: "undefiled knowledge"). Its letter-sum (Γ = 63) produces a carrier of <strong>134.8 Hz</strong>, locked for the full 50 minutes. All six frequency transitions are pre-scheduled to the microsecond at session start — they use smooth linear ramps with no discontinuities (no audible clicks).
         <br><br>
-        An extended exhale increases <em>vagal tone</em>: the vagus nerve is more active during exhalation than inhalation. A longer exhale reduces heart rate, lowers cortisol, and activates the vagal-prefrontal pathway that regulates affective and cognitive regulation. The Release cycle (6-2-10) maximises this ratio. The physiological sigh (4-0-8) additionally deflates partially-collapsed alveoli via the double-inhale, producing a rapid autonomic reset.
+        The Phase IV frequency — <strong>23.46 Hz</strong> — is the <em>Pythagorean Comma</em> expressed as a beat rate. This is the tiny gap left over when you stack twelve perfect fifths and compare them to seven octaves (the ratio 531,441 / 524,288). It sits right at the border between beta and gamma brainwave ranges — the edge between two different states of consciousness. At the same moment, the visual pattern dissolves to a single point. Both anchors (visual and auditory) are removed simultaneously.
         <br><br>
-        Breath selection is fully decoupled from tone selection. Any pattern may be paired with any protocol.
+        During Phase V, the particle field accelerates from its normal 0.137 Hz to <strong>40 Hz</strong> — adding visible gamma-frequency light pulses alongside the auditory gamma beat. This follows the GENUS protocol (Iaccarino et al., <em>Nature</em> 2016), which demonstrated that 40 Hz light stimulation activates the brain's waste-clearance system. The particles are kept at low opacity (≤28%) and dispersed across the screen — well below photosensitive seizure thresholds.
       </div>
     </div>
 
-    <!-- V -->
-    <div class="about-section">
-      <div class="about-section-label">Module V</div>
-      <div class="about-section-title">Carrier Derivation</div>
-      <div class="about-body">
-        Two carrier sources are available:
+    <!-- Support -->
+    <div class="about-section" style="text-align:center;border-top:1px solid var(--granite);padding-top:18px;">
+      <div class="about-section-label">Support</div>
+      <div class="about-section-title">Keep the Sanctuary Running</div>
+      <div class="about-body" style="text-align:center;margin-bottom:0;">
+        MIDAS is free. If it has been of value to you, a contribution is welcomed.
         <br><br>
-        <strong>From the Word</strong> — the gematric integer of the catalyst determines f₀. The carrier shifts when the sigil mode changes: each mode applies a harmonic ratio multiplier, retuning the acoustic field to the mathematics of its visual grammar. The visual and acoustic registers share the same root.
-        <br><br>
-        <strong>Lithic Anchors</strong> — physiologically and cosmologically indexed fixed frequencies:
-      </div>
-      <div class="about-data-row">
-        <span class="about-data-key">136.1 Hz</span><span class="about-data-val">Earth — the Om frequency · 32nd octave of Earth's orbital period (Cousto 1978)</span>
-        <span class="about-data-key">174.0 Hz</span><span class="about-data-val">Yesod — foundation resonance · low-earth somatic register</span>
-        <span class="about-data-key">220.0 Hz</span><span class="about-data-val">Netzach — A3 · natural tuning reference · Venus orbital harmonic</span>
-        <span class="about-data-key">285.0 Hz</span><span class="about-data-val">Hod — Solfège Ut₃ · cellular regeneration research frequency</span>
-        <span class="about-data-key">432.0 Hz</span><span class="about-data-val">Tiphareth — A4 at natural tuning · Pythagorean proportionality</span>
-        <span class="about-data-key">528.0 Hz</span><span class="about-data-val">Geburah — C5 Solfège Mi · chlorophyll absorption resonance</span>
-      </div>
-    </div>
-
-    <!-- VI -->
-    <div class="about-section">
-      <div class="about-section-label">Module VI</div>
-      <div class="about-section-title">Acoustic Timbre Field</div>
-      <div class="about-body">
-        All carrier tones traverse a fixed signal chain before reaching the ear:
-        <br><br>
-        <em>Thermal Saturation</em> — a WaveShaper applying f(x) = ((1+k)x)/(1+k|x|) at k=25. Soft-mode halves this to k=15. The formula is the canonical tube-saturation transfer function: it adds even harmonics that the ear interprets as warmth without generating the odd-harmonic buzz of hard clipping.
-        <br><br>
-        <em>Resonance Lattice</em> — three sine oscillators at f₀×1 (unison), f₀×3/2 (perfect fifth), f₀×2 (octave) are embedded in the noise field below conscious perception. The ear locks onto these coherent anchors via stochastic resonance without registering them as discrete pitches.
-        <br><br>
-        <em>Lithic Enclosure</em> — a synthesised 1.8-second impulse response with exponential decay and heavy HF damping simulates a subterranean stone chamber. 30% wet signal.
-        <br><br>
-        <em>Velvet Curtain</em> — a BiquadFilter lowpass at 300 Hz severs all upper-frequency content unconditionally. The output is pure sub-bass and low-mid somatic weight.
-        <br><br>
-        <em>Sovereign Limiter</em> — DynamicsCompressor at −3 dB threshold, 4:1 ratio, 6 dB soft knee prevents DAC clipping when multiple waveforms constructively interfere.
-        <br><br>
-        The <em>Walhuu LFO</em> (ω = 0.137 Hz, period ≈ 7.3 s) modulates the pink noise amplitude envelope, the particle field, and the glow-orb at a single coherent rate. The value 0.137 maps to the period where respiratory and cardiovascular rhythms naturally synchronise during deep relaxation. It is also the reciprocal of the fine-structure constant (α⁻¹ ≈ 137) — the dimensionless number governing electromagnetic coupling strength between charged particles and photons.
-      </div>
-    </div>
-
-    <!-- VII -->
-    <div class="about-section">
-      <div class="about-section-label">Module VII</div>
-      <div class="about-section-title">Cycle Mode</div>
-      <div class="about-body">
-        <em>IADNAH</em> is the Enochian term for the undefiled knowledge of God — the pure, unfiltered signal beneath the noise of the Qliphothic shell. Its Latin cipher value (Γ = 63, Mishnaic weights) produces a carrier of <strong>134.8 Hz</strong> through the gematric derivation formula, locked for the full 50-minute session.
-        <br><br>
-        The cycle traverses six neurological stations in strict sequence. All frequency transitions are pre-scheduled to the microsecond on the Web Audio API clock at session start — no manual intervention is possible or necessary. Each transition uses <em>linearRampToValueAtTime</em>: a continuous parameter change with no discontinuity, and therefore no audible click.
-      </div>
-      <div class="about-data-row">
-        <span class="about-data-key">0–5 min</span><span class="about-data-val">Malkuth · Δf 18 Hz Beta · sensorimotor grounding · sigil: Radial · citrine palette</span>
-        <span class="about-data-key">5–12 min</span><span class="about-data-val">Yesod · Δf 10 Hz Alpha · default mode induction · astral mirror opens · sigil: Phyllotaxis · violet</span>
-        <span class="about-data-key">12–22 min</span><span class="about-data-val">Tiphareth · Δf 7.83 Hz Schumann · thalamo-cortical coupling to Earth's cavity resonance · sigil: Kamea · gold</span>
-        <span class="about-data-key">22–27 min</span><span class="about-data-val">The Abyss · Δf 23.46 Hz Pythagorean Comma · transient hypofrontality · sigil: Dissolution → single point · near-black</span>
-        <span class="about-data-key">27–45 min</span><span class="about-data-val">Da'at · Δf 40 Hz Gamma · ASSR neural binding · 40 Hz particle field · sigil: Phyllotaxis · indigo</span>
-        <span class="about-data-key">45–50 min</span><span class="about-data-val">Return · Δf 18 Hz Beta · graduated re-arousal · consolidation · sigil: Radial · muted citrine</span>
-      </div>
-      <div class="about-body">
-        The Phase IV frequency — 23.46 Hz — is the <em>Pythagorean Comma</em> as a beat frequency: the irreducible gap between a stack of twelve pure fifths and seven pure octaves (531,441/524,288). It sits precisely at the beta-gamma threshold — the edge of two oscillatory regimes. The concurrent dissolution of the sigil geometry removes the visual attentional anchor simultaneously with the acoustic crossing. What emerges from that double-removal is the closest the system can come to engineered silence within sound.
-        <br><br>
-        During Phase V, the F₁₁ particle field shifts from the Walhuu rate (0.137 Hz) to <strong>40 Hz</strong> — adding visible Gamma-frequency photostimulation in the GENUS protocol tradition (Iaccarino et al., Nature 2016). The particles are dispersed Vogel-spiral points at ≤28% opacity: well below the photosensitive seizure threshold of 25% screen coverage at high contrast.
-        <br><br>
-        <strong>Use stereo headphones.</strong> Binaural beats require channel separation. The effect is not perceivable on speakers or in mono. Remain still for the full 50 minutes once begun. The sequence cannot be paused — only stopped and restarted from Phase I.
+        <a href="YOUR_DONATION_LINK_HERE"
+           target="_blank" rel="noopener noreferrer"
+           style="display:inline-block;padding:9px 28px;background:transparent;
+                  border:1px solid var(--accent-b);color:var(--accent-b);
+                  font-family:var(--font-m);font-size:10px;letter-spacing:.2em;
+                  text-decoration:none;border-radius:2px;cursor:pointer;">
+          OFFER SUPPORT ◈
+        </a>
       </div>
     </div>
 
@@ -1949,14 +2102,14 @@ const THERAPY_MODES = [
     group: 'descent',
   },
   {
-    key:   'sigh',
-    name:  'Autonomic Sigh',
-    df:    3.5,
-    band:  '2–8 Hz',
-    desc:  'Alveolar reinflation · autonomic reset',
+    key:   'custom',
+    name:  'Custom',
+    df:    10.0,
+    band:  '1–60 Hz',
+    desc:  'Manual Δf selection',
     color: 'theta',
-    breath:  [4, 0, 8],
-    note:  'A brief double-inhale deflates partially-collapsed alveoli. The extended exhale (8 counts) activates parasympathetic dominance via vagal afferents. The fastest autonomous reset the respiratory system possesses. The body knows this pattern before the mind does.',
+    breath:  [4, 1, 6],
+    note:  'Set your own binaural beat frequency. The slider controls Δf directly — the difference in Hz between the left and right oscillators. Low values (1–4 Hz) target delta and deep sleep architecture. Mid-range (4–12 Hz) spans theta and alpha. Higher values (12–40+ Hz) enter beta and gamma territory. Explore the frequency space. The acoustic field obeys.',
     boxBreath: false,
     group: 'descent',
   },
@@ -1988,12 +2141,12 @@ const THERAPY_MODES = [
   {
     key:   'stasis',
     name:  'Stasis',
-    df:    4.0,
-    band:  '4×4 Boundary',
-    desc:  'Bilateral autonomic symmetry · still centre',
+    df:    7.83,
+    band:  '7.83 Hz',
+    desc:  'Schumann resonance · Earth cavity fundamental',
     color: 'delta',
     breath:  [4, 4, 4],
-    note:  'Equal-duration respiratory phases create bilateral autonomic symmetry — sympathetic and parasympathetic branches held in structural balance. The perimeter tracer locks to the breath. The boundary holds the vacuum.',
+    note:  'The Schumann resonance at 7.83 Hz is the electromagnetic fundamental of the Earth\'s ionospheric cavity. Equal-duration box breathing (4-4-4) creates bilateral autonomic symmetry while the binaural beat couples cortical oscillation to the planetary standing wave. The oldest frequency. The ground beneath all ground.',
     boxBreath: true,
     group: 'ascent',
   },
@@ -2914,9 +3067,37 @@ function startAudio() {
 
   startCracklWatchdog();
   registerMediaSession();
+  _startKeepAlive(S.ac);
+}
+
+// ── Silent keep-alive (NoSleep technique) ──────────────────────────────────
+// A 1-sample looped silent BufferSourceNode tells Android Chrome / WebView
+// that audio is actively playing, preventing the AudioContext from being
+// suspended when the screen turns off or the app moves to the background.
+let _keepAliveNode = null;
+function _startKeepAlive(ac) {
+  if (_keepAliveNode || !ac) return;
+  try {
+    const buf = ac.createBuffer(1, 1, ac.sampleRate);
+    _keepAliveNode = ac.createBufferSource();
+    _keepAliveNode.buffer = buf;
+    _keepAliveNode.loop = true;
+    _keepAliveNode.connect(ac.destination);
+    _keepAliveNode.start();
+    miLog('Keep-alive node started', 'ok');
+  } catch (e) {
+    miLog(`Keep-alive failed: ${e}`, 'warn');
+  }
+}
+function _stopKeepAlive() {
+  if (!_keepAliveNode) return;
+  try { _keepAliveNode.stop(); _keepAliveNode.disconnect(); } catch (_) {}
+  _keepAliveNode = null;
+  miLog('Keep-alive node stopped', 'info');
 }
 
 function stopAudio() {
+  _stopKeepAlive();
   teardownAudio();
   if (S.polyIv) { clearInterval(S.polyIv); S.polyIv = null; }
   stopCycleDisplay();
@@ -3012,32 +3193,77 @@ function autofocus(points, W, H, margin) {
 //   strokes  — number of marks
 //   side     — 'right' | 'left' | 'both' (perpendicular)
 //   diagonal — true = angled (Aicme Muine style)
+// ── OGHAM FEDA: Historically accurate 25-letter Ogham alphabet ──────
+// Aicme Beithe (1st group) — right strokes: 1-5 lines to the RIGHT of the druim
+// Aicme hÚatha (2nd group) — left strokes:  1-5 lines to the LEFT of the druim
+// Aicme Muine  (3rd group) — diagonal:       1-5 lines crossing the druim at an angle
+// Aicme Ailme  (4th group) — both/notch:     1-5 perpendicular lines through the druim
+// Forfeda      (5th group) — supplementary:   complex shapes (X, hooks, lozenges)
+
 const OGHAM_MAP = {
-  A:{strokes:1,side:'both', diagonal:false},
-  B:{strokes:1,side:'right',diagonal:false},
-  C:{strokes:1,side:'right',diagonal:true },
-  D:{strokes:2,side:'right',diagonal:false},
-  E:{strokes:5,side:'both', diagonal:false},
-  F:{strokes:3,side:'right',diagonal:false},
-  G:{strokes:4,side:'right',diagonal:false},
-  H:{strokes:6,side:'both', diagonal:false},
-  I:{strokes:1,side:'left', diagonal:false},
-  L:{strokes:1,side:'right',diagonal:false},
-  M:{strokes:4,side:'both', diagonal:false},
-  N:{strokes:5,side:'right',diagonal:false},
-  O:{strokes:2,side:'both', diagonal:false},
-  P:{strokes:5,side:'right',diagonal:true },
-  Q:{strokes:5,side:'right',diagonal:false},
-  R:{strokes:5,side:'both', diagonal:true },
-  S:{strokes:3,side:'both', diagonal:false},
-  T:{strokes:3,side:'right',diagonal:true },
-  U:{strokes:3,side:'both', diagonal:false},
-  V:{strokes:2,side:'right',diagonal:true },
-  W:{strokes:4,side:'right',diagonal:true },
-  X:{strokes:4,side:'right',diagonal:true },
-  Y:{strokes:4,side:'both', diagonal:true },
-  Z:{strokes:5,side:'right',diagonal:true },
+  // ── Aicme Beithe (right strokes) ──
+  B:  { strokes:1, side:'right',   diagonal:false, name:'Beith',  tree:'Birch',       unicode:'ᚁ' },
+  L:  { strokes:2, side:'right',   diagonal:false, name:'Luis',   tree:'Rowan',       unicode:'ᚂ' },
+  F:  { strokes:3, side:'right',   diagonal:false, name:'Fearn',  tree:'Alder',       unicode:'ᚃ' },
+  S:  { strokes:4, side:'right',   diagonal:false, name:'Sail',   tree:'Willow',      unicode:'ᚄ' },
+  N:  { strokes:5, side:'right',   diagonal:false, name:'Nion',   tree:'Ash',         unicode:'ᚅ' },
+  // ── Aicme hÚatha (left strokes) ──
+  H:  { strokes:1, side:'left',    diagonal:false, name:'Úath',   tree:'Hawthorn',    unicode:'ᚆ' },
+  D:  { strokes:2, side:'left',    diagonal:false, name:'Dair',   tree:'Oak',         unicode:'ᚇ' },
+  T:  { strokes:3, side:'left',    diagonal:false, name:'Tinne',  tree:'Holly',       unicode:'ᚈ' },
+  C:  { strokes:4, side:'left',    diagonal:false, name:'Coll',   tree:'Hazel',       unicode:'ᚉ' },
+  Q:  { strokes:5, side:'left',    diagonal:false, name:'Cert',   tree:'Apple',       unicode:'ᚊ' },
+  // ── Aicme Muine (diagonal strokes crossing the druim) ──
+  M:  { strokes:1, side:'both',    diagonal:true,  name:'Muin',   tree:'Vine',        unicode:'ᚋ' },
+  G:  { strokes:2, side:'both',    diagonal:true,  name:'Gort',   tree:'Ivy',         unicode:'ᚌ' },
+  NG: { strokes:3, side:'both',    diagonal:true,  name:'Ngedal', tree:'Reed',        unicode:'ᚍ' },
+  ST: { strokes:4, side:'both',    diagonal:true,  name:'Straif', tree:'Blackthorn',  unicode:'ᚎ' },
+  R:  { strokes:5, side:'both',    diagonal:true,  name:'Ruis',   tree:'Elder',       unicode:'ᚏ' },
+  // ── Aicme Ailme (perpendicular notches through druim) ──
+  A:  { strokes:1, side:'both',    diagonal:false, name:'Ailm',   tree:'Fir',         unicode:'ᚐ' },
+  O:  { strokes:2, side:'both',    diagonal:false, name:'Onn',    tree:'Gorse',       unicode:'ᚑ' },
+  U:  { strokes:3, side:'both',    diagonal:false, name:'Úr',     tree:'Heather',     unicode:'ᚒ' },
+  E:  { strokes:4, side:'both',    diagonal:false, name:'Edad',   tree:'Aspen',       unicode:'ᚓ' },
+  I:  { strokes:5, side:'both',    diagonal:false, name:'Idad',   tree:'Yew',         unicode:'ᚔ' },
+  // ── Forfeda (supplementary letters — rendered as special shapes) ──
+  EA: { strokes:1, side:'forfeda', diagonal:false, name:'Eabhadh',     tree:'Aspen Grove',    unicode:'ᚕ', forfeda:'cross'   },
+  OI: { strokes:2, side:'forfeda', diagonal:false, name:'Ór',          tree:'Spindle',        unicode:'ᚖ', forfeda:'hook'    },
+  UI: { strokes:3, side:'forfeda', diagonal:false, name:'Uilleann',    tree:'Honeysuckle',    unicode:'ᚗ', forfeda:'square'  },
+  IO: { strokes:4, side:'forfeda', diagonal:false, name:'Ifín',        tree:'Gooseberry',     unicode:'ᚘ', forfeda:'diamond' },
+  AE: { strokes:5, side:'forfeda', diagonal:false, name:'Eamhancholl', tree:'Twin of Hazel',  unicode:'ᚙ', forfeda:'weave'   },
+  P:  { strokes:6, side:'forfeda', diagonal:false, name:'Peith',       tree:'Soft Birch',     unicode:'ᚚ', forfeda:'hook2'   },
+  // ── Aliases (Latin letters not in Ogham, mapped to nearest fid) ──
+  K:  { strokes:4, side:'left',    diagonal:false, name:'Coll',   tree:'Hazel',  unicode:'ᚉ' },  // K → C
+  V:  { strokes:3, side:'right',   diagonal:false, name:'Fearn',  tree:'Alder',  unicode:'ᚃ' },  // V → F
+  W:  { strokes:3, side:'right',   diagonal:false, name:'Fearn',  tree:'Alder',  unicode:'ᚃ' },  // W → F
+  X:  { strokes:5, side:'forfeda', diagonal:false, name:'Eamhancholl', tree:'Twin of Hazel', unicode:'ᚙ', forfeda:'weave' },  // X → AE
+  Y:  { strokes:5, side:'both',    diagonal:false, name:'Idad',   tree:'Yew',    unicode:'ᚔ' },  // Y → I
+  Z:  { strokes:4, side:'both',    diagonal:true,  name:'Straif', tree:'Blackthorn', unicode:'ᚎ' },  // Z → ST
+  J:  { strokes:5, side:'both',    diagonal:false, name:'Idad',   tree:'Yew',    unicode:'ᚔ' },  // J → I
 };
+
+// Digraph keys to check before single-letter lookup (order matters)
+const OGHAM_DIGRAPHS = ['NG','ST','EA','OI','UI','IO','AE'];
+
+// Parse an input string into an array of OGHAM_MAP keys, handling digraphs
+function oghamParse(text) {
+  const val = text.toUpperCase().replace(/[^A-Z]/g, '');
+  const keys = [];
+  let i = 0;
+  while (i < val.length) {
+    if (i < val.length - 1) {
+      const pair = val[i] + val[i+1];
+      if (OGHAM_DIGRAPHS.includes(pair) && OGHAM_MAP[pair]) {
+        keys.push(pair);
+        i += 2;
+        continue;
+      }
+    }
+    if (OGHAM_MAP[val[i]]) keys.push(val[i]);
+    i++;
+  }
+  return keys;
+}
 
 
 // ── GEOMETRY: SIMPLE mode — ℒ_SS + Shannon-Hartley Expansion ──
@@ -3500,62 +3726,74 @@ function geomAbyss(input, W, H, abyssElapsed, t) {
 }
 
 
-// ── GEOMETRY: OGHAM mode — Phonetic stemline ──
-// Each letter of the input maps to its historical aicme strokes
-// along a central druim (vertical stave), reading bottom to top.
+// ── GEOMETRY: OGHAM mode — Full 25-feda phonetic stemline ──
+// Each letter maps to its historical aicme strokes along a central
+// druim (vertical stave), read bottom to top as on Irish standing stones.
+// Forfeda are rendered as distinct geometric marks (X, hooks, lozenges).
 function geomOgham(input, W, H) {
-  const letters  = input.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 16);
-  const nLetters = letters.length || 1;
+  const keys     = oghamParse(input).slice(0, 20);
+  const nLetters = keys.length || 1;
 
   const druimX      = 0;
   const strokeLen   = W * 0.10;
-  const strokeGap   = W * 0.026;
-  const letterGap   = W * 0.055;
-  const charH       = strokeLen * 0.85;
+  const strokeGap   = W * 0.024;
+  const letterGap   = W * 0.050;
+  const charH       = strokeLen * 0.80;
 
-  // Build all strokes; measure total height for autofocus
-  const allStrokes = [];
-  let yPos = 0;  // starts at bottom, grows upward (negative Y = up)
+  // Collect all draw operations; measure bounds for autofocus
+  const allOps  = [];  // { type:'stroke'|'forfeda', ... }
+  let yPos = 0;
 
   for (let li = 0; li < nLetters; li++) {
-    const ch   = letters[li];
-    const ogham = OGHAM_MAP[ch] || OGHAM_MAP['A'];
-    const { strokes, side, diagonal } = ogham;
-    const blockTop = yPos - (strokes * strokeGap + charH);
+    const key   = keys[li];
+    const ogham = OGHAM_MAP[key] || OGHAM_MAP['A'];
+    const { strokes, side, diagonal, forfeda } = ogham;
 
-    for (let si = 0; si < strokes; si++) {
-      const y = yPos - charH/2 - si * strokeGap;
-      if (diagonal) {
-        // Angled strokes (Aicme Muine) — cross the stave diagonally
-        const dx = strokeLen * 0.55;
-        const dy = strokeLen * 0.28;
-        allStrokes.push({ x0: druimX - dx, y0: y - dy, x1: druimX + dx, y1: y + dy, side });
-      } else if (side === 'both') {
-        allStrokes.push({ x0: druimX - strokeLen*0.55, y0: y, x1: druimX + strokeLen*0.55, y1: y, side });
-      } else if (side === 'right') {
-        allStrokes.push({ x0: druimX, y0: y, x1: druimX + strokeLen, y1: y, side });
-      } else {
-        allStrokes.push({ x0: druimX - strokeLen, y0: y, x1: druimX, y1: y, side });
+    if (side === 'forfeda' && forfeda) {
+      // ── Forfeda: special geometric marks centred on the druim ──
+      const cy = yPos - charH / 2;
+      const sz = strokeLen * 0.55;
+      allOps.push({ type:'forfeda', forfeda, cx: druimX, cy, sz });
+      yPos -= charH + letterGap;
+    } else {
+      // ── Standard aicme strokes ──
+      for (let si = 0; si < strokes; si++) {
+        const y = yPos - charH/2 - si * strokeGap;
+        if (diagonal) {
+          const dx = strokeLen * 0.55, dy = strokeLen * 0.28;
+          allOps.push({ type:'stroke', x0: druimX-dx, y0: y-dy, x1: druimX+dx, y1: y+dy });
+        } else if (side === 'both') {
+          allOps.push({ type:'stroke', x0: druimX-strokeLen*0.55, y0: y, x1: druimX+strokeLen*0.55, y1: y });
+        } else if (side === 'right') {
+          allOps.push({ type:'stroke', x0: druimX, y0: y, x1: druimX+strokeLen, y1: y });
+        } else {
+          allOps.push({ type:'stroke', x0: druimX-strokeLen, y0: y, x1: druimX, y1: y });
+        }
       }
+      yPos -= strokes * strokeGap + letterGap;
     }
-    yPos -= strokes * strokeGap + letterGap;
   }
 
-  // Stave spans the full letter range
   const staveTop    = yPos;
   const staveBottom = letterGap;
-  const points = [
-    { x: druimX, y: staveTop }, { x: druimX, y: staveBottom },
-    ...allStrokes.flatMap(s => [{ x:s.x0, y:s.y0 }, { x:s.x1, y:s.y1 }]),
-  ];
-  const { tx, ty, sc } = autofocus(points, W, H, W * 0.1);
+
+  // Gather all points for autofocus
+  const pts = [{ x: druimX, y: staveTop }, { x: druimX, y: staveBottom }];
+  allOps.forEach(op => {
+    if (op.type === 'stroke') {
+      pts.push({ x:op.x0, y:op.y0 }, { x:op.x1, y:op.y1 });
+    } else {
+      pts.push({ x:op.cx-op.sz, y:op.cy-op.sz }, { x:op.cx+op.sz, y:op.cy+op.sz });
+    }
+  });
+  const { tx, ty, sc } = autofocus(pts, W, H, W * 0.1);
 
   function draw(ctx, accent, fill, glow) {
     ctx.save();
     ctx.translate(tx, ty);
     ctx.scale(sc, sc);
 
-    // Druim
+    // Druim (stave line)
     ctx.beginPath();
     ctx.moveTo(druimX, staveTop); ctx.lineTo(druimX, staveBottom);
     ctx.strokeStyle = accent(glow * 0.8);
@@ -3567,16 +3805,68 @@ function geomOgham(input, W, H) {
       ctx.fillStyle = fill + (glow * 0.6) + ')'; ctx.fill();
     });
 
-    // Aicme strokes
-    allStrokes.forEach(s => {
-      // Soft glow behind
-      ctx.beginPath(); ctx.moveTo(s.x0, s.y0); ctx.lineTo(s.x1, s.y1);
-      ctx.strokeStyle = accent(glow * 0.3);
-      ctx.lineWidth = 6; ctx.lineCap = 'square'; ctx.stroke();
-      // Sharp stroke
-      ctx.beginPath(); ctx.moveTo(s.x0, s.y0); ctx.lineTo(s.x1, s.y1);
-      ctx.strokeStyle = accent(glow * 0.95);
-      ctx.lineWidth = 1.8; ctx.stroke();
+    // Render each operation
+    allOps.forEach(op => {
+      if (op.type === 'stroke') {
+        // Glow layer
+        ctx.beginPath(); ctx.moveTo(op.x0, op.y0); ctx.lineTo(op.x1, op.y1);
+        ctx.strokeStyle = accent(glow * 0.3);
+        ctx.lineWidth = 6; ctx.lineCap = 'square'; ctx.stroke();
+        // Sharp stroke
+        ctx.beginPath(); ctx.moveTo(op.x0, op.y0); ctx.lineTo(op.x1, op.y1);
+        ctx.strokeStyle = accent(glow * 0.95);
+        ctx.lineWidth = 1.8; ctx.stroke();
+      } else {
+        // ── Forfeda shapes ──
+        const { cx, cy, sz, forfeda: shape } = op;
+        ctx.lineWidth = 1.8;
+        ctx.strokeStyle = accent(glow * 0.9);
+        ctx.fillStyle = fill + (glow * 0.15) + ')';
+        ctx.lineCap = 'round';
+
+        if (shape === 'cross') {
+          // Eabhadh — X cross through druim
+          ctx.beginPath();
+          ctx.moveTo(cx-sz, cy-sz*0.6); ctx.lineTo(cx+sz, cy+sz*0.6);
+          ctx.moveTo(cx-sz, cy+sz*0.6); ctx.lineTo(cx+sz, cy-sz*0.6);
+          ctx.stroke();
+        } else if (shape === 'hook') {
+          // Ór — angled hook to the right
+          ctx.beginPath();
+          ctx.moveTo(cx-sz*0.4, cy-sz*0.5); ctx.lineTo(cx+sz*0.6, cy);
+          ctx.lineTo(cx-sz*0.4, cy+sz*0.5);
+          ctx.stroke();
+        } else if (shape === 'square') {
+          // Uilleann — small square on the druim
+          const hs = sz * 0.45;
+          ctx.beginPath();
+          ctx.rect(cx-hs, cy-hs, hs*2, hs*2);
+          ctx.fill(); ctx.stroke();
+        } else if (shape === 'diamond') {
+          // Ifín — diamond/lozenge shape
+          ctx.beginPath();
+          ctx.moveTo(cx, cy-sz*0.6);
+          ctx.lineTo(cx+sz*0.5, cy);
+          ctx.lineTo(cx, cy+sz*0.6);
+          ctx.lineTo(cx-sz*0.5, cy);
+          ctx.closePath();
+          ctx.fill(); ctx.stroke();
+        } else if (shape === 'weave') {
+          // Eamhancholl — interlocking curves
+          ctx.beginPath();
+          ctx.arc(cx - sz*0.25, cy, sz*0.35, -Math.PI*0.5, Math.PI*0.5);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(cx + sz*0.25, cy, sz*0.35, Math.PI*0.5, -Math.PI*0.5);
+          ctx.stroke();
+        } else if (shape === 'hook2') {
+          // Peith — mirrored double hook
+          ctx.beginPath();
+          ctx.moveTo(cx+sz*0.4, cy-sz*0.5); ctx.lineTo(cx-sz*0.6, cy);
+          ctx.lineTo(cx+sz*0.4, cy+sz*0.5);
+          ctx.stroke();
+        }
+      }
     });
 
     ctx.restore();
@@ -3947,13 +4237,30 @@ let _therapyGridBuilt = false;
 function renderTherapyGrid() {
   const container = document.getElementById('therapy-grid');
   if (!_therapyGridBuilt) {
-    const mkBtn = m => `
-      <button class="therapy-btn${m.key === 'cycle' ? ' cycle-featured' : ''}" data-key="${m.key}"
-              data-color="${m.color}" onclick="setTherapy('${m.key}')">
-        <span class="t-name">${m.name.toUpperCase()}</span>
-        <span class="t-band">${m.band}</span>
-        <span class="t-desc">${m.desc}</span>
-      </button>`;
+    const mkBtn = m => {
+      if (m.key === 'custom') {
+        return `
+          <button class="therapy-btn custom-card" data-key="custom"
+                  data-color="${m.color}" onclick="setTherapy('custom')">
+            <div class="custom-header">
+              <span class="t-name">${m.name.toUpperCase()}</span>
+              <span class="custom-df-readout" id="custom-df-val">${m.df.toFixed(1)} Hz</span>
+            </div>
+            <input class="custom-slider" id="custom-df-slider" type="range"
+                   min="1" max="60" step="0.5" value="${m.df}"
+                   oninput="setCustomDf(this.value)"
+                   onclick="event.stopPropagation()">
+            <span class="t-desc">${m.desc}</span>
+          </button>`;
+      }
+      return `
+        <button class="therapy-btn${m.key === 'cycle' ? ' cycle-featured' : ''}" data-key="${m.key}"
+                data-color="${m.color}" onclick="setTherapy('${m.key}')">
+          <span class="t-name">${m.name.toUpperCase()}</span>
+          <span class="t-band">${m.band}</span>
+          <span class="t-desc">${m.desc}</span>
+        </button>`;
+    };
     const descent = THERAPY_MODES.filter(m => m.group === 'descent');
     const ascent  = THERAPY_MODES.filter(m => m.group === 'ascent');
     container.innerHTML = `
@@ -4002,6 +4309,26 @@ function setTherapy(key) {
     noteText,
     subText
   );
+}
+
+// ── Custom Δf slider handler ──
+function setCustomDf(val) {
+  const df = parseFloat(val);
+  const custom = THERAPY_MODES.find(m => m.key === 'custom');
+  if (custom) custom.df = df;
+  const readout = document.getElementById('custom-df-val');
+  if (readout) readout.textContent = df.toFixed(1) + ' Hz';
+  // Auto-activate custom mode if not already selected
+  if (!S.therapy || S.therapy.key !== 'custom') {
+    setTherapy('custom');
+    // Restore slider value after setTherapy rebuilds state
+    const slider = document.getElementById('custom-df-slider');
+    if (slider) slider.value = df;
+  } else {
+    S.therapy.df = df;
+    updateFreqReadout();
+    if (S.running && S.audioOn) { stopAudio(); startAudio(); }
+  }
 }
 
 // ── Frequency source mode ──
@@ -4142,7 +4469,7 @@ function toggleSession() {
     if(S.audioOn) startAudio();
     updateTimer();
     S.sessionIv=setInterval(updateTimer,1000);
-    if('wakeLock' in navigator) navigator.wakeLock.request('screen').catch(()=>{});
+    _requestWakeLock();
     setText(
       S.G > 0
         ? `Acoustic field initialised. Carrier: ${activeF0().toFixed(1)} Hz. Frequency-following response protocol active. The enclosure is sealed.`
@@ -4740,6 +5067,27 @@ function unregisterMediaSession() {
   navigator.mediaSession.setActionHandler('pause', null);
 }
 
+// ── Wake Lock ─────────────────────────────────────────────────────────────────
+// Stores the sentinel so the 'release' event can trigger re-acquisition.
+// The OS releases the lock on screen-off; without re-acquisition the screen
+// dims and the browser throttles JS timers, breaking background audio.
+let _wakeLockSentinel = null;
+async function _requestWakeLock() {
+  if (!('wakeLock' in navigator)) return;
+  try {
+    _wakeLockSentinel = await navigator.wakeLock.request('screen');
+    _wakeLockSentinel.addEventListener('release', () => {
+      miLog('Wake lock released by OS', 'warn');
+      _wakeLockSentinel = null;
+      // Re-acquire only if page is visible and session still running.
+      if (S.running && document.visibilityState === 'visible') _requestWakeLock();
+    });
+    miLog('Wake lock acquired', 'ok');
+  } catch (e) {
+    miLog(`Wake lock failed: ${e}`, 'warn');
+  }
+}
+
 function _resumeAC(reason) {
   if (!S.ac || S.ac.state === 'running') return;
   S.ac.resume()
@@ -4764,11 +5112,7 @@ document.addEventListener('visibilitychange', () => {
     if (S.running && bStart !== null) bStart = performance.now();
     if (S.running && S.audioOn) _resumeAC('visibilitychange');
     // Re-request wake lock if it was released
-    if (S.running && 'wakeLock' in navigator) {
-      navigator.wakeLock.request('screen')
-        .then(() => miLog('Wake lock re-acquired', 'ok'))
-        .catch(() => {});
-    }
+    if (S.running) _requestWakeLock();
   } else {
     miLog('Tab hidden', 'info');
   }
@@ -4778,6 +5122,18 @@ document.addEventListener('visibilitychange', () => {
 // Android browsers where visibilitychange is unreliable.
 window.addEventListener('pageshow', () => {
   if (S.running && S.audioOn) _resumeAC('pageshow');
+});
+
+// Page Lifecycle API (Chrome 68+ / Android WebView): 'freeze' fires when the
+// browser discards the page to save resources; 'resume' fires on restoration.
+// Complements visibilitychange which may not fire in all Android WebViews.
+document.addEventListener('freeze', () => {
+  miLog('Page freeze — session preserved', 'warn');
+});
+document.addEventListener('resume', () => {
+  miLog('Page resume from freeze', 'info');
+  if (S.running && S.audioOn) _resumeAC('page-resume');
+  if (S.running) _requestWakeLock();
 });
 
 // Touch-to-resume: iOS requires a user gesture to un-suspend AudioContext.

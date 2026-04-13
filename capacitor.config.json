@@ -1,0 +1,19 @@
+{
+  "appId": "com.libertemporis.midas",
+  "appName": "M.I.D.A.S.",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#09090c",
+    "allowMixedContent": false,
+    "minWebViewVersion": 60
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "backgroundColor": "#09090c"
+    }
+  }
+}
