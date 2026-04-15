@@ -380,6 +380,20 @@ On supported browsers (Chrome, Edge, Safari 16.4+):
 
 Once installed, MIDAS runs as a standalone app — no browser chrome, no address bar. The session shell is cached by the Service Worker. The application runs fully offline after first load: the audio engine and canvas have no network dependencies.
 
+For a full native Android experience with guaranteed background audio, use the Capacitor APK path instead (see `BUILD-APK.md`).
+
+---
+
+## Android APK & Play Store
+
+MIDAS can be built as a native Android APK using [Capacitor](https://capacitorjs.com). See `BUILD-APK.md` for the complete step-by-step guide.
+
+Key notes:
+- The APK bundles `index.html` locally — no internet connection required after install
+- Background audio uses the Android foreground service mechanism (declared in `AndroidManifest.xml`)
+- Minimum SDK: Android 7.0 (API 24)
+- Target SDK: Android 14 (API 34) for Play Store compliance
+
 ---
 
 ## Technical Stack
@@ -396,6 +410,18 @@ Once installed, MIDAS runs as a standalone app — no browser chrome, no address
 | PWA | Web App Manifest, standalone display mode |
 
 **Browser requirements:** Any modern browser with Web Audio API support (Chrome 66+, Firefox 76+, Safari 14.1+, Edge 79+). Binaural beats require stereo headphones — the effect is not perceivable on speakers or in mono.
+
+---
+
+---
+
+## Supporting MIDAS
+
+MIDAS is free to use. If the application has been of value — as a therapy tool, a sleep aid, or a focused work companion — a small donation is welcomed.
+
+[Support MIDAS →](YOUR_DONATION_LINK_HERE)
+
+All contributions go directly toward continued development and maintenance.
 
 ---
 
