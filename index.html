@@ -719,6 +719,8 @@ section { margin-bottom: 48px; }
 .therapy-btn.active[data-color="gamma"]::before  { background: #a04858; }
 .therapy-btn[data-color="iadnah"]::before        { background: #1e1848; }
 .therapy-btn.active[data-color="iadnah"]::before { background: #5050c0; }
+.therapy-btn[data-color="mor"]::before           { background: #1a2814; }
+.therapy-btn.active[data-color="mor"]::before    { background: #3a7830; }
 
 /* ── CUSTOM Δf SLIDER CARD ── */
 .therapy-btn.custom-card {
@@ -799,6 +801,41 @@ section { margin-bottom: 48px; }
   font-family: var(--font-m); font-size: 9px; letter-spacing: .25em;
   color: rgba(80, 80, 192, 0.6); margin-top: 6px; text-align: right;
 }
+
+/* ── MOR 11th HARMONIC TOGGLE PANEL ── */
+#mor-h11-panel {
+  display: none;
+  margin-top: 10px;
+}
+#mor-h11-panel.visible { display: block; }
+.mor-h11-toggle {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10, 28, 8, 0.75);
+  border: 1px solid rgba(58, 120, 48, 0.35);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  gap: 8px;
+  text-align: left;
+}
+.mor-h11-toggle:hover { border-color: rgba(58, 120, 48, 0.65); background: rgba(10, 28, 8, 0.9); }
+.mor-h11-toggle.on { border-color: rgba(58, 120, 48, 0.75); background: rgba(20, 52, 16, 0.85); }
+.mor-h11-label {
+  font-family: var(--font-d); font-size: 10px; letter-spacing: .25em;
+  text-transform: uppercase; color: rgba(140, 200, 130, 0.85); flex: 0 0 auto;
+}
+.mor-h11-freq {
+  font-family: var(--font-m); font-size: 9px; letter-spacing: .15em;
+  color: rgba(100, 160, 90, 0.6); flex: 1 1 auto;
+}
+.mor-h11-state {
+  font-family: var(--font-m); font-size: 9px; letter-spacing: .2em;
+  color: rgba(80, 120, 70, 0.7); flex: 0 0 auto; transition: color .2s;
+}
+.mor-h11-toggle.on .mor-h11-state { color: rgba(100, 220, 80, 0.9); content: 'ON'; }
+.mor-h11-toggle.on .mor-h11-freq  { color: rgba(120, 200, 100, 0.8); }
 
 /* ── CRACKLING INDICATOR ── */
 .crackling-indicator {
@@ -1799,6 +1836,7 @@ footer {
       <button class="sigil-mode-btn"        id="smode-chaos"   onclick="setSigilMode('chaos')">Kamea</button>
       <button class="sigil-mode-btn"        id="smode-ogham"   onclick="setSigilMode('ogham')">Ogham</button>
       <button class="sigil-mode-btn"        id="smode-simple"  onclick="setSigilMode('simple')">Radial</button>
+      <button class="sigil-mode-btn"        id="smode-anchor"  onclick="setSigilMode('anchor')">Anchor</button>
     </div>
   </section>
 
@@ -1819,6 +1857,13 @@ footer {
       <div class="cycle-phase-desc" id="cycle-phase-desc">The Tabaan stands firm.</div>
       <div class="cycle-progress-bar"><div class="cycle-progress-fill" id="cycle-progress-fill"></div></div>
       <div class="cycle-time" id="cycle-time">0:00 / 50:00</div>
+    </div>
+    <div id="mor-h11-panel">
+      <button id="mor-h11-btn" class="mor-h11-toggle" onclick="toggleMORH11()">
+        <span class="mor-h11-label">11th Harmonic</span>
+        <span class="mor-h11-freq">1210 Hz · cellular resonance</span>
+        <span class="mor-h11-state">OFF</span>
+      </button>
     </div>
     <div class="crackling-indicator" id="crackling-indicator">
       <div class="crackling-indicator-dot"></div>
@@ -2180,6 +2225,18 @@ const THERAPY_MODES = [
     boxBreath: false,
     group:    'ascent',    // Appears in the Ascent group as a normal button
   },
+  {
+    key:      'mor',
+    name:     'Sound Bath',
+    df:       11,           // 139−128 Hz = 11 Hz Alpha beat (Zeckerman pair)
+    band:     'MOR · Alpha',
+    desc:     'Mortal Oscillatory Rate · 110 Hz Sídhe · Zeckerman 139/128 · Geburah steps',
+    color:    'mor',
+    breath:   [5, 0, 5],
+    note:     'The MOR protocol locks the acoustic field to three simultaneous layers: a 110 Hz Sídhe drone (archaeoacoustically validated prefrontal shift), a hard-panned 139 Hz/128 Hz Zeckerman binaural pair (11 Hz Alpha entrainment, vagal stimulation), and Geburah sub-harmonics at 20, 40, 60, 80 Hz. Stochastic acoustic breaches — Wisdom Through Breach — are scheduled at Fibonacci intervals to prevent habituation and deliver accidental gnosis. Stereo headphones required. Allow 20+ minutes.',
+    boxBreath: false,
+    group:    'descent',
+  },
 ];
 
 // ── BREATH PATTERNS — decoupled from therapy/tone selection ──
@@ -2201,6 +2258,7 @@ const BREATH_PATTERNS = [
 // ── LITHIC CARRIER PRESETS ──
 const LITHIC_PRESETS = [
   { name:'Earth',      hz:136.1 },
+  { name:'Sídhe',      hz:110.0 },
   { name:'Tiphareth',  hz:432.0 },
   { name:'Geburah',    hz:528.0 },
   { name:'Yesod',      hz:174.0 },
@@ -2234,10 +2292,12 @@ const S = {
   breathPattern: BREATH_PATTERNS[2],  // default: Drift (5-2-7)
   timbre:    'sine',
   softMode:  true,
+  morH11:    false,                   // MOR 11th harmonic toggle (1210 Hz cellular resonance)
   volume:    0.65,
   volumeDb:  -18,
-  sigilMode: 'natural',           // 'natural' | 'simple' | 'chaos' | 'ogham'
+  sigilMode: 'natural',           // 'natural' | 'simple' | 'chaos' | 'ogham' | 'anchor'
   sigilModeFreqMult: 1.0,         // carrier frequency multiplier driven by sigil mode
+  directHzLocked: false,          // true when direct Hz entry is active — anchor holds the exact value
 
   running:   false,
   audioOn:   true,
@@ -2265,6 +2325,7 @@ const SIGIL_MODE_FREQ = {
   ogham:   4 / 3,     // perfect fourth — 4:3
   natural: 5 / 4,     // major third — 5:4 (botanical harmonic)
   abyss:   1.0,       // unity — the Abyss holds the carrier; no expansion
+  anchor:  1.0,       // stillpoint — frequency locked to exact transcoded value; no expansion
 };
 
 // ── SEPHIROTHIC COLOUR CANON ────────────────────────────────────────────
@@ -2297,13 +2358,27 @@ const CYCLE_PHASE_SEPHIRAH = [
 //   Γ_raw = 63 → t = ln(64)/ln(10001) = 0.4514 → f_mapped = 269.6 Hz → /2 = 134.8 Hz
 const CYCLE_F0 = 134.8;
 
+// ── MOR CONSTANTS — Mortal Oscillatory Rate protocol ──
+const MOR_F0      = 110.0;   // Sídhe fundamental — archaeoacoustic prefrontal operator
+const MOR_ZECK_L  = 139.0;   // Zeckerman harmonic — Left channel
+const MOR_ZECK_R  = 128.0;   // Master fork — Right channel (diff = 11 Hz Alpha)
+const MOR_GEBURAH = [20, 60, 80]; // Geburah constant sub-harmonics (40 Hz via bodyResOsc)
+const MOR_BREACH_FIB = [13000, 21000, 34000, 55000, 89000, 144000];
+
 function activeF0() {
   if (S.therapy && S.therapy.key === 'cycle') return CYCLE_F0;
+  if (S.therapy && S.therapy.key === 'mor')   return MOR_F0;
   const base = S.freqMode === 'lithic' ? S.lithicHz : S.f0;
+  // Anchor lock: direct Hz entry holds the carrier absolutely — no sigil multiplier applied
+  if (S.directHzLocked) return Math.max(60, base);
   return Math.max(60, base * (S.sigilModeFreqMult || 1.0));
 }
 
 function activePair() {
+  // MOR: fixed Zeckerman binaural pair — 139 Hz Left / 128 Hz Right
+  if (S.therapy && S.therapy.key === 'mor') {
+    return { f0: MOR_F0, fL: MOR_ZECK_L, fR: MOR_ZECK_R, df: MOR_ZECK_L - MOR_ZECK_R };
+  }
   const raw = activeF0();
   // NaN/Infinity guard: a zero-length word or corrupted G value can produce
   // non-finite carrier frequencies — feeding Infinity into an OscillatorNode
@@ -2499,18 +2574,28 @@ function buildAudioGraph() {
   tremoloR.connect(trDepthR); trDepthR.connect(gainR.gain);
   tremoloL.start(); tremoloR.start();
 
+  const isMOR = S.therapy && S.therapy.key === 'mor';
+  const f0    = activeF0();
+
+  // In MOR mode, the Velvet Curtain is raised to 2500 Hz only when the
+  // 11th harmonic toggle is active — allowing 1210 Hz to reach the listener.
+  // Default remains 300 Hz; toggle adjusts dynamically via toggleMORH11().
+  if (isMOR && S.morH11) velvetLPF.frequency.value = 2500;
+
   // ── Sub-octave grounding: f0/2 sine — acoustic weighted blanket ──
-  // Routes directly to merger pre-shaper for shared warmth processing
-  const f0     = activeF0();
-  const subL   = ac.createOscillator(); const subGainL = ac.createGain();
-  const subR   = ac.createOscillator(); const subGainR = ac.createGain();
-  subL.type = subR.type = 'sine';
-  subL.frequency.value = Math.max(30, (fL) / 2);
-  subR.frequency.value = Math.max(30, (fR) / 2);
-  subGainL.gain.value = subGainR.gain.value = vol * 0.18;
-  subL.connect(subGainL); subGainL.connect(merger, 0, 0);
-  subR.connect(subGainR); subGainR.connect(merger, 0, 1);
-  subL.start(); subR.start();
+  // Skipped in MOR mode — MOR supplies its own bass layer (Geburah steps)
+  let subL, subR;
+  if (!isMOR) {
+    subL = ac.createOscillator(); const subGainL = ac.createGain();
+    subR = ac.createOscillator(); const subGainR = ac.createGain();
+    subL.type = subR.type = 'sine';
+    subL.frequency.value = Math.max(30, fL / 2);
+    subR.frequency.value = Math.max(30, fR / 2);
+    subGainL.gain.value = subGainR.gain.value = vol * 0.18;
+    subL.connect(subGainL); subGainL.connect(merger, 0, 0);
+    subR.connect(subGainR); subGainR.connect(merger, 0, 1);
+    subL.start(); subR.start();
+  }
 
   // ── Body Resonator — shared mono 40 Hz sine for Cycle Mode Phase 5 ──
   // Delivers a felt 40 Hz vibration to BOTH channels simultaneously (not binaural).
@@ -2521,14 +2606,14 @@ function buildAudioGraph() {
   const bodyResGain = ac.createGain();
   bodyResOsc.type = 'sine';
   bodyResOsc.frequency.value = 40;  // Gamma / Da'at binding frequency
-  bodyResGain.gain.value = 0;       // Silent until Phase 5
+  bodyResGain.gain.value = 0;       // Silent until Phase 5 (Cycle) or MOR Gamma layer
   bodyResOsc.connect(bodyResGain);
   bodyResGain.connect(merger, 0, 0);  // Left — shared
   bodyResGain.connect(merger, 0, 1);  // Right — shared (not binaural)
   bodyResOsc.start();
 
   const nodes = {
-    master, lpf, shaper, convolver, dryGain, wetGain,
+    master, lpf, shaper, convolver, dryGain, wetGain, velvetLPF,
     gainL, gainR,
     walhuuOsc, walhuuEnvL, walhuuEnvR,
     tremoloL, tremoloR, tremoloDepthL: trDepthL, tremoloDepthR: trDepthR,
@@ -2537,25 +2622,31 @@ function buildAudioGraph() {
     oscL: [], oscR: [],
   };
 
-  // Route to timbre builder
-  switch (S.timbre) {
-    case 'crystal': buildCrystal(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
-    case 'yidaki':  buildYidaki(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
-    case 'cave':    buildCave(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
-    case 'pulse':   buildPulse(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
-    case 'vessels': buildVessels(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
-    default:        buildSineOscs(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes);
+  if (isMOR) {
+    // MOR protocol: three-layer acoustic field + Geburah sub-harmonics + optional 11th harmonic
+    buildMORLayer(ac, merger, master, nodes, vol);
+  } else {
+    // Route to timbre builder
+    switch (S.timbre) {
+      case 'crystal': buildCrystal(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
+      case 'yidaki':  buildYidaki(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
+      case 'cave':    buildCave(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
+      case 'pulse':   buildPulse(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
+      case 'vessels': buildVessels(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes); break;
+      default:        buildSineOscs(ac, fL, fR, walhuuEnvL, walhuuEnvR, nodes);
+    }
+    // ── Stochastic Resonance: inject rational lattice into master ──
+    // f₀ (1/1) · f₀×3/2 (Perfect Fifth) · f₀×2 (Octave)
+    buildResonanceLattice(ac, f0, master, nodes, vol);
   }
 
-  // ── Stochastic Resonance: inject rational lattice into master ──
-  // f₀ (1/1) · f₀×3/2 (Perfect Fifth) · f₀×2 (Octave)
-  // Bypasses shaper/LPF — pure, uncoloured anchors inside the noise field.
-  buildResonanceLattice(ac, f0, master, nodes, vol);
-
   S.nodes = nodes;
-  const missing = ['walhuuOsc','tremoloL','tremoloR','subL','subR','bodyResOsc','master'].filter(k => !nodes[k]);
+  const coreNodes = isMOR
+    ? ['walhuuOsc','tremoloL','tremoloR','bodyResOsc','master']
+    : ['walhuuOsc','tremoloL','tremoloR','subL','subR','bodyResOsc','master'];
+  const missing = coreNodes.filter(k => !nodes[k]);
   if (missing.length) miLog(`BUILD MISSING: ${missing.join(', ')}`, 'error');
-  else miLog(`BUILD OK — oscL:${nodes.oscL.length} oscR:${nodes.oscR.length}`, 'ok');
+  else miLog(`BUILD OK — ${isMOR ? 'MOR' : `oscL:${nodes.oscL.length} oscR:${nodes.oscR.length}`}`, 'ok');
 }
 
 // ── Helper: make a sustained oscillator (no envelope scheduling) ──
@@ -2769,6 +2860,202 @@ function buildResonanceLattice(ac, f0, masterNode, nodes, vol) {
     nodes._latticeOscs.push(osc);
   });
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+//  MOR PROTOCOL — Mortal Oscillatory Rate acoustic field
+//
+//  Three simultaneous layers:
+//    A. 110 Hz Sídhe drone (center, both channels) — prefrontal operator
+//    B. 139 Hz Left / 128 Hz Right — Zeckerman binaural pair (11 Hz Alpha)
+//    C. Geburah sub-harmonics: 20, 60, 80 Hz + 40 Hz via bodyResOsc LFO
+//
+//  All layers route through the existing merger → shaper → convolver chain
+//  so the Lithic Enclosure reverb simulates the Sídhe mound stone chamber.
+// ═══════════════════════════════════════════════════════════════════════
+function buildMORLayer(ac, merger, master, nodes, vol) {
+  const morOscs = [];
+
+  // ── Layer A: 110 Hz Sídhe Fundamental (mono center drone) ──
+  const sidheGainL = ac.createGain();
+  const sidheGainR = ac.createGain();
+  sidheGainL.gain.value = sidheGainR.gain.value = vol * 0.32;
+  const sidheL = ac.createOscillator();
+  const sidheR = ac.createOscillator();
+  sidheL.type = sidheR.type = 'sine';
+  sidheL.frequency.value = sidheR.frequency.value = MOR_F0;
+  sidheL.connect(sidheGainL); sidheGainL.connect(merger, 0, 0);
+  sidheR.connect(sidheGainR); sidheGainR.connect(merger, 0, 1);
+  sidheL.start(); sidheR.start();
+  morOscs.push(sidheL, sidheR);
+
+  // ── Layer B: Zeckerman binaural pair (139 Hz L / 128 Hz R) ──
+  // Hard-panned — 11 Hz perceived beat entrains Alpha brainwaves
+  const zeckGainL = ac.createGain();
+  const zeckGainR = ac.createGain();
+  zeckGainL.gain.value = zeckGainR.gain.value = vol * 0.22;
+  const zeckL = ac.createOscillator();
+  const zeckR = ac.createOscillator();
+  zeckL.type = zeckR.type = 'sine';
+  zeckL.frequency.value = MOR_ZECK_L;  // 139 Hz — Left
+  zeckR.frequency.value = MOR_ZECK_R;  // 128 Hz — Right
+  zeckL.connect(zeckGainL); zeckGainL.connect(merger, 0, 0);
+  zeckR.connect(zeckGainR); zeckGainR.connect(merger, 0, 1);
+  zeckL.start(); zeckR.start();
+  morOscs.push(zeckL, zeckR);
+
+  // ── Layer C: 40 Hz Gamma modulation on Sídhe carrier ──
+  // LFO amplitude-modulates the 110 Hz drone at 40 Hz for Gamma neural binding
+  const gammaLFO    = ac.createOscillator();
+  const gammaDepthL = ac.createGain();
+  const gammaDepthR = ac.createGain();
+  gammaLFO.frequency.value = 40;
+  gammaDepthL.gain.value = gammaDepthR.gain.value = vol * 0.07;
+  gammaLFO.connect(gammaDepthL); gammaDepthL.connect(sidheGainL.gain);
+  gammaLFO.connect(gammaDepthR); gammaDepthR.connect(sidheGainR.gain);
+  gammaLFO.start();
+  morOscs.push(gammaLFO);
+
+  // ── Layer D: Geburah constant sub-harmonics (20, 60, 80 Hz) ──
+  // Filtered sine layers — felt as somatic body resonance
+  const geburahAmps = { 20: 0.055, 60: 0.038, 80: 0.028 };
+  MOR_GEBURAH.forEach(freq => {
+    const gL  = ac.createGain(), gR  = ac.createGain();
+    const bpL = ac.createBiquadFilter(), bpR = ac.createBiquadFilter();
+    bpL.type = bpR.type = 'bandpass';
+    bpL.frequency.value = bpR.frequency.value = freq;
+    bpL.Q.value = bpR.Q.value = 1.8;
+    gL.gain.value = gR.gain.value = vol * geburahAmps[freq];
+    const osc = ac.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    osc.connect(gL); gL.connect(bpL); bpL.connect(merger, 0, 0);
+    osc.connect(gR); gR.connect(bpR); bpR.connect(merger, 0, 1);
+    osc.start();
+    morOscs.push(osc);
+  });
+
+  // ── 11th Harmonic: cellular resonance operator (optional toggle) ──
+  // MOR_F0 × 11 = 1210 Hz — upper somatic range; Pacinian corpuscles
+  // transmit this directly to CNS. Routes to master (bypasses merger LPF
+  // chain) so velvetLPF governs passage — raised to 2500 Hz when active.
+  // Chorus-blurred via micro-delays to "sigilize" the raw frequency.
+  const h11GainL  = ac.createGain();
+  const h11GainR  = ac.createGain();
+  const h11Active = S.morH11 ? vol * 0.020 : 0;
+  h11GainL.gain.value = h11GainR.gain.value = h11Active;
+
+  const h11delayL = ac.createDelay();  h11delayL.delayTime.value = 0.008;
+  const h11delayR = ac.createDelay();  h11delayR.delayTime.value = 0.013;
+
+  const h11osc = ac.createOscillator();
+  h11osc.type = 'sine';
+  h11osc.frequency.value = MOR_F0 * 11;  // 1210 Hz
+
+  // Theta-rate tremolo (4.3 Hz) prevents harshness and masks the raw tone
+  const h11trem      = ac.createOscillator();
+  const h11tremDepthL = ac.createGain();
+  const h11tremDepthR = ac.createGain();
+  h11trem.frequency.value = 4.3;
+  h11tremDepthL.gain.value = h11tremDepthR.gain.value = vol * 0.006;
+  h11trem.connect(h11tremDepthL); h11tremDepthL.connect(h11GainL.gain);
+  h11trem.connect(h11tremDepthR); h11tremDepthR.connect(h11GainR.gain);
+
+  h11osc.connect(h11delayL); h11delayL.connect(h11GainL); h11GainL.connect(master);
+  h11osc.connect(h11delayR); h11delayR.connect(h11GainR); h11GainR.connect(master);
+  h11osc.start(); h11trem.start();
+  morOscs.push(h11osc, h11trem);
+
+  nodes._morOscs  = morOscs;
+  nodes._morGains = { sidheGainL, sidheGainR, zeckGainL, zeckGainR, h11GainL, h11GainR };
+  miLog(`MOR layer built — ${morOscs.length} oscillators (h11: ${S.morH11 ? 'ON' : 'OFF'})`, 'ok');
+}
+
+// ── MOR STOCHASTIC BREACH SCHEDULER — Wisdom Through Breach ──
+// Introduces non-linear acoustic anomalies at Fibonacci-spaced intervals.
+// Prevents habituation; delivers sudden perceptual breaks (accidental gnosis).
+let _morBreachTimeout = null;
+
+function scheduleMORBreaches() {
+  if (!S.nodes?._morGains || !S.ac) return;
+  const base   = MOR_BREACH_FIB[Math.floor(Math.random() * MOR_BREACH_FIB.length)];
+  const jitter = (Math.random() - 0.5) * 6000;
+  _morBreachTimeout = setTimeout(() => {
+    if (S.therapy?.key === 'mor' && S.nodes?._morGains) {
+      applyMORBreach();
+      scheduleMORBreaches();
+    }
+  }, Math.max(8000, base + jitter));
+}
+
+function applyMORBreach() {
+  const ac  = S.ac;
+  const now = ac.currentTime;
+  const { sidheGainL, sidheGainR } = S.nodes._morGains;
+  const morOscs = S.nodes._morOscs || [];
+  const breachType = Math.floor(Math.random() * 3);
+
+  if (breachType === 0) {
+    // Volume dip: brief 50ms fade then restore — the acoustic "burn"
+    [sidheGainL, sidheGainR].forEach(g => {
+      const v = g.gain.value;
+      g.gain.setValueAtTime(v, now);
+      g.gain.linearRampToValueAtTime(v * 0.38, now + 0.05);
+      g.gain.linearRampToValueAtTime(v, now + 0.45);
+    });
+  } else if (breachType === 1) {
+    // Micro pitch deviance: Sídhe oscillators drift briefly then return
+    morOscs.slice(0, 2).forEach(osc => {
+      osc.frequency.setValueAtTime(MOR_F0, now);
+      osc.frequency.linearRampToValueAtTime(MOR_F0 * 1.035, now + 0.10);
+      osc.frequency.linearRampToValueAtTime(MOR_F0, now + 0.55);
+    });
+  } else {
+    // Harmonic bloom: brief amplitude swell on Sídhe drone
+    [sidheGainL, sidheGainR].forEach(g => {
+      const v = g.gain.value;
+      g.gain.setValueAtTime(v, now);
+      g.gain.linearRampToValueAtTime(v * 1.7, now + 0.07);
+      g.gain.linearRampToValueAtTime(v, now + 0.55);
+    });
+  }
+  miLog(`MOR breach type ${breachType} at ${now.toFixed(2)}s`, 'info');
+}
+
+function stopMORBreaches() {
+  if (_morBreachTimeout) { clearTimeout(_morBreachTimeout); _morBreachTimeout = null; }
+}
+
+// ── MOR 11th Harmonic Toggle ──
+// Dynamically enables/disables the 1210 Hz cellular resonance layer
+// without rebuilding the audio graph. Also adjusts the Velvet Curtain.
+function toggleMORH11() {
+  S.morH11 = !S.morH11;
+  const btn = document.getElementById('mor-h11-btn');
+  if (btn) {
+    btn.classList.toggle('on', S.morH11);
+    const stateEl = btn.querySelector('.mor-h11-state');
+    if (stateEl) stateEl.textContent = S.morH11 ? 'ON' : 'OFF';
+  }
+
+  // Adjust live if audio graph exists
+  if (S.nodes && S.nodes._morGains) {
+    const { h11GainL, h11GainR } = S.nodes._morGains;
+    const targetAmp = S.morH11 ? S.volume * 0.020 : 0;
+    const now = S.ac.currentTime;
+    if (h11GainL) h11GainL.gain.linearRampToValueAtTime(targetAmp, now + 0.25);
+    if (h11GainR) h11GainR.gain.linearRampToValueAtTime(targetAmp, now + 0.25);
+  }
+
+  // Raise/lower Velvet Curtain for the harmonic to pass through
+  if (S.nodes && S.nodes.velvetLPF) {
+    const now = S.ac.currentTime;
+    const targetFreq = S.morH11 ? 2500 : 300;
+    S.nodes.velvetLPF.frequency.linearRampToValueAtTime(targetFreq, now + 0.5);
+  }
+
+  miLog(`MOR 11th harmonic ${S.morH11 ? 'ON (1210 Hz)' : 'OFF'}`, 'info');
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 
 function teardownAudio() {
@@ -2778,6 +3065,7 @@ function teardownAudio() {
   [n.walhuuOsc, n.formantLFO, n.noiseSource, n.tremoloL, n.tremoloR, n.subL, n.subR, n.bodyResOsc].forEach(stop);
   (n._breathLFOs   || []).forEach(stop);
   (n._latticeOscs  || []).forEach(stop);
+  (n._morOscs      || []).forEach(stop);
   S.nodes = {};
 }
 
@@ -3065,6 +3353,11 @@ function startAudio() {
     stopCycleDisplay();
   }
 
+  // MOR Mode: start stochastic breach scheduler (Wisdom Through Breach)
+  if (S.therapy.key === 'mor' && S.ac && S.nodes) {
+    scheduleMORBreaches();
+  }
+
   startCracklWatchdog();
   registerMediaSession();
   _startKeepAlive(S.ac);
@@ -3098,6 +3391,7 @@ function _stopKeepAlive() {
 
 function stopAudio() {
   _stopKeepAlive();
+  stopMORBreaches();
   teardownAudio();
   if (S.polyIv) { clearInterval(S.polyIv); S.polyIv = null; }
   stopCycleDisplay();
@@ -3879,6 +4173,71 @@ function geomOgham(input, W, H) {
 // Phyllotaxis-governed floral sigil: petals placed at Golden Angle intervals,
 // count drawn from Fibonacci set via G. Central disc filled with phyllotactic
 // seed dots. Petal shape is a closed cubic Bézier pair (leaf silhouette).
+// ── ANCHOR — Stillpoint sigil ──────────────────────────────────────────
+// Concentric rings at Fibonacci-ratio radii + cardinal tick marks + monad dot.
+// Geometry does not expand or rotate with G — it holds the centre absolutely,
+// mirroring the directHzLocked behaviour in the audio engine.
+function geomAnchor(G, W, H) {
+  const R   = Math.min(W, H) * 0.30;
+  const cx  = W / 2, cy = H / 2;
+  // Ring radii as ratios of R — derived from 1/φ², 1/φ, 1, φ collapsed to [0,1]
+  const rings = [
+    { r: 0.28, dash: false, lw: 0.6 },
+    { r: 0.48, dash: true,  lw: 0.7 },
+    { r: 0.72, dash: false, lw: 0.8 },
+    { r: 1.00, dash: false, lw: 1.2 },
+  ];
+
+  function draw(ctx, accent, fill, glow) {
+    ctx.save();
+    ctx.translate(cx, cy);
+
+    // Concentric rings
+    rings.forEach(({ r, dash, lw }, i) => {
+      ctx.beginPath();
+      ctx.arc(0, 0, R * r, 0, TAU);
+      ctx.strokeStyle = accent(glow * (0.15 + i * 0.10));
+      ctx.lineWidth   = lw;
+      ctx.setLineDash(dash ? [4, 9] : []);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
+
+    // Crosshair arms (to second ring)
+    const arm = R * 0.48;
+    ctx.beginPath();
+    ctx.moveTo(-arm, 0); ctx.lineTo(arm, 0);
+    ctx.moveTo(0, -arm); ctx.lineTo(0, arm);
+    ctx.strokeStyle = accent(glow * 0.18);
+    ctx.lineWidth   = 0.6;
+    ctx.setLineDash([3, 8]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Cardinal tick marks on outer ring
+    const tickInner = R * 0.92, tickOuter = R * 1.08;
+    [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2].forEach(a => {
+      const cos = Math.cos(a), sin = Math.sin(a);
+      ctx.beginPath();
+      ctx.moveTo(tickInner * cos, tickInner * sin);
+      ctx.lineTo(tickOuter * cos, tickOuter * sin);
+      ctx.strokeStyle = accent(glow * 0.55);
+      ctx.lineWidth   = 1.6;
+      ctx.stroke();
+    });
+
+    // Monad — central dot
+    ctx.beginPath();
+    ctx.arc(0, 0, 3.8, 0, TAU);
+    ctx.fillStyle = accent(glow * 0.75);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  return { draw };
+}
+
 function geomNatural(G, W, H) {
   if (G === 0) return geomSimple(0, W, H);
 
@@ -4017,6 +4376,7 @@ function drawSigil(t) {
     case 'chaos':   geom = geomChaos(S.rawInput || '', W, H);  break;
     case 'ogham':   geom = geomOgham(S.rawInput || '', W, H);  break;
     case 'natural': geom = geomNatural(S.G, W, H);             break;
+    case 'anchor':  geom = geomAnchor(S.G, W, H);              break;
     case 'abyss': {
       // Compute elapsed seconds within the Abyss phase (starts at 22:00)
       let _abyssElapsed = 0;
@@ -4171,12 +4531,14 @@ function processIntent() {
       S.rawSum   = 0;
       S.f0       = directHz;            // carrier set directly — no normalisation
       S.G        = Math.round(directHz); // seed sigil geometry from the frequency scalar
+      S.directHzLocked = true;           // lock: sigil multipliers will not shift this carrier
+      setSigilMode('anchor');            // auto-engage the Anchor sigil to signal the lock visually
       applyPhyllotaxis(S.G);
       updateFreqReadout();
       document.getElementById('f0-readout').innerHTML =
-        `f₀ = <em>${directHz.toFixed(1)} Hz</em> · Direct entry · Sigil scalar G = ${S.G}`;
+        `f₀ = <em>${directHz.toFixed(1)} Hz</em> · Direct entry · Anchor locked · Sigil scalar G = ${S.G}`;
       setText(
-        `Direct carrier: ${directHz.toFixed(1)} Hz. Gematric transduction bypassed. Sigil seeded from frequency scalar.`,
+        `Direct carrier: ${directHz.toFixed(1)} Hz. Gematric transduction bypassed. Anchor lock engaged — frequency held flat across all sigil modes.`,
         'Binaural beat interval applied around the specified carrier.'
       );
       if(S.running&&S.audioOn&&S.freqMode==='catalyst'){stopAudio();startAudio();}
@@ -4184,6 +4546,7 @@ function processIntent() {
     }
   }
 
+  S.directHzLocked = false;   // gematric path clears any direct-Hz anchor lock
   S.rawInput=val;
   S.rawSum=latinSum(val);
   S.f0=normaliseCarrier(S.rawSum);
@@ -4221,7 +4584,14 @@ document.getElementById('intent-input').addEventListener('keydown',e=>{
 function setSigilMode(mode) {
   S.sigilMode = mode;
   S.sigilModeFreqMult = SIGIL_MODE_FREQ[mode] || 1.0;
-  ['natural','chaos','ogham','simple'].forEach(m => {
+  // Switching away from anchor manually releases the Hz lock so the new
+  // sigil's multiplier applies freely. Switching TO anchor re-engages the lock.
+  if (mode === 'anchor') {
+    S.directHzLocked = true;
+  } else {
+    S.directHzLocked = false;
+  }
+  ['natural','chaos','ogham','simple','anchor'].forEach(m => {
     const el = document.getElementById(`smode-${m}`);
     if (el) el.classList.toggle('active', m === mode);
   });
@@ -4309,6 +4679,10 @@ function setTherapy(key) {
     noteText,
     subText
   );
+
+  // Show MOR 11th harmonic toggle only when Sound Bath mode is active
+  const morPanel = document.getElementById('mor-h11-panel');
+  if (morPanel) morPanel.classList.toggle('visible', S.therapy.key === 'mor');
 }
 
 // ── Custom Δf slider handler ──
